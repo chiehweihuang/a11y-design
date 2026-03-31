@@ -1345,7 +1345,7 @@
       <button class="filter-pill" aria-pressed="false" onclick="toggleRole('qa')" data-role="qa">測試驗證</button>
     </div>
   </div>
-  <div class="next-step-cta" onclick="showSection('empathy')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')showSection('empathy')">
+  <div class="next-step-cta" onclick="showSection('empathy')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSection('empathy')}">
     下一步：親身體驗不同使用者的處境 <span class="arrow" aria-hidden="true">&#x2192;</span>
   </div>
 </section>
@@ -1399,7 +1399,7 @@
     </div>
   </div>
   <div class="phase-detail" id="phaseDetail"></div>
-  <div class="next-step-cta" onclick="showSection('checklist')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')showSection('checklist')">
+  <div class="next-step-cta" onclick="showSection('checklist')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSection('checklist')}">
     下一步：用檢核清單確認每個環節 <span class="arrow" aria-hidden="true">&#x2192;</span>
   </div>
 </section>
@@ -1555,7 +1555,7 @@
     <h3>你的同理心歷程</h3>
     <p id="empathyProgress">尚未開始任何體驗。每完成一個模擬，你對使用者的理解就會更深一步。（共 10 個沉浸體驗）</p>
   </div>
-  <div class="next-step-cta" onclick="showSection('quiz')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')showSection('quiz')">
+  <div class="next-step-cta" onclick="showSection('quiz')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSection('quiz')}">
     下一步：測試你的無障礙知識 <span class="arrow" aria-hidden="true">&#x2192;</span>
   </div>
 </section>
@@ -1578,7 +1578,7 @@
       <button class="sim-btn" onclick="resetQuiz()">重新測驗</button>
     </div>
   </div>
-  <div class="next-step-cta" onclick="showSection('phases')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')showSection('phases')">
+  <div class="next-step-cta" onclick="showSection('phases')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSection('phases')}">
     下一步：了解專案階段與你的職責 <span class="arrow" aria-hidden="true">&#x2192;</span>
   </div>
 </section>
