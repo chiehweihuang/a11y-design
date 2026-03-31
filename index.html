@@ -87,13 +87,13 @@
     bottom: 24px;
     right: 24px;
     z-index: 10001;
-    width: 44px;
-    height: 44px;
+    width: 88px;
+    height: 88px;
     border-radius: 50%;
     border: 2px solid var(--border);
     background: var(--card-bg);
     color: var(--text);
-    font-size: 1.2rem;
+    font-size: 2rem;
     cursor: pointer;
     box-shadow: var(--shadow);
     display: none;
@@ -147,12 +147,6 @@
   .skip-links-label {
     font-size: 0.75rem;
     color: var(--text-light);
-    flex-shrink: 0;
-  }
-  .skip-links {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
   }
   .skip-link {
     padding: 6px 14px;
@@ -163,16 +157,13 @@
     font-weight: 600;
     font-size: 0.8rem;
     text-decoration: none;
-    transition: all 0.15s;
     white-space: nowrap;
   }
   .skip-link:hover {
     border-color: var(--primary);
-    background: #eaf2f8;
-    box-shadow: 0 0 0 3px rgba(52,152,219,0.25);
+    background: var(--bg);
   }
   .skip-link:focus-visible {
-    border-color: var(--primary);
     background: var(--primary);
     color: white;
     outline: 3px solid rgba(52,152,219,0.4);
@@ -293,8 +284,14 @@
   /* ===== NAV TABS ===== */
   .nav-container {
     max-width: 1100px;
-    margin: 0 auto 24px;
+    margin: 0 auto;
     padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 9990;
+    background: var(--bg);
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
   .nav-tabs {
     display: flex;
@@ -323,9 +320,9 @@
   .nav-tab:first-child { border-radius: 12px 0 0 12px; }
   .nav-tab:last-child { border-radius: 0 12px 12px 0; }
   .nav-tab + .nav-tab { border-left: 1px solid var(--border); }
-  .nav-tab:hover { color: var(--primary); background: #eaf2f8; }
+  .nav-tab:hover { color: var(--primary); background: var(--bg); }
   .nav-tab[aria-selected="true"] {
-    background: #eaf2f8;
+    background: var(--bg);
     color: var(--primary);
     font-weight: 700;
     border-bottom-color: var(--primary);
@@ -656,10 +653,10 @@
     font-family: inherit;
     color: inherit;
   }
-  .quiz-opt:hover { border-color: var(--primary-light); background: #eaf2f8; }
+  .quiz-opt:hover { border-color: var(--primary-light); background: var(--bg); }
   .quiz-opt:focus-visible { border-color: var(--primary); }
   .quiz-opt[aria-disabled="true"] { pointer-events: none; opacity: 0.7; }
-  .quiz-opt.correct { border-color: var(--success); background: #eafaf1; opacity: 1; }
+  .quiz-opt.correct { border-color: var(--success); background: var(--bg); opacity: 1; }
   .quiz-opt.wrong { border-color: var(--danger); background: #fdf2f2; opacity: 1; }
   .quiz-explain {
     margin-top: 12px;
@@ -669,7 +666,7 @@
     display: none;
   }
   .quiz-explain.show { display: block; }
-  .quiz-explain.correct-bg { background: #eafaf1; border-left: 4px solid var(--success); }
+  .quiz-explain.correct-bg { background: var(--bg); border-left: 4px solid var(--success); }
   .quiz-explain.wrong-bg { background: #fdf2f2; border-left: 4px solid var(--danger); }
 
   .quiz-score {
@@ -717,7 +714,7 @@
     transition: all 0.2s;
     font-weight: 500;
   }
-  .filter-pill[aria-pressed="true"] { border-color: var(--primary); background: #eaf2f8; color: var(--primary); }
+  .filter-pill[aria-pressed="true"] { border-color: var(--primary); background: var(--bg); color: var(--primary); }
   .filter-pill:hover { border-color: var(--primary-light); }
 
   /* ===== GAMIFICATION ===== */
@@ -750,7 +747,7 @@
 
   /* ===== SHARED FOUNDATION ===== */
   .foundation-box {
-    background: linear-gradient(135deg, #eaf2f8 0%, #d4efdf 100%);
+    background: var(--bg);
     border-radius: var(--radius);
     padding: 24px;
     margin-bottom: 24px;
@@ -765,7 +762,7 @@
     margin-top: 12px;
   }
   .foundation-item {
-    background: rgba(255,255,255,0.85);
+    background: var(--card-bg);
     padding: 10px 14px;
     border-radius: 8px;
     font-size: 0.88rem;
@@ -789,18 +786,18 @@
     border-radius: 50% / 20%;
   }
   .layer-outer {
-    background: #eaf2f8;
+    background: var(--bg);
     border: 3px dashed var(--primary);
     padding: 24px 32px 0;
   }
   .layer-mid {
-    background: #fef9e7;
+    background: var(--card-bg);
     border: 3px dashed var(--accent);
     margin: 20px 8px 0;
     padding: 20px 28px 0;
   }
   .layer-inner {
-    background: #eafaf1;
+    background: var(--bg);
     border: 3px solid var(--success);
     margin: 20px 8px 24px;
     padding: 24px 28px;
@@ -925,7 +922,7 @@
   gap: 8px;
   padding: 14px 24px;
   margin-top: 24px;
-  background: linear-gradient(135deg, #eaf2f8, #d6eaf8);
+  background: var(--card-bg);
   border: 2px solid var(--primary);
   border-radius: var(--radius);
   cursor: pointer;
@@ -1000,7 +997,7 @@
   font-size: 0.78rem;
   cursor: pointer;
 }
-.sim-mode-btn.active { border-color: var(--primary); background: #eaf2f8; }
+.sim-mode-btn.active { border-color: var(--primary); background: var(--bg); }
 
 /* Fake cursor for tremor sim */
 .fake-cursor {
@@ -1113,20 +1110,10 @@
 </button>
 
 <!-- Back to top -->
-<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="回到頂端">
+<button class="back-to-top" id="backToTop" tabindex="-1" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="回到頂端">
   &#x2191;
-  <span class="back-to-top-tooltip">長頁面需要快速回到頂端的方式，尤其對行動不便、使用觸控螢幕、或依賴鍵盤的使用者。這顆按鈕讓任何人都不必費力捲回頁首。</span>
+  <span class="back-to-top-tooltip">這顆按鈕在你捲動超過一個畫面後才出現——因為看得到頂部的時候不需要它。鍵盤使用者可以按 Home 鍵回頂部（瀏覽器內建功能）。好的設計不只是加功能，也要知道什麼時候不該出現。</span>
 </button>
-
-<!-- Skip Links (WCAG 2.4.1 Bypass Blocks) -->
-<div class="skip-links-wrapper">
-  <div class="skip-links">
-    <a href="#site-nav" class="skip-link">跳到導航選單</a>
-    <a href="#site-search" class="skip-link">跳到搜尋</a>
-    <a href="#main-content" class="skip-link">跳到主要內容</a>
-  </div>
-  <span class="skip-links-label">&#x2190; 這幾個按鈕讓鍵盤使用者能跳過重複的選單，直接到達想去的地方（WCAG 2.4.1）</span>
-</div>
 
 <!-- Live region for dynamic announcements (WCAG 4.1.3) -->
 <div id="liveAnnouncer" class="live-announcer" aria-live="polite" aria-atomic="true"></div>
@@ -1183,74 +1170,61 @@
   <div style="font-size:0.75rem;color:var(--text-light);margin-top:8px;text-align:center;">按 Esc 也可以停止</div>
 </div>
 
+<!-- Skip to main content (WCAG 2.4.1) -->
+<div class="skip-links-wrapper">
+  <a href="#main-content" class="skip-link">跳到主要內容</a>
+  <span class="skip-links-label">&#x2190; 這是 skip link。一般網站它是隱藏的，按 Tab 才會出現。這裡刻意讓你看到，因為這是教學網站。</span>
+</div>
+
+<!-- ===== NAVIGATION ===== -->
+<nav id="site-nav" class="nav-container" aria-label="學習旅程導航">
+  <div class="nav-tabs" role="tablist" aria-label="章節">
+    <button class="nav-tab" role="tab" id="tab-why" aria-selected="true" aria-controls="sec-why" tabindex="0" data-journey="why">
+      <span class="step-num">0</span>
+      <span class="tab-label">為什麼</span><span class="tab-label-short">Why</span>
+    </button>
+    <button class="nav-tab" role="tab" id="tab-roles" aria-selected="false" aria-controls="sec-roles" tabindex="-1" data-journey="roles">
+      <span class="step-num">1</span>
+      <span class="tab-label">選擇角色</span><span class="tab-label-short">角色</span>
+    </button>
+    <button class="nav-tab" role="tab" id="tab-empathy" aria-selected="false" aria-controls="sec-empathy" tabindex="-1" data-journey="empathy">
+      <span class="step-num">2</span>
+      <span class="tab-label">同理心體驗</span><span class="tab-label-short">體驗</span>
+    </button>
+    <button class="nav-tab" role="tab" id="tab-quiz" aria-selected="false" aria-controls="sec-quiz" tabindex="-1" data-journey="quiz">
+      <span class="step-num">3</span>
+      <span class="tab-label">知識測驗</span><span class="tab-label-short">測驗</span>
+    </button>
+    <button class="nav-tab" role="tab" id="tab-checklist" aria-selected="false" aria-controls="sec-checklist" tabindex="-1" data-journey="checklist">
+      <span class="step-num">4</span>
+      <span class="tab-label">動手做</span><span class="tab-label-short">動手</span>
+    </button>
+    <button class="nav-tab" role="tab" id="tab-phases" aria-selected="false" aria-controls="sec-phases" tabindex="-1" data-journey="phases">
+      <span class="step-num">5</span>
+      <span class="tab-label">專案規劃</span><span class="tab-label-short">專案</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== SEARCH ===== -->
+<div class="search-container">
+  <search id="site-search" role="search" aria-label="站內搜尋">
+    <form class="search-bar" onsubmit="event.preventDefault(); announce('搜尋功能為示範用途，尚未啟用。');">
+      <label for="search-input" class="sr-only">搜尋關鍵字</label>
+      <input id="search-input" type="search" placeholder="搜尋指南內容..." autocomplete="off">
+      <button type="submit">搜尋</button>
+    </form>
+    <p class="text-sm text-muted" style="text-align:center;margin-top:6px;font-size:0.75rem;">搜尋列（Search Bar）提供第二條路徑找到內容，對認知障礙或不熟悉網站的使用者特別重要（WCAG 2.4.5）</p>
+  </search>
+</div>
+
 <!-- ===== HERO (semantic header) ===== -->
 <header class="hero" role="banner">
   <h1>通用（無障礙）網頁設計指南</h1>
-  <p>你能只用鍵盤完成自己網站的結帳流程嗎？你爸媽能讀懂你寫的頁面嗎？<br>花 30 秒體驗看看，然後你會知道為什麼這份指南存在。</p>
+  <p>你做的每一個設計決定，都在決定誰能用、誰不能用。</p>
 </header>
 
 <main id="main-content">
-
-<!-- ===== WHY ACCESSIBILITY ===== -->
-<div style="max-width:1100px;margin:0 auto 24px;padding:0 24px;">
-  <div class="card" style="border-left:4px solid var(--text);background:var(--card-bg);">
-    <h3 style="margin-bottom:12px;">先試三件事</h3>
-    <p style="font-size:1.05rem;line-height:1.8;margin-bottom:16px;"><strong>1.</strong> 打開你自己的網站，把滑鼠收起來，只用 Tab 和 Enter 操作 60 秒。<br><strong>2.</strong> 把螢幕亮度調到最低，試著讀完一段文字。<br><strong>3.</strong> 想像你爸媽打開同一個頁面。他們找得到按鈕嗎？還是先被彈出廣告困住了？</p>
-    <p style="font-size:1.05rem;line-height:1.8;margin-bottom:16px;">如果任何一個讓你猶豫了——你已經理解為什麼無障礙重要。全球每 6 個人就有 1 個人，<strong>現在</strong>就在經歷這些。他們不會寫信告訴你，他們只是離開。</p>
-    <p style="font-size:1.05rem;line-height:1.8;margin-bottom:16px;">另一個你可能沒想到的：AI agent 操作網站時，依賴的是和螢幕閱讀器<strong>同一棵 accessibility tree</strong>。CHI 2026 論文實測——不夠無障礙的網站讓 AI agent 成功率從 78% 跌到 42%。你的網站對人不友善，對 AI 也不友善。</p>
-    <p style="font-size:0.95rem;line-height:1.8;color:var(--text-light);">我無法說服所有人。但這件事比你想像的重要——因為你可能從來沒有想像過。</p>
-  </div>
-</div>
-
-<!-- ===== WHY NOT JUST AI ===== -->
-<div style="max-width:1100px;margin:0 auto 24px;padding:0 24px;">
-  <div class="card" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,#fef9e7,#fffdf5);">
-    <h3 style="margin-bottom:8px;">「讓 AI 做就好了吧？」</h3>
-    <p class="text-sm" style="margin-bottom:12px;">可以，而且你應該讓 AI 先做。但試完之後問自己這三個問題：</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:14px;">
-      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
-        <strong>AI 掃完說「通過」，你敢上線嗎？</strong>
-        <span>自動化工具只能抓到 30-40% 的問題。「這段文案認知障礙者讀得懂嗎？」「這個流程讓焦慮症使用者壓力多大？」——工具不會告訴你。</span>
-      </div>
-      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
-        <strong>AI 寫的 code，你確定是對的？</strong>
-        <span>AI 寫的 HTML 經常 heading 跳級、ARIA 亂加、表單沒綁 label。如果你自己不懂，連 AI 的錯都看不出來。你能分辨嗎？</span>
-      </div>
-      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
-        <strong>你親手操作過自己的產品嗎？</strong>
-        <span>鍵盤控制順不順、gamepad 操作卡不卡、流程讓不讓人焦慮——這些沒辦法自動化。你必須自己按過，直到覺得不彆扭為止。</span>
-      </div>
-    </div>
-    <div style="padding:10px 14px;background:rgba(230,126,34,0.08);border-radius:8px;">
-      <p class="text-sm"><strong>好消息是：</strong>AI 幫你掃掉了最煩的 40%（技術規則），剩下的不是「學 86 條準則」，是「自己用一遍然後問：這樣舒服嗎？」</p>
-    </div>
-  </div>
-</div>
-
-<!-- ===== DARK MODE EXPLANATION ===== -->
-<div style="max-width:1100px;margin:0 auto 24px;padding:0 24px;">
-  <div class="card" style="border-left:4px solid var(--primary);position:relative;">
-    <h3 style="margin-bottom:8px;">試試右上角的深色模式切換</h3>
-    <p class="text-sm" style="margin-bottom:12px;">深色模式不只是「好看」。它直接幫助全球最大的障礙群體——<strong>視覺困難者</strong>。</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:14px;">
-      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
-        <strong>視覺障礙 ≠ 全盲</strong>
-        <span>全球 22 億人有視覺障礙（WHO 2023），但其中<strong>超過 80% 是「看不清楚」而非「完全看不見」</strong>。包括未矯正的近視、老花、高度散光、白內障初期、黃斑部病變等。這些人需要的是更好的對比度和可調整的顯示方式，不是螢幕閱讀器。</span>
-      </div>
-      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
-        <strong>深色模式如何幫助</strong>
-        <span>降低螢幕眩光（對光敏感者、偏頭痛患者有幫助）、減少藍光刺激、在低光環境下更容易閱讀。對高度近視或散光的人來說，白底黑字的強光散射會讓文字邊緣模糊，深色底反而更清晰。</span>
-      </div>
-      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
-        <strong>這跟你有關</strong>
-        <span>台灣近視率超過 85%（國健署 2024），大學生高度近視（>600 度）比例達 20%。如果你正在瞇著眼睛看這段文字，你就是深色模式的目標使用者之一。</span>
-      </div>
-    </div>
-    <div style="padding:10px 14px;background:rgba(26,82,118,0.06);border-radius:8px;">
-      <p class="text-sm">提供深色模式不只是設計趨勢，而是讓「看得到但看不清楚」的大多數人能更舒適地使用你的網站。這是最低成本、最高覆蓋率的無障礙改善之一。</p>
-    </div>
-  </div>
-</div>
 
 <!-- ===== PROGRESS (role=progressbar) ===== -->
 <div class="progress-bar-container">
@@ -1272,7 +1246,7 @@
 <div style="max-width:1100px;margin:0 auto 16px;padding:0 24px;">
   <div class="badges-row" id="badgesRow" aria-label="成就徽章">
     <div class="badge-item" data-badge="role-selected" aria-label="角色就位 — 尚未達成">
-      <div class="badge-icon" style="background:#eaf2f8;" aria-hidden="true">&#x1F3AD;</div>
+      <div class="badge-icon" style="background:var(--card-bg);" aria-hidden="true">&#x1F3AD;</div>
       <div class="badge-label">角色就位</div>
     </div>
     <div class="badge-item" data-badge="empathy-1" aria-label="同理之眼 — 尚未達成">
@@ -1288,7 +1262,7 @@
       <div class="badge-label">同理大師</div>
     </div>
     <div class="badge-item" data-badge="quiz-pass" aria-label="知識達人 — 尚未達成">
-      <div class="badge-icon" style="background:#eafaf1;" aria-hidden="true">&#x1F4DD;</div>
+      <div class="badge-icon" style="background:var(--card-bg);" aria-hidden="true">&#x1F4DD;</div>
       <div class="badge-label">知識達人</div>
     </div>
     <div class="badge-item" data-badge="checklist-50" aria-label="半途勇者 — 尚未達成">
@@ -1302,46 +1276,72 @@
   </div>
 </div>
 
-<!-- ===== SEARCH ===== -->
-<div class="search-container">
-  <search id="site-search" role="search" aria-label="站內搜尋">
-    <form class="search-bar" onsubmit="event.preventDefault(); announce('搜尋功能為示範用途，尚未啟用。');">
-      <label for="search-input" class="sr-only">搜尋關鍵字</label>
-      <input id="search-input" type="search" placeholder="搜尋指南內容..." autocomplete="off">
-      <button type="submit">搜尋</button>
-    </form>
-    <p class="text-sm text-muted" style="text-align:center;margin-top:6px;font-size:0.75rem;">搜尋列放在導航之前，是因為不是每個人都能靠瀏覽選單找到內容。搜尋提供了第二條路徑，對認知障礙或不熟悉網站的使用者特別重要（WCAG 2.4.5）。</p>
-  </search>
-</div>
 
-<!-- ===== NAVIGATION ===== -->
-<nav id="site-nav" class="nav-container" aria-label="學習旅程導航">
-  <div class="nav-tabs" role="tablist" aria-label="章節">
-    <button class="nav-tab" role="tab" id="tab-roles" aria-selected="true" aria-controls="sec-roles" tabindex="0" data-journey="roles">
-      <span class="step-num">1</span>
-      <span class="tab-label">選擇角色</span><span class="tab-label-short">角色</span>
-    </button>
-    <button class="nav-tab" role="tab" id="tab-empathy" aria-selected="false" aria-controls="sec-empathy" tabindex="-1" data-journey="empathy">
-      <span class="step-num">2</span>
-      <span class="tab-label">同理心體驗</span><span class="tab-label-short">體驗</span>
-    </button>
-    <button class="nav-tab" role="tab" id="tab-quiz" aria-selected="false" aria-controls="sec-quiz" tabindex="-1" data-journey="quiz">
-      <span class="step-num">3</span>
-      <span class="tab-label">知識測驗</span><span class="tab-label-short">測驗</span>
-    </button>
-    <button class="nav-tab" role="tab" id="tab-phases" aria-selected="false" aria-controls="sec-phases" tabindex="-1" data-journey="phases">
-      <span class="step-num">4</span>
-      <span class="tab-label">專案階段</span><span class="tab-label-short">階段</span>
-    </button>
-    <button class="nav-tab" role="tab" id="tab-checklist" aria-selected="false" aria-controls="sec-checklist" tabindex="-1" data-journey="checklist">
-      <span class="step-num">5</span>
-      <span class="tab-label">檢核清單</span><span class="tab-label-short">清單</span>
-    </button>
+<!-- ===================== SECTION: WHY ===================== -->
+<section class="section active" id="sec-why" role="tabpanel" aria-labelledby="tab-why">
+  <h2 class="section-title">為什麼要做無障礙？</h2>
+
+  <div class="card" style="border-left:4px solid var(--text);background:var(--card-bg);">
+    <h3 style="margin-bottom:12px;">先試三件事</h3>
+    <p style="font-size:1.05rem;line-height:1.8;margin-bottom:16px;"><strong>1.</strong> 打開你自己的網站，把滑鼠收起來，只用 Tab 和 Enter 操作 60 秒。<br><strong>2.</strong> 把螢幕亮度調到最低，試著讀完一段文字。<br><strong>3.</strong> 想像你爸媽打開同一個頁面。他們找得到按鈕嗎？還是先被彈出廣告困住了？</p>
+    <p style="font-size:1.05rem;line-height:1.8;margin-bottom:16px;">如果任何一個讓你猶豫了——你已經理解為什麼無障礙重要。全球每 6 個人就有 1 個人，<strong>現在</strong>就在經歷這些。他們只能選擇離開你的網站，因為他們連要寫信給你都不一定有辦法。</p>
+    <p style="font-size:1.05rem;line-height:1.8;margin-bottom:16px;">而 AI 正在讓語言的隔閡和建站成本降到前所未有的低點——數位網頁和 app 正在爆炸性增長。如果這些新生的數位產品全都沒有考慮無障礙，被排除的人不會變少，只會更多。</p>
+    <p style="font-size:1.05rem;line-height:1.8;margin-bottom:16px;">WebAIM 每年掃描全球前 100 萬個網站首頁，2025 年的結果：<strong>95.9% 存在可偵測的無障礙錯誤</strong>。現存的網站都做不好了，AI 量產出來的只會更糟——除非有人在意。在大多數人都不做的時候做好無障礙，這就是 AI 時代你的產品最明確的差異化。</p>
+    <p style="font-size:1.05rem;line-height:1.8;margin-bottom:16px;">另一個你可能沒想到的：AI agent 操作網站時，依賴的是和螢幕閱讀器<strong>同一棵 accessibility tree</strong>。CHI 2026 論文實測——不夠無障礙的網站讓 AI agent 成功率從 78% 跌到 42%。你的網站對人不友善，對 AI 也不友善。</p>
+    <p style="font-size:0.95rem;line-height:1.8;color:var(--text-light);">我無法說服所有人。但這件事比你想像的重要——因為你可能從來沒有認真想過。</p>
   </div>
-</nav>
+
+  <div class="card" style="border-left:4px solid var(--accent);background:var(--card-bg);border-color:var(--accent);">
+    <h3 style="margin-bottom:8px;">「讓 AI 做就好了吧？」</h3>
+    <p class="text-sm" style="margin-bottom:12px;">可以，而且你應該讓 AI 先做。但試完之後問自己這三個問題：</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:14px;">
+      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
+        <strong>AI 掃完說「通過」，你敢上線嗎？</strong>
+        <span>自動化工具只能抓到 30-40% 的問題。「這段文案認知障礙者讀得懂嗎？」「這個流程讓焦慮症使用者壓力多大？」——工具不會告訴你。</span>
+      </div>
+      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
+        <strong>AI 寫的 code，你確定是對的？</strong>
+        <span>AI 寫的 HTML 經常 heading 跳級、ARIA 亂加、表單沒綁 label。如果你自己不懂，連 AI 的錯都看不出來。你能分辨嗎？</span>
+      </div>
+      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
+        <strong>你親手操作過自己的產品嗎？</strong>
+        <span>鍵盤控制順不順、遊戲搖桿操作卡不卡、流程讓不讓人焦慮——這些沒辦法自動化。你必須自己按過，直到覺得不彆扭為止。</span>
+      </div>
+    </div>
+    <div style="padding:10px 14px;background:rgba(230,126,34,0.08);border-radius:8px;">
+      <p class="text-sm"><strong>好消息是：</strong>AI 幫你掃掉了最煩的 40%（技術規則），剩下的不是「學 86 條準則」，是「自己用一遍然後問：這樣舒服嗎？」</p>
+    </div>
+  </div>
+
+  <div class="card" style="border-left:4px solid var(--primary);position:relative;">
+    <h3 style="margin-bottom:8px;">試試右上角的深色模式切換</h3>
+    <p class="text-sm" style="margin-bottom:12px;">重點不是深色比較好，而是<strong>讓使用者自己選</strong>。不同的人需要不同的顯示方式。</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:14px;">
+      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
+        <strong>視覺障礙 ≠ 全盲</strong>
+        <span>全球 22 億人有視覺障礙（WHO 2023），但其中<strong>超過 80% 是「看不清楚」而非「完全看不見」</strong>。包括未矯正的近視、老花、高度散光、白內障初期、黃斑部病變等。這些人需要的是可調整的顯示方式，不是螢幕閱讀器。</span>
+      </div>
+      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
+        <strong>深色幫助一些人，淺色幫助另一些人</strong>
+        <span>高度近視或光敏感者：深色底減少眩光和文字邊緣散射。但老年人和有散光的人：淺色背景上的深色文字反而更清楚——深底亮字會讓字邊緣發散（halation effect）。沒有「對所有人最好」的模式。</span>
+      </div>
+      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
+        <strong>這跟你有關</strong>
+        <span>台灣近視率超過 85%（國健署 2024），大學生高度近視（>600 度）比例達 20%。你的使用者裡一定有需要深色模式的人，也一定有需要淺色模式的人。提供選擇，讓他們自己決定。</span>
+      </div>
+    </div>
+    <div style="padding:10px 14px;background:rgba(26,82,118,0.06);border-radius:8px;">
+      <p class="text-sm">提供深色/淺色切換不是設計趨勢，是承認一個事實：<strong>沒有一種顯示方式適合所有人</strong>。這是最低成本、最高覆蓋率的無障礙改善之一。</p>
+    </div>
+  </div>
+
+  <div class="next-step-cta" onclick="showSection('roles')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSection('roles')}">
+    準備好了？來看看你的角色 <span class="arrow" aria-hidden="true">&#x2192;</span>
+  </div>
+</section>
 
 <!-- ===================== SECTION: ROLES ===================== -->
-<section class="section active" id="sec-roles" role="tabpanel" aria-labelledby="tab-roles">
+<section class="section" id="sec-roles" role="tabpanel" aria-labelledby="tab-roles">
   <h2 class="section-title">一起守護的事</h2>
   <p class="text-sm text-muted mb-16">無障礙不是某一個人的額外工作。它是我們每個人本來就在做的事的一部分——只是過去沒有意識到。當你寫一段文案、畫一個按鈕、寫一行 code，你都在決定某個人能不能用這個產品。</p>
 
@@ -1357,7 +1357,7 @@
           <div class="layer-desc">看得到嗎 · 操作得了嗎 · 讀得懂嗎 · 技術上相容嗎</div>
           <div class="layer layer-inner">
             <div class="layer-label">共同的底線</div>
-            <div class="layer-desc">每個人都該體驗過一次：用鍵盤操作、聽螢幕閱讀器念網頁</div>
+            <div class="layer-desc">每個人都該體驗過一次：用鍵盤操作、聽螢幕閱讀器念網頁——這是數百至千萬人每天與網頁互動的方式</div>
           </div>
         </div>
       </div>
@@ -1410,7 +1410,7 @@
       <div class="role-name">視覺無障礙</div>
       <div class="role-desc">確保所有人——包括低視力、色覺障礙、全盲使用者——都能感知內容。</div>
       <div class="role-a11y"><strong>守護範圍</strong>色彩對比 &#x2265; 4.5:1 · 不僅靠顏色傳達資訊 · 有意義的 alt text · 放大至 200% 仍可用 · 焦點指示可見</div>
-      <div style="margin-top:8px;font-size:0.78rem;color:var(--text-light);"><em>AI 可幫你：自動掃描對比度、產生 alt text 初稿、檢查灰階模式</em></div>
+      <div style="margin-top:8px;font-size:0.78rem;color:var(--text-light);"><span>你知道嗎？全球 3 億人有色覺障礙，但大多數設計師從來沒有在灰階模式下看過自己的作品。AI 可以幫你秒速掃描對比度、產生 alt text 初稿、模擬灰階——但「這張圖的 alt text 有沒有意義」只有你能判斷。</span></div>
     </div>
     <div class="role-card" data-role="operation" role="button" tabindex="0" aria-pressed="false" onclick="toggleRole('operation')" onkeydown="activateOnEnterSpace(event, function(){ toggleRole('operation') })">
       <span class="badge-tag">已選擇</span>
@@ -1418,7 +1418,7 @@
       <div class="role-name">操作無障礙</div>
       <div class="role-desc">確保所有互動都能透過多種方式完成——鍵盤、單手、語音、輔助裝置。</div>
       <div class="role-a11y"><strong>守護範圍</strong>鍵盤導航完整 · 無鍵盤陷阱 · 觸控目標 &#x2265; 44px · 拖曳有替代操作 · 焦點不被遮擋 · skip link</div>
-      <div style="margin-top:8px;font-size:0.78rem;color:var(--text-light);"><em>AI 可幫你：檢測 Tab 順序、找出缺少鍵盤支援的元件、驗證 ARIA 狀態</em></div>
+      <div style="margin-top:8px;font-size:0.78rem;color:var(--text-light);"><span>你知道嗎？全球約 7500 萬人依賴鍵盤或輔助裝置操作電腦，但大部分網站的「漢堡選單」用 Tab 鍵根本打不開。AI 可以掃 Tab 順序和 ARIA 狀態——但操作「順不順」這件事，你必須自己按一遍。</span></div>
     </div>
     <div class="role-card" data-role="cognitive" role="button" tabindex="0" aria-pressed="false" onclick="toggleRole('cognitive')" onkeydown="activateOnEnterSpace(event, function(){ toggleRole('cognitive') })">
       <span class="badge-tag">已選擇</span>
@@ -1426,7 +1426,7 @@
       <div class="role-name">認知無障礙</div>
       <div class="role-desc">確保內容清晰、操作直覺、不造成不必要的認知負擔或時間壓力。</div>
       <div class="role-a11y"><strong>守護範圍</strong>簡明語言 · 一致的導航與幫助 · 不重複要求輸入 · 無認知測試登入 · 字幕與文字稿 · 錯誤提示清晰</div>
-      <div style="margin-top:8px;font-size:0.78rem;color:var(--text-light);"><em>AI 可幫你：分析文案可讀性等級、簡化複雜句子、產生字幕初稿</em></div>
+      <div style="margin-top:8px;font-size:0.78rem;color:var(--text-light);"><span>你知道嗎？斜體字對閱讀障礙者、低視力者、認知障礙者和老年人都很難讀——字母形狀被扭曲，大腦需要多花 30% 的處理時間。AI 可以分析可讀性等級和簡化句子——但「這段話讓不讓人焦慮」只有人能感受。</span></div>
     </div>
     <div class="role-card" data-role="technical" role="button" tabindex="0" aria-pressed="false" onclick="toggleRole('technical')" onkeydown="activateOnEnterSpace(event, function(){ toggleRole('technical') })">
       <span class="badge-tag">已選擇</span>
@@ -1434,11 +1434,11 @@
       <div class="role-name">技術合規</div>
       <div class="role-desc">確保程式碼結構正確，通過自動化檢測，讓輔助技術能正確解讀頁面（WCAG 2.2 AA）。</div>
       <div class="role-a11y"><strong>守護範圍</strong>語意 HTML · ARIA 正確使用 · CI/CD 自動掃描 · 標題層級 · lang 屬性 · 無障礙聲明頁</div>
-      <div style="margin-top:8px;font-size:0.78rem;color:var(--text-light);"><em>AI 可幫你：寫語意正確的 HTML、修復 ARIA 錯誤、設定 axe-core CI pipeline</em></div>
+      <div style="margin-top:8px;font-size:0.78rem;color:var(--text-light);"><span>你知道嗎？一個 &lt;div onclick&gt; 寫成的「按鈕」，螢幕閱讀器會當它不存在——它沒有 role、沒有鍵盤事件、沒有焦點。AI 可以幫你找出這些假按鈕並修成真的 &lt;button&gt;——但為什麼要用語意標籤，你得自己理解一次。</span></div>
     </div>
   </div>
 
-  <div class="card" style="border-left: 4px solid #8e44ad; background: linear-gradient(135deg, #f8f4fc 0%, #fef9ff 100%);">
+  <div class="card" style="border-left: 4px solid #8e44ad; background: var(--card-bg);">
     <h3>AI 在團隊中的三重角色</h3>
     <p class="text-sm" style="margin-bottom: 14px;">在這個專案中，AI 不是工具，是隊友。它同時扮演三種角色：</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">
@@ -1460,7 +1460,7 @@
     </div>
   </div>
 
-  <div class="card" style="border-left: 4px solid #2e86c1; background: linear-gradient(135deg, #eaf2f8 0%, #f0f7ff 100%);">
+  <div class="card" style="border-left: 4px solid #2e86c1; background: var(--card-bg);">
     <h3>團隊可用的無障礙工具總覽</h3>
     <p class="text-sm" style="margin-bottom: 14px;">以下工具已安裝或可免費取得，涵蓋從寫 code 到上線前的完整檢測流程。</p>
 
@@ -1479,7 +1479,7 @@
       <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
         <strong style="color:var(--primary);">Playwright + axe-core</strong>
         <span>自動開啟瀏覽器，注入 axe-core 引擎掃描。偵測對比度不足、缺少 alt text、ARIA 錯誤等。可整合進 CI/CD 每次提交自動跑。</span>
-        <span style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">使用：<code style="background:#e8e8e8;padding:2px 6px;border-radius:4px;">claude &gt; /e2e</code> 搭配 axe-core 斷言</span>
+        <span style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">使用：<code style="background:var(--bg);padding:2px 6px;border-radius:4px;">claude &gt; /e2e</code> 搭配 axe-core 斷言</span>
       </div>
     </div>
 
@@ -1572,8 +1572,11 @@
       </div>
     </div>
 
-    <div style="margin-top:20px;padding:12px 16px;background:#fdf2f2;border-radius:10px;border-left:3px solid var(--danger);">
-      <p class="text-sm"><strong style="color:var(--danger);">請勿使用「覆蓋層」產品：</strong>AccessiBe（2025 年被美國 FTC 罰款 100 萬美金）和 UserWay（2026 年遭集體訴訟）都是以 JavaScript 覆蓋層宣稱「一鍵合規」的產品。WebAIM 調查顯示 72% 的身障使用者認為這類工具無效。使用它們不僅無法達成合規，反而會增加法律風險。</p>
+    <div style="margin-top:20px;padding:12px 16px;background:var(--card-bg);border-radius:10px;border-left:3px solid var(--danger);">
+      <p class="text-sm" style="margin-bottom:10px;"><strong style="color:var(--danger);">請勿相信「一鍵合規」「自動修復無障礙」這類術語</strong></p>
+      <p class="text-sm" style="margin-bottom:8px;">這類產品稱為「覆蓋層（Overlay）」——加一行 JavaScript 就宣稱讓網站符合 WCAG。實際上，使用覆蓋層的網站反而更容易被告：AccessiBe 在 2025 年被美國 FTC 以虛假宣傳罰款 100 萬美金；UserWay 在 2026 年遭集體訴訟；多家安裝了覆蓋層的企業仍被身障使用者提起 ADA 訴訟，因為覆蓋層根本沒有解決底層問題。美國全國視障者聯盟（NFB）公開反對這類產品，WebAIM 調查顯示 72% 的身障使用者認為它們無效甚至更糟——覆蓋層注入的 ARIA 經常跟原始 HTML 衝突，讓螢幕閱讀器更混亂。</p>
+      <p class="text-sm" style="margin-bottom:8px;">在 AI agent 的時代，覆蓋層更加無意義：agent 讀的是底層的 accessibility tree，不是表面的 JavaScript 修飾。你花錢買的覆蓋層，<strong>AI 連看都不看。</strong></p>
+      <p class="text-sm"><strong>字體大小、對比度調整這類使用者偏好 widget 本身無害。</strong>問題是把它包裝成「合規解決方案」——這不是無障礙，是行銷。</p>
     </div>
 
     <div style="margin-top:12px;padding:12px 16px;background:rgba(46,134,193,0.08);border-radius:10px;">
@@ -1592,16 +1595,17 @@
     </div>
   </div>
 
-  <div class="card" style="background:#f7f9fc;">
-    <h3>你目前主要負責的工作？</h3>
-    <p class="text-sm text-muted" style="margin-bottom:12px;">選擇後，後續的檢核清單和階段任務會為你高亮相關項目。這不代表「只做這些」，只是幫你快速定位。</p>
-    <div style="display:flex;flex-wrap:wrap;gap:8px;" id="roleSelectorPills">
+  <div class="card" style="background:var(--bg);">
+    <h3>你的日常工作，正在做無障礙的決定</h3>
+    <p class="text-sm text-muted" style="margin-bottom:12px;">在 AI 時代，大多數人不只做一件事。選所有跟你有關的角色（可多選），看看你每天的決定如何影響無障礙。</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;" id="roleSelectorPills">
       <button class="filter-pill" aria-pressed="false" onclick="toggleRole('pm')" data-role="pm">專案統籌</button>
       <button class="filter-pill" aria-pressed="false" onclick="toggleRole('designer')" data-role="designer">設計</button>
       <button class="filter-pill" aria-pressed="false" onclick="toggleRole('dev')" data-role="dev">工程開發</button>
       <button class="filter-pill" aria-pressed="false" onclick="toggleRole('content')" data-role="content">內容</button>
       <button class="filter-pill" aria-pressed="false" onclick="toggleRole('qa')" data-role="qa">測試驗證</button>
     </div>
+    <div id="roleMirror" style="display:none;padding:16px;background:var(--bg);border-radius:var(--radius);border-left:3px solid var(--primary);"></div>
   </div>
   <div class="next-step-cta" onclick="showSection('empathy')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSection('empathy')}">
     下一步：親身體驗不同使用者的處境 <span class="arrow" aria-hidden="true">&#x2192;</span>
@@ -1619,7 +1623,7 @@
         <div class="phase-card" role="button" tabindex="0" onclick="showPhaseDetail(0)" onkeydown="activateOnEnterSpace(event, function(){ showPhaseDetail(0) })">
           <h3>規劃階段</h3>
           <div class="phase-subtitle">定義無障礙目標與範圍、盤點現有問題、建立團隊共識</div>
-          <span class="tag" style="background:#eaf2f8;color:var(--primary);">2-3 週</span>
+          <span class="tag" style="background:var(--card-bg);color:var(--primary);">2-3 週</span>
         </div>
       </div>
       <div class="timeline-item">
@@ -1635,7 +1639,7 @@
         <div class="phase-card" role="button" tabindex="0" onclick="showPhaseDetail(2)" onkeydown="activateOnEnterSpace(event, function(){ showPhaseDetail(2) })">
           <h3>開發階段</h3>
           <div class="phase-subtitle">語意 HTML、ARIA 實作、鍵盤支援、持續整合測試</div>
-          <span class="tag" style="background:#eafaf1;color:#27ae60;">4-6 週</span>
+          <span class="tag" style="background:var(--card-bg);color:#27ae60;">4-6 週</span>
         </div>
       </div>
       <div class="timeline-item">
@@ -1657,8 +1661,8 @@
     </div>
   </div>
   <div class="phase-detail" id="phaseDetail"></div>
-  <div class="next-step-cta" onclick="showSection('checklist')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSection('checklist')}">
-    下一步：用檢核清單確認每個環節 <span class="arrow" aria-hidden="true">&#x2192;</span>
+  <div class="next-step-cta" onclick="showSection('roles')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSection('roles')}">
+    回到起點，帶著新的眼光再看一次 <span class="arrow" aria-hidden="true">&#x2192;</span>
   </div>
 </section>
 
@@ -1836,24 +1840,29 @@
       <button class="sim-btn" onclick="resetQuiz()">重新測驗</button>
     </div>
   </div>
-  <div class="next-step-cta" onclick="showSection('phases')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSection('phases')}">
-    下一步：了解專案階段與你的職責 <span class="arrow" aria-hidden="true">&#x2192;</span>
+  <div class="next-step-cta" onclick="showSection('checklist')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSection('checklist')}">
+    下一步：從 30 秒開始動手做 <span class="arrow" aria-hidden="true">&#x2192;</span>
   </div>
 </section>
 
 <!-- ===================== SECTION: CHECKLIST ===================== -->
 <section class="section" id="sec-checklist" role="tabpanel" aria-labelledby="tab-checklist">
-  <h2 class="section-title">全流程檢核清單</h2>
-  <p class="text-sm text-muted mb-16">依角色篩選你需要關注的項目。勾選已完成的項目來追蹤進度。</p>
+  <h2 class="section-title">從 30 秒開始</h2>
+  <p class="text-sm text-muted mb-16">每個步驟都小到不好意思不做。從最上面開始，做到你覺得夠了為止——回頭一看，你會發現自己做了不少。</p>
   <div class="filter-pills" id="checklistFilters" role="group" aria-label="依角色篩選"></div>
   <div id="checklistContainer"></div>
+  <div class="next-step-cta" onclick="showSection('phases')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSection('phases')}">
+    想帶團隊一起做？看看專案規劃 <span class="arrow" aria-hidden="true">&#x2192;</span>
+  </div>
 </section>
 
 </main>
 
 <footer role="contentinfo">
   <p>通用（無障礙）網頁設計指南 · 基於 WCAG 2.2 AA</p>
-  <p style="margin-top:4px;">讓每一個人，都能平等地取得資訊</p>
+  <p style="margin-top:8px;">黃介韋 Chieh-Wei Huang | 亞太包容創新協會 APAC-AIA</p>
+  <p style="margin-top:4px;"><a href="mailto:bertram.huang@berotics.com" style="color:inherit;text-decoration:underline;">bertram.huang@berotics.com</a></p>
+  <p style="margin-top:8px;font-size:0.75rem;">MIT License</p>
 </footer>
 
 <script>
@@ -1904,18 +1913,18 @@ var phases = [
 
 // ===== QUIZ DATA =====
 var quizData = [
-  {q:'WCAG 2.2 AA 要求一般文字的最低色彩對比度是多少？',opts:['3:1','4.5:1','7:1','2:1'],correct:1,explain:'WCAG 2.2 AA 要求一般文字（小於 18pt 或 14pt 粗體）的前景與背景對比度至少 4.5:1。大字可放寬至 3:1。'},
-  {q:'以下哪一個 HTML 元素最適合用來標示網站的主要導航列？',opts:['&lt;div class="nav"&gt;','&lt;nav&gt;','&lt;ul class="menu"&gt;','&lt;header&gt;'],correct:1,explain:'&lt;nav&gt; 是語意化的導航標籤，能讓螢幕閱讀器辨識並快速跳至導航區。避免用 div 替代語意標籤。'},
-  {q:'為什麼不應該僅用顏色來傳達資訊？',opts:['因為顏色在行動裝置上顯示不同','因為色覺障礙者無法分辨某些顏色','因為 WCAG 禁止使用顏色','因為黑白列印時看不到顏色'],correct:1,explain:'約 8% 的男性與 0.5% 的女性有某種形式的色覺異常。資訊應同時透過顏色、圖示、文字等多管道傳達（WCAG 1.4.1）。'},
-  {q:'什麼是 ARIA？它的首要原則是什麼？',opts:['一種 CSS 框架；首要原則是使用最新版本','無障礙富網路應用；首要原則是「能用原生 HTML 就不要用 ARIA」','一種 JavaScript 函式庫；首要原則是取代所有 HTML 標籤','一種測試工具；首要原則是自動修復所有問題'],correct:1,explain:'ARIA（Accessible Rich Internet Applications）是 W3C 規範。第一原則：如果原生 HTML 元素能達到目的，就優先使用原生元素，不要加 ARIA。'},
-  {q:'鍵盤使用者按 Tab 鍵時，焦點應該：',opts:['隨機跳到任何可互動元素','按照 DOM 順序依序移動，且有可見的焦點指示','只在表單欄位之間移動','自動跳到頁面底部'],correct:1,explain:'焦點順序應符合邏輯（通常是 DOM 順序），且每個可互動元素都必須有可見的焦點指示（WCAG 2.4.7）。'},
-  {q:'以下何者是「臨時障礙」的例子？',opts:['先天性色覺異常','手臂骨折打石膏，只能單手操作','永久性聽力損失','學習障礙'],correct:1,explain:'臨時障礙是指暫時性的身體限制，如骨折、眼睛手術後、嘈雜環境等。無障礙設計幫助所有人，包括臨時障礙者。'},
-  {q:'圖片的 alt 屬性什麼時候應該留空（alt=""）？',opts:['永遠不應該留空','當圖片純粹是裝飾性的，不含有意義的資訊','當圖片太小看不清楚時','當圖片有 title 屬性時'],correct:1,explain:'裝飾性圖片應使用空的 alt=""，讓螢幕閱讀器跳過它。但有意義的圖片必須提供描述性替代文字。'},
-  {q:'以下哪項測試是自動化工具「無法」完成的？',opts:['檢查色彩對比度','判斷替代文字是否有意義地描述圖片','偵測缺少的 form label','找出缺少 lang 屬性的頁面'],correct:1,explain:'自動化工具只能偵測約 30% 的無障礙問題。判斷 alt 文字是否「有意義」需要人工判斷。這就是為什麼手動測試不可或缺。'},
-  {q:'WCAG 2.2 AA 要求觸控目標的最小尺寸是多少？',opts:['24\u00d724 CSS 像素','44\u00d744 CSS 像素','32\u00d732 CSS 像素','沒有尺寸要求'],correct:0,explain:'WCAG 2.2 新增了 2.5.8 Target Size (Minimum) 準則，AA 等級要求觸控目標至少 24\u00d724 CSS 像素。AAA 等級則要求 44\u00d744。實務上建議以 44\u00d744 為設計目標。'},
-  {q:'什麼是「鍵盤陷阱（keyboard trap）」？',opts:['一種防止使用者離開頁面的安全機制','焦點進入某個元件後，無法用鍵盤離開','一種加快鍵盤輸入速度的技巧','禁止使用者使用快捷鍵的設定'],correct:1,explain:'鍵盤陷阱是嚴重的無障礙問題（WCAG SC 2.1.2 No Keyboard Trap）。使用者的焦點被困在某個元件中，無法靠 Tab 或 Esc 離開。'},
-  {q:'WCAG 2.2 新增了哪一項關於登入流程的準則？',opts:['登入頁面必須使用深色模式','不得要求使用者完成認知功能測試（如記憶密碼以外的驗證）才能登入','必須使用生物辨識登入','登入頁面不得超過三個欄位'],correct:1,explain:'WCAG 2.2 新增 3.3.8 Accessible Authentication (Minimum)，要求登入流程不得依賴認知功能測試，應支援密碼管理器貼上、passkey 等替代方式。'},
-  {q:'WCAG 2.2 的「Focus Not Obscured」(2.4.11) 要求什麼？',opts:['焦點指示必須是紅色','獲得鍵盤焦點的元件不得被其他頁面內容完全遮住','焦點必須自動移到頁面頂部','焦點元件必須放大 200%'],correct:1,explain:'2.4.11 Focus Not Obscured (Minimum) 要求當元件獲得焦點時，不會被固定標頭、浮動面板等完全遮住。這幫助鍵盤使用者始終看到自己操作的位置。'}
+  {q:'你的同事用紅色標示「必填」欄位。這樣做有什麼問題？',opts:['紅色太刺眼，應該用橘色','色覺障礙者可能完全看不出來哪些是必填的','沒有問題，紅色是通用的錯誤色','應該用藍色，因為藍色是最安全的顏色'],correct:1,explain:'約 8% 的男性有色覺異常。只靠顏色傳達「必填」的資訊，對他們來說等於沒標。應該同時用文字（如「*必填」）或圖示來標示。'},
+  {q:'以下何者是「臨時障礙」的例子？',opts:['先天性色覺異常','手臂骨折打石膏，只能單手操作','永久性聽力損失','學習障礙'],correct:1,explain:'臨時障礙是指暫時性的身體限制，如骨折、眼睛手術後、嘈雜環境等。無障礙設計幫助的不只是永久障礙者——每個人都可能成為臨時障礙者。'},
+  {q:'PM 說「無障礙下一版再做」，以下哪個理由最有說服力？',opts:['這是法律要求，不做會被罰','後面補做的成本是一開始就做的 10 倍以上','無障礙很重要，我們應該有社會責任感','反正也沒有身障使用者會用我們的產品'],correct:1,explain:'根據業界經驗，事後修復無障礙問題的成本遠高於從一開始就考慮。就像蓋房子——地基歪了，裝潢再好也沒用。而且你不知道有多少人因為用不了而直接離開了。'},
+  {q:'你的網站有一張數據圖表。以下哪個 alt text 最好？',opts:['「圖表」','「銷售數據圖表」','「2024 年 Q1-Q4 銷售額：Q1 120萬、Q2 150萬、Q3 180萬、Q4 200萬，整年成長 67%」','留空（alt=""），因為圖表太複雜'],correct:2,explain:'好的 alt text 要傳達圖片「想說什麼」，不只是「這是什麼」。視障使用者需要知道圖表的結論和關鍵數據，而不只是「這裡有一張圖表」。'},
+  {q:'以下哪項測試是 AI 和自動化工具「無法」完成的？',opts:['檢查色彩對比度是否足夠','判斷一段文案是否讓焦慮症使用者感到壓力','偵測表單是否缺少 label','掃描網站是否有缺少 alt 的圖片'],correct:1,explain:'自動化工具只能偵測約 30-40% 的無障礙問題（技術面的）。「這個流程讓人焦慮嗎」「這段文案夠清楚嗎」——這些需要人的感知力，AI 無法判斷。'},
+  {q:'什麼是「鍵盤陷阱」？',opts:['鍵盤的按鍵卡住了','焦點進入某個元件後，無法用鍵盤離開','一種防止使用者離開頁面的安全設計','鍵盤快捷鍵太多，使用者記不住'],correct:1,explain:'鍵盤陷阱是指使用者的焦點被困在某個元件中（常見於彈窗、嵌入影片），按 Tab 或 Esc 都離不開。對鍵盤使用者來說，這等於整個網站壞掉了。'},
+  {q:'設計師做了一個很酷的 tooltip，滑鼠移上去才會顯示重要資訊。這有什麼問題？',opts:['tooltip 太慢，應該用 alert','手機使用者和鍵盤使用者無法觸發 hover','tooltip 的字太小','沒有問題，tooltip 是標準的 UI 元件'],correct:1,explain:'hover 是滑鼠專屬的操作。手機使用者（觸控螢幕沒有 hover）和鍵盤使用者都無法看到這個資訊。重要資訊不應該藏在 hover 裡。'},
+  {q:'你的網站自動播放一段背景影片。從無障礙角度來看，最大的問題是什麼？',opts:['影片會減慢網站載入速度','前庭障礙（vestibular disorder）使用者可能會感到頭暈或噁心','影片的畫質可能不夠好','使用者可能不喜歡背景影片的內容'],correct:1,explain:'自動播放的動態內容可能觸發前庭障礙使用者的不適反應（頭暈、噁心）。應尊重使用者的 prefers-reduced-motion 設定，並提供暫停按鈕。'},
+  {q:'一個「一鍵合規」的無障礙覆蓋層產品宣稱能自動修復所有問題。你應該？',opts:['馬上購買，省時省力','先試用免費版看看效果','不要相信——這類產品已導致多起訴訟，而且 AI agent 會直接跳過覆蓋層','問問同事有沒有人用過'],correct:2,explain:'AccessiBe（FTC 罰款 100 萬美金）和 UserWay（集體訴訟）都是覆蓋層產品。它們只修表面，不修底層。AI agent 讀的是 accessibility tree，覆蓋層的 JS 修飾完全被跳過。'},
+  {q:'你發現網站上某個功能用鍵盤操作起來很彆扭，但用滑鼠完全正常。你會？',opts:['記錄為 bug，因為鍵盤使用者無法正常操作','忽略它，大多數人用滑鼠','加一行提示：「建議使用滑鼠操作」','等 QA 提出來再處理'],correct:0,explain:'鍵盤操作不順暢就是 bug。數百至千萬人依賴鍵盤操作網站。而且你自己在手受傷、用平板外接鍵盤、或者單純偏好鍵盤的時候，也會遇到一樣的問題。'},
+  {q:'客戶要求登入頁面加一個「請輸入圖片中的文字」驗證碼。你會怎麼建議？',opts:['好的，這是標準的安全做法','建議改用不需要認知測試的方式，如 passkey 或簡訊驗證','加大驗證碼的字體就好','提供一個音訊版本的驗證碼作為替代'],correct:1,explain:'圖形驗證碼對視障者、認知障礙者、老年人都是巨大的障礙。WCAG 2.2 明確要求登入流程不得依賴認知功能測試。Passkey、簡訊驗證、WebAuthn 都是更好的替代方案。'},
+  {q:'你的網站在手機上看起來很正常，但有使用者抱怨「按鈕太小，一直按錯」。最可能的原因是？',opts:['使用者的手機螢幕太小','按鈕的觸控目標不夠大（小於 44x44 像素）','使用者不太會用手機','手機的觸控螢幕壞了'],correct:1,explain:'按鈕看起來大小正常，但實際的可觸控區域可能很小。手指不是滑鼠游標——它沒有精確的像素級定位。建議觸控目標至少 44x44 像素，對手抖的人、老年人、大拇指操作的人都更友善。'}
 ];
 
 // ===== NAVIGATION (ARIA tabs) =====
@@ -1933,7 +1942,7 @@ function showSection(id) {
 }
 
 // ===== JOURNEY PROGRESS =====
-var journeyVisited = new Set(['roles']);
+var journeyVisited = new Set(['why']);
 
 function updateJourneyStepper(activeId) {
   journeyVisited.add(activeId);
@@ -1944,7 +1953,7 @@ function updateJourneyStepper(activeId) {
       tab.classList.add('completed');
       tab.querySelector('.step-num').textContent = '\u2713';
     } else if (!tab.classList.contains('completed')) {
-      var idx = ['roles','empathy','quiz','phases','checklist'].indexOf(id);
+      var idx = ['why','roles','empathy','quiz','checklist','phases'].indexOf(id);
       tab.querySelector('.step-num').textContent = idx + 1;
     }
   });
@@ -1952,6 +1961,7 @@ function updateJourneyStepper(activeId) {
 
 function isJourneyStepDone(id) {
   switch (id) {
+    case 'why': return journeyVisited.has('why');
     case 'roles': return state.selectedRoles.size > 0;
     case 'empathy': return state.completedSims.size >= 1;
     case 'quiz': return state.quizAnswered > 0;
@@ -1984,6 +1994,59 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ===== ROLES =====
+var roleMirrors = {
+  pm: {
+    title: '專案統籌',
+    decisions: [
+      '你排的優先序，決定了無障礙會不會被「下一版再做」砍掉',
+      '你寫的需求文件，如果沒提到鍵盤操作，工程師不會主動做',
+      '你選的上線日期，決定了團隊有沒有時間跑螢幕閱讀器測試',
+      '你核准的設計稿，如果對比度不夠，最後被告的是公司'
+    ],
+    action: '你不需要懂技術細節，但你需要問一句：「這個對螢幕閱讀器使用者也能用嗎？」——光是這個問題就能改變整個團隊的意識。'
+  },
+  designer: {
+    title: '設計',
+    decisions: [
+      '你選的顏色，決定了 3 億色覺障礙者能不能分辨錯誤和成功',
+      '你設計的按鈕大小，決定了手抖的人點不點得到',
+      '你畫的焦點狀態（或沒畫），決定了鍵盤使用者知不知道自己在哪',
+      '你用的字型和行距，決定了閱讀障礙者能不能讀完一段話'
+    ],
+    action: '下次出設計稿前，花 2 分鐘用灰階模式看一次、用鍵盤 Tab 一次。這兩件事能攔下 80% 的問題。'
+  },
+  dev: {
+    title: '工程開發',
+    decisions: [
+      '你寫 div 還是 button，決定了螢幕閱讀器看不看得到這個元素',
+      '你加的 alt text，決定了視障者知不知道圖片在說什麼',
+      '你綁的 label，決定了語音控制使用者能不能操作表單',
+      '你處理焦點的方式，決定了鍵盤使用者會不會被困在某個元件裡'
+    ],
+    action: '你已經在寫 HTML 了——寫對的 HTML 不會比寫錯的多花多少時間。差別只在知不知道哪些標籤有語意。'
+  },
+  content: {
+    title: '內容',
+    decisions: [
+      '你寫的標題層級，決定了螢幕閱讀器使用者能不能快速跳到想看的段落',
+      '你用的專業術語，決定了認知障礙者能不能理解你的內容',
+      '你上傳的影片有沒有字幕，決定了聾人能不能獲取資訊',
+      '你寫的連結文字「點這裡」，讓螢幕閱讀器使用者完全不知道點了會去哪'
+    ],
+    action: '下次寫完一段文案，讀出來聽聽——如果用「聽」的也能理解，就是好的無障礙內容。'
+  },
+  qa: {
+    title: '測試驗證',
+    decisions: [
+      '你的測試矩陣如果沒有「鍵盤操作」這一列，沒有人會測它',
+      '你跑的自動掃描只能抓到 30-40%，剩下的只有你手動測才會發現',
+      '你回報 bug 時寫的「在某個情況下無法操作」，是身障使用者每天的日常',
+      '你判斷「這個不是 bug」的標準，如果沒考慮輔助技術，就是在替排除背書'
+    ],
+    action: '在你的測試流程裡加一步：每次測完用滑鼠操作後，把滑鼠收起來，用鍵盤再走一遍同樣的流程。'
+  }
+};
+
 function toggleRole(role) {
   if (state.selectedRoles.has(role)) state.selectedRoles.delete(role);
   else state.selectedRoles.add(role);
@@ -1996,9 +2059,45 @@ function toggleRole(role) {
   });
   if (state.selectedRoles.size > 0) earnBadge('role-selected');
   renderChecklistFilters();
+  updateRoleMirror();
   updateProgress();
   updateJourneyStepper('roles');
-  announce(isSelected ? roleNames[role] + ' 已認領' : roleNames[role] + ' 已取消認領');
+  announce(isSelected ? roleNames[role] + ' 已選擇' : roleNames[role] + ' 已取消');
+}
+
+function updateRoleMirror() {
+  var mirror = document.getElementById('roleMirror');
+  if (!mirror) return;
+  var selected = Array.from(state.selectedRoles);
+  if (selected.length === 0) { mirror.style.display = 'none'; return; }
+  mirror.textContent = '';
+  selected.forEach(function(role) {
+    var info = roleMirrors[role];
+    if (!info) return;
+    var section = document.createElement('div');
+    section.style.marginBottom = '16px';
+    var h4 = document.createElement('h4');
+    h4.style.cssText = 'margin-bottom:8px;color:var(--primary);';
+    h4.textContent = info.title + '：你每天在做的無障礙決定';
+    section.appendChild(h4);
+    var ul = document.createElement('ul');
+    ul.style.cssText = 'margin:0 0 8px 20px;font-size:0.88rem;line-height:1.7;';
+    info.decisions.forEach(function(d) {
+      var li = document.createElement('li');
+      li.textContent = d;
+      ul.appendChild(li);
+    });
+    section.appendChild(ul);
+    var actionBox = document.createElement('div');
+    actionBox.style.cssText = 'padding:8px 12px;background:var(--card-bg);border-radius:8px;font-size:0.85rem;';
+    var strong = document.createElement('strong');
+    strong.textContent = '你可以做的一件事：';
+    actionBox.appendChild(strong);
+    actionBox.appendChild(document.createTextNode(info.action));
+    section.appendChild(actionBox);
+    mirror.appendChild(section);
+  });
+  mirror.style.display = 'block';
 }
 
 // ===== PHASES =====
@@ -2190,7 +2289,7 @@ function simLowVision() {
 
   immersiveSim.start('lowvision', {
     title: '低視力模擬（黃斑部病變）',
-    challenge: '挑戰：找到「檢核清單」頁籤，勾選任一項目',
+    challenge: '挑戰：找到「檢核清單」頁籤，勾選任一項目。右下角可以停止體驗，或按 Esc。',
     hasSlider: true,
     sliderDefault: 40,
     onSliderChange: function(e) {
@@ -2208,7 +2307,7 @@ function simLowVision() {
 function simColorBlind() {
   immersiveSim.start('colorblind', {
     title: '色覺障礙模擬',
-    challenge: '挑戰：觀察頁面上的彩色按鈕和徽章，切換三種模式比較差異。然後切到「知識測驗」回答關於顏色的那題。',
+    challenge: '挑戰：觀察頁面上的彩色按鈕和徽章，切換三種模式比較差異。然後切到「知識測驗」回答關於顏色的那題。右下角可以停止體驗，或按 Esc。',
     hasSlider: false,
     modes: [
       { label: '紅色弱', activate: function() { document.body.style.filter = 'url(#sim-protanopia)'; }},
@@ -2312,32 +2411,45 @@ function simScreenReader() {
 }
 
 function simMotor() {
-  var fakeCursor = document.getElementById('fakeCursor');
-  fakeCursor.style.display = 'block';
-  document.body.style.cursor = 'none';
+  var jitterAmp = 8;
+  var targets = document.querySelectorAll('button, a, input, [role="button"], [role="tab"]');
+  var jitterIds = [];
 
-  var jitterAmp = 12;
+  // Make all interactive targets jitter in place
+  var jitterId = setInterval(function() {
+    targets.forEach(function(el) {
+      if (el.closest('.sim-control-panel')) return;
+      var jx = (Math.random() - 0.5) * 2 * jitterAmp;
+      var jy = (Math.random() - 0.5) * 2 * jitterAmp;
+      el.style.transform = 'translate(' + jx + 'px,' + jy + 'px)';
+    });
+  }, 80);
+  immersiveSim.addInterval(jitterId);
 
-  var moveHandler = function(e) {
-    var jx = (Math.random() - 0.5) * 2 * jitterAmp;
-    var jy = (Math.random() - 0.5) * 2 * jitterAmp;
-    fakeCursor.style.left = (e.clientX + jx) + 'px';
-    fakeCursor.style.top = (e.clientY + jy) + 'px';
+  // Restore transforms on stop
+  var cleanup = function() {
+    targets.forEach(function(el) { el.style.transform = ''; });
   };
-  immersiveSim.addListener(document, 'mousemove', moveHandler);
 
   immersiveSim.start('motor', {
     title: '肢體障礙模擬（手部顫抖）',
-    challenge: '挑戰：在「角色總覽」中認領一個能力區域',
+    challenge: '挑戰：試著點擊任何一個按鈕——它們一直在動，就像你的手在抖一樣',
     hasSlider: true,
     sliderDefault: 40,
     onSliderChange: function(e) {
       var v = parseInt(e.target.value);
-      jitterAmp = 5 + (v / 100) * 20;
+      jitterAmp = 3 + (v / 100) * 15;
       document.getElementById('simIntensityLabel').textContent =
         v < 33 ? '輕微' : v < 66 ? '中等' : '嚴重';
     }
   });
+
+  var origStop = immersiveSim.stop.bind(immersiveSim);
+  immersiveSim.stop = function() {
+    cleanup();
+    origStop();
+    immersiveSim.stop = origStop;
+  };
 }
 
 function simKeyboard() {
@@ -2464,6 +2576,8 @@ function simAutism() {
 
 function simDyslexia() {
   var swapPairs = [['b','d'],['p','q'],['m','w'],['n','u']];
+  // Similar-looking Chinese characters for swap
+  var zhSwapPairs = [['人','入'],['大','太'],['未','末'],['土','士'],['日','曰'],['己','已'],['問','間'],['他','她'],['的','得'],['在','再']];
   var affectedNodes = [];
 
   function scrambleText() {
@@ -2477,10 +2591,23 @@ function simDyslexia() {
       var original = node.textContent;
       var chars = original.split('');
       for (var i = 0; i < chars.length; i++) {
-        if (Math.random() > 0.05) continue;
+        if (Math.random() > 0.08) continue;
+        // Try English swaps
+        var swapped = false;
         for (var p = 0; p < swapPairs.length; p++) {
-          if (chars[i] === swapPairs[p][0]) { chars[i] = swapPairs[p][1]; break; }
-          if (chars[i] === swapPairs[p][1]) { chars[i] = swapPairs[p][0]; break; }
+          if (chars[i] === swapPairs[p][0]) { chars[i] = swapPairs[p][1]; swapped = true; break; }
+          if (chars[i] === swapPairs[p][1]) { chars[i] = swapPairs[p][0]; swapped = true; break; }
+        }
+        // Try Chinese swaps
+        if (!swapped) {
+          for (var z = 0; z < zhSwapPairs.length; z++) {
+            if (chars[i] === zhSwapPairs[z][0]) { chars[i] = zhSwapPairs[z][1]; break; }
+            if (chars[i] === zhSwapPairs[z][1]) { chars[i] = zhSwapPairs[z][0]; break; }
+          }
+        }
+        // Random character position swap (simulates jumping text)
+        if (Math.random() > 0.7 && i < chars.length - 1) {
+          var tmp = chars[i]; chars[i] = chars[i+1]; chars[i+1] = tmp;
         }
       }
       node.textContent = chars.join('');
@@ -2490,7 +2617,7 @@ function simDyslexia() {
 
   immersiveSim.start('dyslexia', {
     title: 'Dyslexia 閱讀障礙模擬',
-    challenge: '挑戰：閱讀第一個測驗題目並選擇答案',
+    challenge: '挑戰：試著讀完這個頁面上的任何一段文字。注意：文字會跳動、相似字會互換、行距不穩定。',
     hasSlider: true,
     sliderDefault: 50,
     onSliderChange: function(e) {
@@ -2503,13 +2630,25 @@ function simDyslexia() {
         affectedNodes.forEach(function(an) { an.node.textContent = an.original; });
         affectedNodes = [];
         scrambleText();
-      }, 4000);
+      }, 3000);
       immersiveSim.addInterval(scrambleId);
 
+      // Unstable line-height + letter-spacing
       var lineStyle = document.createElement('style');
-      lineStyle.textContent = '.section.active p,.section.active li,.section.active span{line-height:' + (1.5 + Math.random()) + ' !important;}';
+      lineStyle.textContent = '.section.active p,.section.active li,.section.active span,.section.active h3,.section.active div{line-height:' + (1.3 + Math.random() * 0.8) + ' !important;letter-spacing:' + (Math.random() * 2 - 0.5) + 'px !important;}';
       document.head.appendChild(lineStyle);
       immersiveSim.addElement(lineStyle);
+
+      // Words occasionally blur and unblur
+      var blurId = setInterval(function() {
+        var els = document.querySelectorAll('.section.active p, .section.active li');
+        var el = els[Math.floor(Math.random() * els.length)];
+        if (el && !el.closest('.sim-control-panel')) {
+          el.style.filter = 'blur(1.5px)';
+          setTimeout(function() { el.style.filter = ''; }, 1500);
+        }
+      }, 2000);
+      immersiveSim.addInterval(blurId);
 
       var origStop = immersiveSim.stop.bind(immersiveSim);
       immersiveSim.stop = function() {
@@ -2547,7 +2686,7 @@ function simHearing() {
     '  </div>' +
     '</div>' +
     '<div id="hearingRevealArea" style="display:none;">' +
-    '  <div class="card" style="background:#eafaf1;border-left:4px solid var(--success);">' +
+    '  <div class="card" style="background:var(--card-bg);border-left:4px solid var(--success);">' +
     '    <h3>正確答案是 C</h3>' +
     '    <p class="text-sm">沒有字幕的情況下，聾人和重聽者<strong>完全無法</strong>獲取音訊內容。即使「猜」也只是猜。所以所有預錄影片都必須提供字幕（WCAG 1.2.2）。</p>' +
     '  </div>' +
@@ -2602,7 +2741,7 @@ function simAnxiety() {
           if (e.target.closest('.sim-control-panel')) return;
           if (Math.random() > 0.5) {
             var err = document.createElement('div');
-            err.style.cssText = 'position:fixed;top:60px;left:50%;transform:translateX(-50%);z-index:9997;background:#fdf2f2;border:2px solid var(--danger);border-radius:8px;padding:12px 24px;font-size:0.9rem;color:var(--danger);font-weight:600;box-shadow:var(--shadow);';
+            err.style.cssText = 'position:fixed;top:60px;left:50%;transform:translateX(-50%);z-index:9997;background:var(--card-bg);border:2px solid var(--danger);border-radius:8px;padding:12px 24px;font-size:0.9rem;color:var(--danger);font-weight:600;box-shadow:var(--shadow);';
             err.textContent = '發生錯誤。請重試。';
             document.body.appendChild(err);
             immersiveSim.addElement(err);
@@ -2673,7 +2812,7 @@ function openDialogSim(type) {
       '<details class="disclosure-card"><summary>吵雜餐廳中 &rarr; 類似聽覺障礙</summary><div class="detail-content"><p class="text-sm">嘈雜環境中聽不到影片聲音。沒有字幕的影片等於無法使用。</p><p class="text-sm" style="margin-top:8px;color:var(--success);font-weight:600;">&rarr; 設計提示：所有影片提供字幕</p></div></details>' +
       '<details class="disclosure-card"><summary>老花眼 &rarr; 類似低視力</summary><div class="detail-content"><p class="text-sm">隨著年齡增長，過小的字級和低對比度文字都會造成困擾。</p><p class="text-sm" style="margin-top:8px;color:var(--success);font-weight:600;">&rarr; 設計提示：字級至少 16px、避免淺灰色文字</p></div></details>' +
       '</div>' +
-      '<div class="card" style="margin-top:16px;background:#eaf2f8;"><h3>核心觀點</h3><p class="text-sm">無障礙不只是「為少數人設計」——它是為<strong>所有人在所有情境下</strong>設計。微軟的包容性設計框架指出：永久障礙、臨時障礙、情境障礙，三者的設計解方往往是相通的。</p></div>' +
+      '<div class="card" style="margin-top:16px;background:var(--card-bg);"><h3>核心觀點</h3><p class="text-sm">無障礙不只是「為少數人設計」——它是為<strong>所有人在所有情境下</strong>設計。微軟的包容性設計框架指出：永久障礙、臨時障礙、情境障礙，三者的設計解方往往是相通的。</p></div>' +
       '<div style="text-align:center;margin-top:20px;"><button class="sim-btn" onclick="completeSim(\'temporary\')" style="background:var(--success);">完成此體驗</button></div>'
     );
     dialog.showModal();
@@ -2757,46 +2896,31 @@ function resetQuiz() { state.quizAnswered = 0; state.quizCorrect = 0; document.g
 
 // ===== CHECKLIST (real checkboxes) =====
 var checklistData = [
-  {phase:'基礎',text:'全員完成無障礙基礎培訓（WCAG 2.2 四原則、障礙類型）',roles:['pm','designer','dev','content','qa']},
-  {phase:'基礎',text:'全員實際體驗純鍵盤操作網站（至少 15 分鐘）',roles:['pm','designer','dev','content','qa']},
-  {phase:'基礎',text:'全員體驗螢幕閱讀器（VoiceOver 或 NVDA）',roles:['pm','designer','dev','content','qa']},
-  {phase:'基礎',text:'全員完成同理心體驗區的至少 3 個模擬',roles:['pm','designer','dev','content','qa']},
-  {phase:'基礎',text:'全員通過知識測驗（\u226570%）',roles:['pm','designer','dev','content','qa']},
-  {phase:'規劃',text:'完成現有網站無障礙審計',roles:['qa','dev']},
-  {phase:'規劃',text:'訪談身心障礙使用者或團體',roles:['pm','designer']},
-  {phase:'規劃',text:'制定 WCAG 2.2 AA 合規目標',roles:['pm']},
-  {phase:'設計',text:'色彩對比度全部通過 4.5:1 檢驗',roles:['designer']},
-  {phase:'設計',text:'觸控目標 \u2265 44\u00d744px',roles:['designer']},
-  {phase:'設計',text:'所有互動元件有焦點狀態設計',roles:['designer']},
-  {phase:'設計',text:'錯誤提示不僅依賴顏色',roles:['designer']},
-  {phase:'設計',text:'焦點元件不被浮動元素遮擋（2.4.11）',roles:['designer']},
-  {phase:'設計',text:'拖曳操作有替代單點操作方式（2.5.7）',roles:['designer','dev']},
-  {phase:'設計',text:'完成無障礙原型使用者測試',roles:['designer','pm']},
-  {phase:'開發',text:'使用語意 HTML 標籤',roles:['dev']},
-  {phase:'開發',text:'所有圖片有適當 alt 文字',roles:['dev','content']},
-  {phase:'開發',text:'表單元素正確綁定 label',roles:['dev']},
-  {phase:'開發',text:'鍵盤導航流暢、焦點可見',roles:['dev']},
-  {phase:'開發',text:'ARIA 屬性正確使用',roles:['dev']},
-  {phase:'開發',text:'實作跳過導航連結',roles:['dev']},
-  {phase:'開發',text:'CI/CD 加入 axe-core 自動測試',roles:['dev']},
-  {phase:'開發',text:'影片字幕與音訊文字稿就位',roles:['content','dev']},
-  {phase:'開發',text:'幫助資訊跨頁面位置一致（3.2.6）',roles:['dev','content']},
-  {phase:'開發',text:'不重複要求使用者輸入已知資訊（3.3.7）',roles:['dev']},
-  {phase:'開發',text:'登入無需認知功能測試（3.3.8）',roles:['dev']},
-  {phase:'測試',text:'全站自動掃描通過（axe / Lighthouse）',roles:['qa','dev']},
-  {phase:'測試',text:'每頁手動鍵盤導航測試完成',roles:['qa']},
-  {phase:'測試',text:'NVDA + VoiceOver 測試完成',roles:['qa']},
-  {phase:'測試',text:'TalkBack（Android）測試完成',roles:['qa']},
-  {phase:'測試',text:'色彩對比驗證完成',roles:['qa','designer']},
-  {phase:'測試',text:'200% 放大測試通過',roles:['qa']},
-  {phase:'測試',text:'身心障礙使用者真人測試完成',roles:['pm','qa']},
-  {phase:'上線',text:'最終無障礙驗收測試通過',roles:['qa','pm']},
-  {phase:'上線',text:'無障礙聲明頁已發布',roles:['content','pm']},
-  {phase:'上線',text:'使用者回饋管道建立完成',roles:['dev','pm']},
-  {phase:'上線',text:'Lighthouse 分數 \u2265 90',roles:['dev','qa']},
-  {phase:'上線',text:'持續監控計畫已制定',roles:['pm']},
-  {phase:'交叉審核',text:'設計師審查工程實作',roles:['designer']},
-  {phase:'交叉審核',text:'工程師審查內容',roles:['dev']},
+  {phase:'30 秒',text:'按 Tab 鍵三次，看看焦點跑去哪裡',roles:['dev','designer','qa']},
+  {phase:'30 秒',text:'看一下你的網站有沒有 <h1>',roles:['dev','content']},
+  {phase:'30 秒',text:'對任何一張圖片按右鍵 > 檢查，看看有沒有 alt',roles:['dev','content']},
+  {phase:'30 秒',text:'用手機打開你的網站，試著用大拇指點最小的按鈕',roles:['designer','dev']},
+  {phase:'30 秒',text:'把瀏覽器縮放到 200%，看看有沒有東西跑掉',roles:['dev','qa']},
+  {phase:'2 分鐘',text:'打開 Chrome DevTools > Lighthouse > 勾 Accessibility > 跑一次',roles:['dev','qa']},
+  {phase:'2 分鐘',text:'安裝 WAVE 擴充套件，對你的首頁掃一次',roles:['dev','designer','qa']},
+  {phase:'2 分鐘',text:'找到頁面上的一個表單，看看 <label> 有沒有正確綁定 <input>',roles:['dev']},
+  {phase:'2 分鐘',text:'檢查你的錯誤提示——把螢幕轉成灰階，還看得出哪裡出錯嗎？',roles:['designer','dev']},
+  {phase:'2 分鐘',text:'找一個有顏色區分的地方（紅/綠），確認旁邊有文字或圖示輔助',roles:['designer','content']},
+  {phase:'5 分鐘',text:'只用鍵盤完成你網站上最重要的一個流程（結帳、註冊、搜尋）',roles:['dev','qa']},
+  {phase:'5 分鐘',text:'打開 NVDA 或 VoiceOver，閉上眼睛聽你的首頁念 30 秒',roles:['dev','qa','designer']},
+  {phase:'5 分鐘',text:'檢查所有影片——有字幕嗎？靜音後還看得懂內容嗎？',roles:['content','dev']},
+  {phase:'5 分鐘',text:'讓 AI（axe-core 或你的 a11y-audit skill）掃一次，列出問題清單',roles:['dev','qa']},
+  {phase:'5 分鐘',text:'讀你自己的網站文案——一個不懂專業術語的人能讀懂嗎？',roles:['content','pm']},
+  {phase:'15 分鐘',text:'把 Lighthouse 報告裡標紅的項目修掉（通常 3-5 個最明顯的）',roles:['dev']},
+  {phase:'15 分鐘',text:'把所有缺少 alt 的圖片補上有意義的描述',roles:['content','dev']},
+  {phase:'15 分鐘',text:'檢查整站的 heading 層級——是不是 h1 > h2 > h3 不跳級？',roles:['dev','content']},
+  {phase:'15 分鐘',text:'確認所有互動元件（按鈕、連結、表單）都有可見的焦點樣式',roles:['dev','designer']},
+  {phase:'15 分鐘',text:'試著用手機的 TalkBack 或 VoiceOver 操作一個關鍵流程',roles:['qa','dev']},
+  {phase:'30 分鐘',text:'加一個 skip link，讓鍵盤使用者能跳過導航',roles:['dev']},
+  {phase:'30 分鐘',text:'把色彩對比度不夠的文字和背景修到 4.5:1 以上',roles:['designer','dev']},
+  {phase:'30 分鐘',text:'讓 AI 幫你寫 axe-core 測試，加進 CI/CD',roles:['dev']},
+  {phase:'30 分鐘',text:'寫一頁無障礙聲明（說明你做了什麼、還有什麼限制、怎麼聯絡你）',roles:['content','pm']},
+  {phase:'30 分鐘',text:'找一個身障朋友或長輩試用你的網站，聽他們的回饋',roles:['pm','designer','qa']},
   {phase:'交叉審核',text:'內容編輯審查設計',roles:['content']},
   {phase:'交叉審核',text:'PM 審查測試',roles:['pm']},
   {phase:'交叉審核',text:'QA 審查驗收標準',roles:['qa']}
@@ -2843,7 +2967,7 @@ function renderChecklist(roleFilter) {
     var card = document.createElement('div');
     card.className = 'card';
     card.style.marginBottom = '16px';
-    var title = phase === '基礎' ? '全員基礎素養' : phase === '交叉審核' ? '交叉審核' : phase + '階段';
+    var title = phase + ' 就能做';
     var h3 = document.createElement('h3');
     h3.style.marginBottom = '12px';
     h3.textContent = title;
@@ -2925,9 +3049,15 @@ function updateProgress() {
 // ===== BACK TO TOP =====
 window.addEventListener('scroll', function() {
   var btn = document.getElementById('backToTop');
-  if (window.scrollY > 400) btn.classList.add('visible');
-  else btn.classList.remove('visible');
+  if (window.scrollY > window.innerHeight) {
+    btn.classList.add('visible');
+    btn.removeAttribute('tabindex');
+  } else {
+    btn.classList.remove('visible');
+    btn.setAttribute('tabindex', '-1');
+  }
 });
+
 
 // ===== THEME TOGGLE =====
 function toggleTheme() {
