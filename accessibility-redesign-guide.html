@@ -1,0 +1,2662 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NGO 無障礙網站改版 — 團隊導引手冊</title>
+<style>
+  :root {
+    --primary: #1a5276;
+    --primary-light: #2980b9;
+    --accent: #e67e22;
+    --accent-light: #f39c12;
+    --success: #27ae60;
+    --warning: #f39c12;
+    --danger: #e74c3c;
+    --bg: #f8f9fa;
+    --card-bg: #ffffff;
+    --text: #2c3e50;
+    /* FIX: #7f8c8d only 4.17:1 on white — changed to #566573 for 5.9:1 */
+    --text-light: #566573;
+    --border: #dee2e6;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    --radius: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* ===== SKIP LINKS (WCAG 2.4.1) ===== */
+  .skip-links {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    display: flex;
+    gap: 4px;
+    padding: 0 16px;
+  }
+  .skip-link {
+    position: relative;
+    top: -100%;
+    padding: 12px 24px;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 0 0 8px 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: top 0.2s;
+    white-space: nowrap;
+  }
+  .skip-link:focus {
+    top: 0;
+  }
+
+  /* ===== SEARCH BAR ===== */
+  .search-container {
+    max-width: 1100px;
+    margin: 0 auto 16px;
+    padding: 0 24px;
+  }
+  .search-bar {
+    display: flex;
+    gap: 8px;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 12px 20px;
+    align-items: center;
+  }
+  .search-bar input[type="search"] {
+    flex: 1;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--bg);
+    min-width: 0;
+  }
+  .search-bar input[type="search"]:focus-visible {
+    border-color: var(--primary);
+    outline: 3px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .search-bar button {
+    padding: 10px 20px;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .search-bar button:hover {
+    background: var(--primary-light);
+  }
+
+  /* ===== GLOBAL FOCUS (WCAG 2.4.7) ===== */
+  :focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+  }
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* ===== HEADER ===== */
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    text-align: center;
+    padding: 48px 24px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0; right: 0;
+    height: 40px;
+    background: var(--bg);
+    border-radius: 50% 50% 0 0;
+  }
+  .hero h1 { font-size: 2rem; margin-bottom: 8px; font-weight: 800; }
+  .hero p { opacity: 0.9; font-size: 1.05rem; max-width: 600px; margin: 0 auto; }
+
+  /* ===== PROGRESS BAR ===== */
+  .progress-bar-container {
+    max-width: 1100px;
+    margin: -8px auto 24px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .progress-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .progress-card .label { font-weight: 600; white-space: nowrap; font-size: 0.9rem; }
+  .progress-track {
+    flex: 1;
+    height: 10px;
+    background: #ecf0f1;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success), #2ecc71);
+    border-radius: 5px;
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+  .progress-pct { font-weight: 700; color: var(--success); min-width: 42px; text-align: right; }
+
+  /* ===== NAV TABS ===== */
+  .nav-container {
+    max-width: 1100px;
+    margin: 0 auto 24px;
+    padding: 0 24px;
+  }
+  .nav-tabs {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    position: relative;
+  }
+  .nav-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 14px;
+    border: none;
+    background: var(--card-bg);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-light);
+    white-space: nowrap;
+    transition: all 0.2s;
+    position: relative;
+    border-bottom: 3px solid transparent;
+  }
+  .nav-tab:first-child { border-radius: 12px 0 0 12px; }
+  .nav-tab:last-child { border-radius: 0 12px 12px 0; }
+  .nav-tab + .nav-tab { border-left: 1px solid var(--border); }
+  .nav-tab:hover { color: var(--primary); background: #eaf2f8; }
+  .nav-tab[aria-selected="true"] {
+    background: #eaf2f8;
+    color: var(--primary);
+    font-weight: 700;
+    border-bottom-color: var(--primary);
+  }
+  .nav-tab .step-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    background: var(--border);
+    color: white;
+    flex-shrink: 0;
+    transition: all 0.3s;
+  }
+  .nav-tab[aria-selected="true"] .step-num {
+    background: var(--primary);
+  }
+  .nav-tab.completed .step-num {
+    background: var(--success);
+  }
+  .nav-tab[aria-selected="true"].completed .step-num {
+    background: var(--primary);
+  }
+
+  /* ===== SECTIONS ===== */
+  .section { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: none; }
+  .section.active { display: block; }
+
+  .section-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title .icon { font-size: 1.6rem; }
+
+  /* ===== CARDS ===== */
+  .card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-bottom: 16px;
+    transition: transform 0.2s;
+  }
+  .card:hover { transform: translateY(-2px); }
+  .card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card p { color: var(--text-light); font-size: 0.95rem; }
+
+  /* ===== ROLE CARDS ===== */
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .role-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.25s;
+    border: 3px solid transparent;
+    position: relative;
+  }
+  .role-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+  .role-card[aria-pressed="true"] { border-color: var(--primary); }
+  .role-card .role-icon { font-size: 2.2rem; margin-bottom: 10px; display: block; }
+  .role-card .role-name { font-weight: 700; font-size: 1.1rem; margin-bottom: 4px; }
+  .role-card .role-desc { color: var(--text-light); font-size: 0.88rem; }
+  .role-card .badge-tag {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--primary);
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    display: none;
+  }
+  .role-card[aria-pressed="true"] .badge-tag { display: block; }
+
+  /* ===== PHASE TIMELINE ===== */
+  .timeline {
+    position: relative;
+    padding-left: 36px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: #dfe6e9;
+    border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 28px;
+  }
+  .timeline-dot {
+    position: absolute;
+    left: -36px;
+    top: 4px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: white;
+    z-index: 1;
+  }
+  .timeline-item .phase-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .timeline-item .phase-card:hover { transform: translateX(4px); }
+  .phase-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+  .phase-card .phase-subtitle { color: var(--text-light); font-size: 0.88rem; }
+  .phase-card .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-top: 8px;
+  }
+
+  /* ===== CHECKLIST ===== */
+  .checklist { list-style: none; }
+  .checklist li {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    transition: background 0.15s;
+    border-radius: 6px;
+  }
+  .checklist li:hover { background: #f7f9fc; }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    width: 100%;
+  }
+  .checklist input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    accent-color: var(--success);
+    cursor: pointer;
+  }
+  .checklist li.checked .check-text { text-decoration: line-through; color: var(--text-light); }
+  .check-text { font-size: 0.92rem; }
+  .check-role-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 1px 7px;
+    border-radius: 8px;
+    margin-left: 6px;
+    font-weight: 600;
+    vertical-align: middle;
+  }
+
+  /* ===== PHASE DETAIL ===== */
+  .phase-detail { display: none; }
+  .phase-detail.active { display: block; }
+  .back-btn {
+    background: none;
+    border: none;
+    color: var(--primary-light);
+    font-size: 0.95rem;
+    cursor: pointer;
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .back-btn:hover { text-decoration: underline; }
+
+  /* ===== EMPATHY SIMULATION ===== */
+  .sim-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .sim-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+  .sim-card:hover { transform: translateY(-2px); }
+  .sim-preview {
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .sim-info { padding: 16px 20px; }
+  .sim-info h3 { font-size: 1rem; margin-bottom: 4px; }
+  .sim-info p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 12px; }
+  .sim-btn {
+    display: inline-block;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 20px;
+    background: var(--primary);
+    color: white;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .sim-btn:hover { background: var(--primary-light); }
+
+  /* Simulation Dialog */
+  .sim-dialog {
+    border: none;
+    border-radius: 16px;
+    max-width: 680px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 32px;
+    position: relative;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+  }
+  .sim-dialog::backdrop {
+    background: rgba(0,0,0,0.7);
+  }
+  .sim-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-light);
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sim-demo-area {
+    min-height: 200px;
+    border-radius: var(--radius);
+    padding: 24px;
+    margin: 16px 0;
+    position: relative;
+  }
+
+  /* ===== QUIZ ===== */
+  .quiz-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .quiz-q {
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 16px;
+    display: flex;
+    gap: 10px;
+  }
+  .quiz-q .q-num {
+    background: var(--primary);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 8px; }
+  .quiz-opt {
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.92rem;
+    transition: all 0.2s;
+    background: var(--card-bg);
+    text-align: left;
+    width: 100%;
+    font-family: inherit;
+    color: inherit;
+  }
+  .quiz-opt:hover { border-color: var(--primary-light); background: #eaf2f8; }
+  .quiz-opt:focus-visible { border-color: var(--primary); }
+  .quiz-opt[aria-disabled="true"] { pointer-events: none; opacity: 0.7; }
+  .quiz-opt.correct { border-color: var(--success); background: #eafaf1; opacity: 1; }
+  .quiz-opt.wrong { border-color: var(--danger); background: #fdf2f2; opacity: 1; }
+  .quiz-explain {
+    margin-top: 12px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    display: none;
+  }
+  .quiz-explain.show { display: block; }
+  .quiz-explain.correct-bg { background: #eafaf1; border-left: 4px solid var(--success); }
+  .quiz-explain.wrong-bg { background: #fdf2f2; border-left: 4px solid var(--danger); }
+
+  .quiz-score {
+    text-align: center;
+    padding: 32px;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    display: none;
+  }
+  .quiz-score.show { display: block; }
+  .quiz-score .score-num { font-size: 3rem; font-weight: 800; color: var(--primary); }
+  .quiz-score .score-label { color: var(--text-light); margin-top: 4px; }
+  .badge-earned {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-top: 12px;
+    animation: badgePop 0.4s ease;
+  }
+  @keyframes badgePop {
+    0% { transform: scale(0); }
+    70% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+  }
+
+  /* ===== FILTER PILLS ===== */
+  .filter-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .filter-pill {
+    padding: 6px 14px;
+    border-radius: 16px;
+    border: 2px solid var(--border);
+    background: white;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+  .filter-pill[aria-pressed="true"] { border-color: var(--primary); background: #eaf2f8; color: var(--primary); }
+  .filter-pill:hover { border-color: var(--primary-light); }
+
+  /* ===== GAMIFICATION ===== */
+  .badges-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .badge-item {
+    width: 72px;
+    text-align: center;
+    opacity: 0.3;
+    transition: all 0.3s;
+  }
+  .badge-item.earned { opacity: 1; }
+  .badge-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin: 0 auto 4px;
+    border: 3px solid #ddd;
+  }
+  .badge-item.earned .badge-icon { border-color: var(--accent); box-shadow: 0 2px 8px rgba(230,126,34,0.3); }
+  .badge-label { font-size: 0.7rem; color: var(--text-light); }
+
+  /* ===== SHARED FOUNDATION ===== */
+  .foundation-box {
+    background: linear-gradient(135deg, #eaf2f8 0%, #d4efdf 100%);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 2px solid var(--primary);
+    position: relative;
+  }
+  .foundation-box h3 { margin-bottom: 10px; }
+  .foundation-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .foundation-item {
+    background: rgba(255,255,255,0.85);
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .foundation-item .fi-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+  /* Role layer diagram */
+  .layer-diagram {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-bottom: 24px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .layer-ring {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0;
+  }
+  .layer {
+    width: 100%;
+    text-align: center;
+    padding: 20px 24px;
+    font-size: 0.9rem;
+    position: relative;
+  }
+  .layer-outer { background: #eaf2f8; border: 3px dashed var(--primary); padding: 24px 32px 28px; border-radius: 24px; }
+  .layer-mid { background: #fef9e7; border: 3px dashed var(--accent); margin: 16px 40px 0; padding: 20px 28px 24px; border-radius: 20px; }
+  .layer-inner { background: #eafaf1; border: 3px solid var(--success); margin: 16px 40px 0; padding: 18px 24px; border-radius: 16px; }
+  .layer-label { font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; }
+  .layer-desc { font-size: 0.82rem; color: var(--text-light); }
+
+  .role-card .role-a11y {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border);
+    font-size: 0.82rem;
+    color: var(--primary);
+  }
+  .role-card .role-a11y strong { display: block; margin-bottom: 2px; font-size: 0.78rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* ===== DISCLOSURE (temporary disability cards) ===== */
+  details.disclosure-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 12px;
+  }
+  details.disclosure-card summary {
+    padding: 24px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+  }
+  details.disclosure-card summary::-webkit-details-marker { display: none; }
+  details.disclosure-card summary::before {
+    content: '\25B6';
+    font-size: 0.7rem;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  details.disclosure-card[open] summary::before {
+    transform: rotate(90deg);
+  }
+  details.disclosure-card .detail-content {
+    padding: 0 24px 24px;
+  }
+
+  /* ===== UTILITIES ===== */
+  .mb-16 { margin-bottom: 16px; }
+  .mb-24 { margin-bottom: 24px; }
+  .text-sm { font-size: 0.88rem; }
+  .text-muted { color: var(--text-light); }
+  .flex-center { display: flex; align-items: center; gap: 8px; }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 1.5rem; }
+    .role-grid { grid-template-columns: 1fr; }
+    .sim-grid { grid-template-columns: 1fr; }
+    .sim-dialog { padding: 20px; }
+  }
+
+  /* ===== REDUCED MOTION (WCAG 2.3.3) ===== */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Simulation Effects */
+  .blur-sim { filter: blur(3px); }
+  .low-contrast-sim { filter: contrast(0.3) brightness(1.2); }
+  .color-blind-sim { filter: grayscale(0.8) sepia(0.2); }
+  .tremor-text { display: inline-block; }
+  .tremor-text.shaking { animation: tremor 0.15s infinite; }
+  @keyframes tremor {
+    0% { transform: translate(0,0); }
+    25% { transform: translate(2px,-1px); }
+    50% { transform: translate(-1px,2px); }
+    75% { transform: translate(-2px,-1px); }
+    100% { transform: translate(1px,1px); }
+  }
+
+  .kb-trap-area button:focus {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    color: var(--text-light);
+    font-size: 0.85rem;
+  }
+
+  .live-announcer {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+  }
+/* Next step CTA */
+.next-step-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 24px;
+  margin-top: 24px;
+  background: linear-gradient(135deg, #eaf2f8, #d6eaf8);
+  border: 2px solid var(--primary);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--primary);
+  transition: all 0.2s;
+}
+.next-step-cta:hover { background: var(--primary); color: white; }
+.next-step-cta .arrow { font-size: 1.2rem; }
+
+@media (max-width: 600px) {
+  .nav-tab { padding: 10px 8px; font-size: 0.75rem; gap: 4px; }
+  .nav-tab .step-num { width: 20px; height: 20px; font-size: 0.6rem; }
+  .nav-tab .tab-label { display: none; }
+  .nav-tab .tab-label-short { display: inline; }
+}
+@media (min-width: 601px) {
+  .nav-tab .tab-label-short { display: none; }
+}
+
+/* ===== IMMERSIVE SIM INFRASTRUCTURE ===== */
+.sim-control-panel {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 10000;
+  background: var(--card-bg);
+  border: 3px solid var(--accent);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  padding: 20px 24px;
+  max-width: 340px;
+  width: 90%;
+  filter: none !important;
+  display: none;
+}
+.sim-control-panel.active { display: block; }
+.sim-control-panel h3 { font-size: 1rem; margin-bottom: 8px; }
+.sim-control-panel .challenge {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin: 12px 0;
+  padding: 10px 12px;
+  background: var(--bg);
+  border-radius: 8px;
+  border-left: 3px solid var(--accent);
+}
+.sim-control-panel .sim-stop-btn {
+  width: 100%;
+  padding: 10px;
+  background: var(--danger);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.sim-control-panel .sim-stop-btn:hover { opacity: 0.9; }
+.sim-intensity {
+  width: 100%;
+  margin: 8px 0;
+  accent-color: var(--primary);
+}
+.sim-mode-btns { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+.sim-mode-btn {
+  padding: 4px 12px;
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  background: white;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+.sim-mode-btn.active { border-color: var(--primary); background: #eaf2f8; }
+
+/* Fake cursor for tremor sim */
+.fake-cursor {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  width: 20px;
+  height: 20px;
+  display: none;
+}
+.fake-cursor::after {
+  content: '';
+  display: block;
+  width: 0; height: 0;
+  border-left: 6px solid black;
+  border-right: 6px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-top: 10px solid black;
+}
+
+/* Screen reader overlay */
+.sr-sim-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: #000;
+  color: #fff;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  font-family: 'Courier New', monospace;
+}
+.sr-sim-overlay.active { display: flex; }
+.sr-sim-role { color: var(--accent); font-size: 0.85rem; margin-bottom: 8px; }
+.sr-sim-text { font-size: 1.4rem; max-width: 600px; text-align: center; line-height: 1.6; }
+.sr-sim-hint { position: absolute; bottom: 40px; color: #888; font-size: 0.85rem; }
+
+/* Education card variant */
+.edu-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  border: 2px dashed var(--border);
+  opacity: 0.95;
+}
+.edu-card .edu-header {
+  padding: 16px 20px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.edu-card .sim-info { padding: 16px 20px; }
+
+/* Timer banner for anxiety sim */
+.anxiety-timer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9997;
+  background: var(--danger);
+  color: white;
+  text-align: center;
+  padding: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: none;
+}
+
+/* ADHD distractions */
+.adhd-distraction {
+  position: fixed;
+  z-index: 9996;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 12px 16px;
+  font-size: 0.85rem;
+  animation: adhd-float 3s ease-in-out infinite alternate;
+}
+@keyframes adhd-float {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
+}
+
+/* Photosensitivity warning dialog */
+.photosens-dialog {
+  border: none;
+  border-radius: var(--radius);
+  padding: 32px;
+  max-width: 480px;
+  text-align: center;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+}
+.photosens-dialog::backdrop { background: rgba(0,0,0,0.7); }
+</style>
+</head>
+<body>
+
+<!-- Skip Links (WCAG 2.4.1 Bypass Blocks) -->
+<div class="skip-links">
+  <a href="#site-nav" class="skip-link">跳到導航選單</a>
+  <a href="#site-search" class="skip-link">跳到搜尋</a>
+  <a href="#main-content" class="skip-link">跳到主要內容</a>
+</div>
+
+<!-- Live region for dynamic announcements (WCAG 4.1.3) -->
+<div id="liveAnnouncer" class="live-announcer" aria-live="polite" aria-atomic="true"></div>
+
+<!-- SVG Color Vision Deficiency Filters -->
+<svg style="position:absolute;width:0;height:0;" aria-hidden="true">
+  <defs>
+    <filter id="sim-protanopia">
+      <feColorMatrix type="matrix" values="0.567 0.433 0 0 0  0.558 0.442 0 0 0  0 0.242 0.758 0 0  0 0 0 1 0"/>
+    </filter>
+    <filter id="sim-deuteranopia">
+      <feColorMatrix type="matrix" values="0.625 0.375 0 0 0  0.7 0.3 0 0 0  0 0.3 0.7 0 0  0 0 0 1 0"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- Fake cursor for tremor sim -->
+<div class="fake-cursor" id="fakeCursor" aria-hidden="true"></div>
+
+<!-- Screen reader sim overlay -->
+<div class="sr-sim-overlay" id="srSimOverlay" role="region" aria-label="螢幕閱讀器模擬">
+  <div class="sr-sim-role" id="srSimRole"></div>
+  <div class="sr-sim-text" id="srSimText"></div>
+  <div class="sr-sim-hint">Arrow keys: navigate | Enter: activate | Esc: stop</div>
+</div>
+
+<!-- Anxiety timer -->
+<div class="anxiety-timer" id="anxietyTimer" aria-hidden="true"></div>
+
+<!-- Photosensitivity warning dialog -->
+<dialog class="photosens-dialog" id="photosensDialog">
+  <h2 style="margin-bottom:12px;font-size:1.1rem;">Photosensitivity Warning</h2>
+  <p style="margin-bottom:16px;font-size:0.9rem;color:var(--text-light);">
+    此模擬包含動態視覺效果（移動、色彩變化）。如果你有光敏性癲癇或對閃爍敏感，請勿使用此模擬。
+  </p>
+  <div style="display:flex;gap:8px;justify-content:center;">
+    <button class="sim-btn" id="photosensConfirm" style="background:var(--primary);">我了解，繼續</button>
+    <button class="sim-btn" id="photosensCancel" style="background:var(--text-light);">取消</button>
+  </div>
+</dialog>
+
+<!-- Floating control panel -->
+<div class="sim-control-panel" id="simControlPanel">
+  <h3 id="simControlTitle"></h3>
+  <div id="simControlSlider" style="display:none;">
+    <label for="simIntensity" style="font-size:0.8rem;color:var(--text-light);">
+      強度：<span id="simIntensityLabel">中</span>
+    </label>
+    <input type="range" id="simIntensity" class="sim-intensity" min="0" max="100" value="50">
+  </div>
+  <div id="simControlModes" style="display:none;"></div>
+  <div class="challenge" id="simControlChallenge"></div>
+  <button class="sim-stop-btn" onclick="stopImmersiveSim()">停止體驗</button>
+  <div style="font-size:0.75rem;color:var(--text-light);margin-top:8px;text-align:center;">按 Esc 也可以停止</div>
+</div>
+
+<!-- ===== HERO (semantic header) ===== -->
+<header class="hero" role="banner">
+  <h1>NGO 無障礙網站改版指南</h1>
+  <p>帶領團隊走過從規劃到上線的每一步，體驗使用者的真實處境，打造真正為所有人設計的網站</p>
+</header>
+
+<main id="main-content">
+
+<!-- ===== PROGRESS (role=progressbar) ===== -->
+<div class="progress-bar-container">
+  <div class="progress-card">
+    <span class="label" id="progressLabel">團隊準備度</span>
+    <div class="progress-track">
+      <div class="progress-fill" id="globalProgress"
+           role="progressbar"
+           aria-valuenow="0"
+           aria-valuemin="0"
+           aria-valuemax="100"
+           aria-labelledby="progressLabel"></div>
+    </div>
+    <span class="progress-pct" id="globalPct" aria-hidden="true">0%</span>
+  </div>
+</div>
+
+<!-- ===== GAMIFICATION BADGES ===== -->
+<div style="max-width:1100px;margin:0 auto 16px;padding:0 24px;">
+  <div class="badges-row" id="badgesRow" aria-label="成就徽章">
+    <div class="badge-item" data-badge="role-selected" aria-label="角色就位 — 尚未達成">
+      <div class="badge-icon" style="background:#eaf2f8;" aria-hidden="true">&#x1F3AD;</div>
+      <div class="badge-label">角色就位</div>
+    </div>
+    <div class="badge-item" data-badge="empathy-1" aria-label="同理之眼 — 尚未達成">
+      <div class="badge-icon" style="background:#fef9e7;" aria-hidden="true">&#x1F441;&#xFE0F;</div>
+      <div class="badge-label">同理之眼</div>
+    </div>
+    <div class="badge-item" data-badge="empathy-3" aria-label="全面同理 — 尚未達成">
+      <div class="badge-icon" style="background:#fdf2e9;" aria-hidden="true">&#x1F91D;</div>
+      <div class="badge-label">全面同理</div>
+    </div>
+    <div class="badge-item" data-badge="empathy-all" aria-label="同理大師 — 尚未達成">
+      <div class="badge-icon" style="background:#f9ebea;" aria-hidden="true">&#x1F3C6;</div>
+      <div class="badge-label">同理大師</div>
+    </div>
+    <div class="badge-item" data-badge="quiz-pass" aria-label="知識達人 — 尚未達成">
+      <div class="badge-icon" style="background:#eafaf1;" aria-hidden="true">&#x1F4DD;</div>
+      <div class="badge-label">知識達人</div>
+    </div>
+    <div class="badge-item" data-badge="checklist-50" aria-label="半途勇者 — 尚未達成">
+      <div class="badge-icon" style="background:#f4ecf7;" aria-hidden="true">&#x2705;</div>
+      <div class="badge-label">半途勇者</div>
+    </div>
+    <div class="badge-item" data-badge="checklist-100" aria-label="全面就緒 — 尚未達成">
+      <div class="badge-icon" style="background:#fdedec;" aria-hidden="true">&#x1F3C6;</div>
+      <div class="badge-label">全面就緒</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SEARCH ===== -->
+<div class="search-container">
+  <search id="site-search" role="search" aria-label="站內搜尋">
+    <form class="search-bar" onsubmit="event.preventDefault(); announce('搜尋功能為示範用途，尚未啟用。');">
+      <label for="search-input" class="sr-only">搜尋關鍵字</label>
+      <input id="search-input" type="search" placeholder="搜尋指南內容..." autocomplete="off">
+      <button type="submit">搜尋</button>
+    </form>
+  </search>
+</div>
+
+<!-- ===== NAVIGATION ===== -->
+<nav id="site-nav" class="nav-container" aria-label="學習旅程導航">
+  <div class="nav-tabs" role="tablist" aria-label="章節">
+    <button class="nav-tab" role="tab" id="tab-roles" aria-selected="true" aria-controls="sec-roles" tabindex="0" data-journey="roles">
+      <span class="step-num">1</span>
+      <span class="tab-label">選擇角色</span><span class="tab-label-short">角色</span>
+    </button>
+    <button class="nav-tab" role="tab" id="tab-empathy" aria-selected="false" aria-controls="sec-empathy" tabindex="-1" data-journey="empathy">
+      <span class="step-num">2</span>
+      <span class="tab-label">同理心體驗</span><span class="tab-label-short">體驗</span>
+    </button>
+    <button class="nav-tab" role="tab" id="tab-quiz" aria-selected="false" aria-controls="sec-quiz" tabindex="-1" data-journey="quiz">
+      <span class="step-num">3</span>
+      <span class="tab-label">知識測驗</span><span class="tab-label-short">測驗</span>
+    </button>
+    <button class="nav-tab" role="tab" id="tab-phases" aria-selected="false" aria-controls="sec-phases" tabindex="-1" data-journey="phases">
+      <span class="step-num">4</span>
+      <span class="tab-label">專案階段</span><span class="tab-label-short">階段</span>
+    </button>
+    <button class="nav-tab" role="tab" id="tab-checklist" aria-selected="false" aria-controls="sec-checklist" tabindex="-1" data-journey="checklist">
+      <span class="step-num">5</span>
+      <span class="tab-label">檢核清單</span><span class="tab-label-short">清單</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===================== SECTION: ROLES ===================== -->
+<section class="section active" id="sec-roles" role="tabpanel" aria-labelledby="tab-roles">
+  <h2 class="section-title">團隊角色與無障礙責任</h2>
+  <p class="text-sm text-muted mb-16">無障礙不是某一個人的工作——它是整個團隊的共同責任。以下說明這個結構是如何運作的。</p>
+
+  <div class="layer-diagram">
+    <h3 style="text-align:center;margin-bottom:16px;">AI 時代的無障礙協作架構</h3>
+    <p class="text-sm text-muted" style="text-align:center;margin-bottom:20px;">不再是「誰該做什麼」，而是「什麼必須被確認」。每個人都能做任何事，AI 補足技能缺口，檢查點確保品質。</p>
+    <div class="layer-ring">
+      <div class="layer layer-outer">
+        <div class="layer-label">外圈：交付檢查點</div>
+        <div class="layer-desc">每個產出物交付前，必須通過一組無障礙驗證——任何人 + AI 都可以執行</div>
+        <div class="layer layer-mid">
+          <div class="layer-label">中圈：四大能力區域</div>
+          <div class="layer-desc">視覺 · 操作 · 認知 · 技術——依興趣認領，AI 即時補位</div>
+          <div class="layer layer-inner">
+            <div class="layer-label">核心：全員共同基礎</div>
+            <div class="layer-desc">每一個人都必須具備的無障礙底層認知</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foundation-box">
+    <h3>全員必備：無障礙基礎素養</h3>
+    <p class="text-sm">不管你的角色是什麼，以下能力是<strong>每一位團隊成員</strong>都需要具備的。這不是「加分項」，而是參與這個專案的基本門檻。</p>
+    <div class="foundation-items">
+      <div class="foundation-item">
+        <span class="fi-icon" aria-hidden="true">&#x1F9E0;</span>
+        <span><strong>理解障礙的多元性</strong><br>永久、臨時、情境障礙的差異；視覺、聽覺、肢體、認知四大類型</span>
+      </div>
+      <div class="foundation-item">
+        <span class="fi-icon" aria-hidden="true">&#x1F4CF;</span>
+        <span><strong>認識 WCAG 2.2 AA</strong><br>知道四大原則（可感知、可操作、可理解、穩健），了解 A/AA/AAA 等級的意義</span>
+      </div>
+      <div class="foundation-item">
+        <span class="fi-icon" aria-hidden="true">&#x2328;&#xFE0F;</span>
+        <span><strong>能用鍵盤操作網站</strong><br>每個人都該試過純鍵盤瀏覽，理解 Tab、Enter、Esc 的導航邏輯</span>
+      </div>
+      <div class="foundation-item">
+        <span class="fi-icon" aria-hidden="true">&#x1F50A;</span>
+        <span><strong>用過螢幕閱讀器</strong><br>至少體驗過一次 VoiceOver 或 NVDA，理解視障者如何「聽」網頁</span>
+      </div>
+      <div class="foundation-item">
+        <span class="fi-icon" aria-hidden="true">&#x1F5E3;&#xFE0F;</span>
+        <span><strong>會用無障礙語言溝通</strong><br>能在會議中提出「這個設計色盲使用者看得到嗎？」而不覺得突兀</span>
+      </div>
+      <div class="foundation-item">
+        <span class="fi-icon" aria-hidden="true">&#x1F6A9;</span>
+        <span><strong>敢舉旗</strong><br>發現無障礙問題時敢於提出，不因「不是我的職責」而沉默</span>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin-bottom:8px;">四大能力區域</h3>
+  <p class="text-sm text-muted mb-16">無障礙的工作不再按職稱分配，而是按<strong>需要被守護的面向</strong>來組織。每個人可以依興趣和專長認領一個或多個區域。AI 會補足你不熟悉的部分。</p>
+
+  <div class="role-grid" id="roleGrid">
+    <div class="role-card" data-role="visual" role="button" tabindex="0" aria-pressed="false" onclick="toggleRole('visual')" onkeydown="activateOnEnterSpace(event, function(){ toggleRole('visual') })">
+      <span class="badge-tag">已認領</span>
+      <span class="role-icon" aria-hidden="true">&#x1F441;&#xFE0F;</span>
+      <div class="role-name">視覺無障礙</div>
+      <div class="role-desc">確保所有人——包括低視力、色覺障礙、全盲使用者——都能感知內容。</div>
+      <div class="role-a11y"><strong>守護範圍</strong>色彩對比 &#x2265; 4.5:1 · 不僅靠顏色傳達資訊 · 有意義的 alt text · 放大至 200% 仍可用 · 焦點指示可見</div>
+      <div style="margin-top:8px;font-size:0.78rem;color:var(--text-light);"><em>AI 可幫你：自動掃描對比度、產生 alt text 初稿、檢查灰階模式</em></div>
+    </div>
+    <div class="role-card" data-role="operation" role="button" tabindex="0" aria-pressed="false" onclick="toggleRole('operation')" onkeydown="activateOnEnterSpace(event, function(){ toggleRole('operation') })">
+      <span class="badge-tag">已認領</span>
+      <span class="role-icon" aria-hidden="true">&#x1F590;&#xFE0F;</span>
+      <div class="role-name">操作無障礙</div>
+      <div class="role-desc">確保所有互動都能透過多種方式完成——鍵盤、單手、語音、輔助裝置。</div>
+      <div class="role-a11y"><strong>守護範圍</strong>鍵盤導航完整 · 無鍵盤陷阱 · 觸控目標 &#x2265; 44px · 拖曳有替代操作 · 焦點不被遮擋 · skip link</div>
+      <div style="margin-top:8px;font-size:0.78rem;color:var(--text-light);"><em>AI 可幫你：檢測 Tab 順序、找出缺少鍵盤支援的元件、驗證 ARIA 狀態</em></div>
+    </div>
+    <div class="role-card" data-role="cognitive" role="button" tabindex="0" aria-pressed="false" onclick="toggleRole('cognitive')" onkeydown="activateOnEnterSpace(event, function(){ toggleRole('cognitive') })">
+      <span class="badge-tag">已認領</span>
+      <span class="role-icon" aria-hidden="true">&#x1F9E0;</span>
+      <div class="role-name">認知無障礙</div>
+      <div class="role-desc">確保內容清晰、操作直覺、不造成不必要的認知負擔或時間壓力。</div>
+      <div class="role-a11y"><strong>守護範圍</strong>簡明語言 · 一致的導航與幫助 · 不重複要求輸入 · 無認知測試登入 · 字幕與文字稿 · 錯誤提示清晰</div>
+      <div style="margin-top:8px;font-size:0.78rem;color:var(--text-light);"><em>AI 可幫你：分析文案可讀性等級、簡化複雜句子、產生字幕初稿</em></div>
+    </div>
+    <div class="role-card" data-role="technical" role="button" tabindex="0" aria-pressed="false" onclick="toggleRole('technical')" onkeydown="activateOnEnterSpace(event, function(){ toggleRole('technical') })">
+      <span class="badge-tag">已認領</span>
+      <span class="role-icon" aria-hidden="true">&#x2699;&#xFE0F;</span>
+      <div class="role-name">技術合規</div>
+      <div class="role-desc">確保程式碼結構正確，通過自動化檢測，符合 WCAG 2.2 AA 技術規範。</div>
+      <div class="role-a11y"><strong>守護範圍</strong>語意 HTML · ARIA 正確使用 · CI/CD 自動掃描 · 標題層級 · lang 屬性 · 無障礙聲明頁</div>
+      <div style="margin-top:8px;font-size:0.78rem;color:var(--text-light);"><em>AI 可幫你：寫語意正確的 HTML、修復 ARIA 錯誤、設定 axe-core CI pipeline</em></div>
+    </div>
+  </div>
+
+  <div class="card" style="border-left: 4px solid #8e44ad; background: linear-gradient(135deg, #f8f4fc 0%, #fef9ff 100%);">
+    <h3>AI 在團隊中的三重角色</h3>
+    <p class="text-sm" style="margin-bottom: 14px;">在這個專案中，AI 不是工具，是隊友。它同時扮演三種角色：</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">
+      <div class="foundation-item" style="flex-direction:column;text-align:center;">
+        <strong>即時顧問</strong>
+        <span>不確定 ARIA role 該用哪個？對比度夠不夠？直接問 AI，秒速得到 WCAG 條款引用和範例程式碼。</span>
+      </div>
+      <div class="foundation-item" style="flex-direction:column;text-align:center;">
+        <strong>自動審查員</strong>
+        <span>CI/CD 串接 axe-core，每次提交自動掃描。AI 標記問題，人類判斷優先序和修復方式。</span>
+      </div>
+      <div class="foundation-item" style="flex-direction:column;text-align:center;">
+        <strong>技能平衡器</strong>
+        <span>設計師不懂 ARIA？AI 幫你寫。工程師不懂色彩理論？AI 幫你判斷。每個人都能跨出自己的傳統邊界。</span>
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:12px 16px;background:rgba(142,68,173,0.08);border-radius:10px;">
+      <p class="text-sm"><strong>但 AI 不能取代的是：</strong>與真實使用者的對話、對人類處境的同理心、以及「這個設計讓人感覺如何」的判斷。自動化能抓到約 30% 的無障礙問題，其餘 70% 需要人類的感知和判斷。</p>
+    </div>
+  </div>
+
+  <div class="card" style="border-left: 4px solid #2e86c1; background: linear-gradient(135deg, #eaf2f8 0%, #f0f7ff 100%);">
+    <h3>團隊可用的無障礙工具總覽</h3>
+    <p class="text-sm" style="margin-bottom: 14px;">以下工具已安裝或可免費取得，涵蓋從寫 code 到上線前的完整檢測流程。</p>
+
+    <h4 style="font-size:0.85rem;color:var(--primary);margin:16px 0 8px;border-bottom:1px solid var(--border);padding-bottom:4px;">我們的 AI 工具（已安裝）</h4>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;">
+      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
+        <strong style="color:var(--primary);">UI Reviewer Agent</strong>
+        <span>專門審查 WCAG 2.2 AA 合規性的 AI agent。輸入 UI 程式碼或截圖，自動檢查對比度、鍵盤可操作性、ARIA 正確性、焦點管理等。</span>
+        <span style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">使用：在 Claude Code 對話中請 AI「審查這段 UI 的無障礙」</span>
+      </div>
+      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
+        <strong style="color:var(--primary);">A11y Advisor &amp; Audit Skills</strong>
+        <span><strong>a11y-advisor</strong> 在寫 UI 時即時提供 WCAG 建議（自動觸發）；<strong>a11y-audit</strong> 對頁面做結構化稽核，產出 WCAG 條款對照報告。</span>
+        <span style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">資料來源：WCAG 2.2 規範、WAI-ARIA Authoring Practices</span>
+      </div>
+      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
+        <strong style="color:var(--primary);">Playwright + axe-core</strong>
+        <span>自動開啟瀏覽器，注入 axe-core 引擎掃描。偵測對比度不足、缺少 alt text、ARIA 錯誤等。可整合進 CI/CD 每次提交自動跑。</span>
+        <span style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">使用：<code style="background:#e8e8e8;padding:2px 6px;border-radius:4px;">claude &gt; /e2e</code> 搭配 axe-core 斷言</span>
+      </div>
+    </div>
+
+    <h4 style="font-size:0.85rem;color:var(--primary);margin:20px 0 8px;border-bottom:1px solid var(--border);padding-bottom:4px;">免費外部工具（建議搭配使用）</h4>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;">
+      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
+        <strong>WAVE (WebAIM)</strong>
+        <span>瀏覽器擴充套件，直接在頁面上用圖示標出錯誤、警告、結構問題。最直覺的視覺化檢測工具，適合非工程師使用。也提供 API 做批次掃描。</span>
+        <span style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">wave.webaim.org &#x2014; Chrome / Firefox 擴充套件</span>
+      </div>
+      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
+        <strong>Lighthouse (Google)</strong>
+        <span>Chrome DevTools 內建。除了效能、SEO 之外，也有無障礙評分。跑一次就能看到分數和具體改善建議。適合快速健檢。</span>
+        <span style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">Chrome DevTools &gt; Lighthouse &gt; 勾選 Accessibility</span>
+      </div>
+      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
+        <strong>Accessibility Insights (Microsoft)</strong>
+        <span>提供「快速評估」和「Tab 停靠點視覺化」功能，能清楚看到鍵盤焦點的移動路徑。免費，適合手動測試。</span>
+        <span style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">accessibilityinsights.io &#x2014; Chrome / Edge 擴充套件</span>
+      </div>
+      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
+        <strong>Stark (Figma 插件)</strong>
+        <span>設計階段最強的無障礙工具。在 Figma 裡直接檢查對比度、模擬色覺障礙、標註焦點順序。問題在設計稿就攔下來，不必等到開發。</span>
+        <span style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">getstark.co &#x2014; Figma 插件（免費版可用）</span>
+      </div>
+    </div>
+
+    <h4 style="font-size:0.85rem;color:var(--primary);margin:20px 0 8px;border-bottom:1px solid var(--border);padding-bottom:4px;">值得關注的進階工具</h4>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;">
+      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
+        <strong>axe DevTools AI（Deque，付費）</strong>
+        <span>在免費 axe-core 之上，2025 年加入 AI 導引測試：用 LLM 分析截圖、自動回答原本需要人工判斷的檢查項目，比純規則檢測多抓 10% 問題。另有 axe MCP Server 可整合進 VS Code。</span>
+      </div>
+      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
+        <strong>Evinced（企業級，付費）</strong>
+        <span>用電腦視覺 + 專屬無障礙 LLM，號稱比通用 LLM 準確 3-5 倍。2024 年底拿到 5500 萬美元 C 輪。適合大規模產品線，但無公開定價。</span>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;padding:12px 16px;background:#fdf2f2;border-radius:10px;border-left:3px solid var(--danger);">
+      <p class="text-sm"><strong style="color:var(--danger);">請勿使用「覆蓋層」產品：</strong>AccessiBe（2025 年被美國 FTC 罰款 100 萬美金）和 UserWay（2026 年遭集體訴訟）都是以 JavaScript 覆蓋層宣稱「一鍵合規」的產品。WebAIM 調查顯示 72% 的身障使用者認為這類工具無效。使用它們不僅無法達成合規，反而會增加法律風險。</p>
+    </div>
+
+    <div style="margin-top:12px;padding:12px 16px;background:rgba(46,134,193,0.08);border-radius:10px;">
+      <p class="text-sm"><strong>記住：</strong>所有自動化工具加總只能抓到約 30-40% 的無障礙問題。色彩語意、內容可理解性、操作流程合理性，仍需要人類判斷與真實使用者測試。工具是「第一道防線」，不是「唯一防線」。</p>
+    </div>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--accent);">
+    <h3>交付檢查點：每個產出物的通關門</h3>
+    <p class="text-sm" style="margin-bottom: 12px;">不管是誰做的、用什麼方式做的，每個產出物在交付前必須通過對應的無障礙驗證。<strong>任何人</strong>（包括 AI）都可以執行這些檢查。</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;">
+      <div class="foundation-item"><span><strong>設計稿交付前</strong><br>色彩對比通過 · 觸控尺寸達標 · 焦點狀態設計好 · heading 層級標註 · 不依賴顏色</span></div>
+      <div class="foundation-item"><span><strong>程式碼合併前</strong><br>axe 零 Critical · 鍵盤可操作 · 螢幕閱讀器念得通 · ARIA 正確 · label 綁定</span></div>
+      <div class="foundation-item"><span><strong>內容發布前</strong><br>alt text 有意義 · 語言簡明 · 影片有字幕 · 幫助資訊一致 · 閱讀等級合理</span></div>
+      <div class="foundation-item"><span><strong>上線前</strong><br>全站掃描通過 · 真人測試完成 · 無障礙聲明頁就位 · 回饋管道可用 · 監控計畫制定</span></div>
+    </div>
+  </div>
+
+  <div class="card" style="background:#f7f9fc;">
+    <h3>你目前主要負責的工作？</h3>
+    <p class="text-sm text-muted" style="margin-bottom:12px;">選擇後，後續的檢核清單和階段任務會為你高亮相關項目。這不代表「只做這些」，只是幫你快速定位。</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;" id="roleSelectorPills">
+      <button class="filter-pill" aria-pressed="false" onclick="toggleRole('pm')" data-role="pm">專案統籌</button>
+      <button class="filter-pill" aria-pressed="false" onclick="toggleRole('designer')" data-role="designer">設計</button>
+      <button class="filter-pill" aria-pressed="false" onclick="toggleRole('dev')" data-role="dev">工程開發</button>
+      <button class="filter-pill" aria-pressed="false" onclick="toggleRole('content')" data-role="content">內容</button>
+      <button class="filter-pill" aria-pressed="false" onclick="toggleRole('qa')" data-role="qa">測試驗證</button>
+    </div>
+  </div>
+  <div class="next-step-cta" onclick="showSection('empathy')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')showSection('empathy')">
+    下一步：親身體驗不同使用者的處境 <span class="arrow" aria-hidden="true">&#x2192;</span>
+  </div>
+</section>
+
+<!-- ===================== SECTION: PHASES ===================== -->
+<section class="section" id="sec-phases" role="tabpanel" aria-labelledby="tab-phases">
+  <div id="phaseOverview">
+    <h2 class="section-title">專案五大階段</h2>
+    <p class="text-sm text-muted mb-24">點選任一階段查看詳細任務、各角色職責與無障礙關鍵行動。</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--primary);" aria-hidden="true">1</div>
+        <div class="phase-card" role="button" tabindex="0" onclick="showPhaseDetail(0)" onkeydown="activateOnEnterSpace(event, function(){ showPhaseDetail(0) })">
+          <h3>規劃階段</h3>
+          <div class="phase-subtitle">定義無障礙目標與範圍、盤點現有問題、建立團隊共識</div>
+          <span class="tag" style="background:#eaf2f8;color:var(--primary);">2-3 週</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--accent);" aria-hidden="true">2</div>
+        <div class="phase-card" role="button" tabindex="0" onclick="showPhaseDetail(1)" onkeydown="activateOnEnterSpace(event, function(){ showPhaseDetail(1) })">
+          <h3>設計階段</h3>
+          <div class="phase-subtitle">建立無障礙設計系統、原型測試、使用者研究</div>
+          <span class="tag" style="background:#fef9e7;color:var(--accent);">3-4 週</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:#27ae60;" aria-hidden="true">3</div>
+        <div class="phase-card" role="button" tabindex="0" onclick="showPhaseDetail(2)" onkeydown="activateOnEnterSpace(event, function(){ showPhaseDetail(2) })">
+          <h3>開發階段</h3>
+          <div class="phase-subtitle">語意 HTML、ARIA 實作、鍵盤支援、持續整合測試</div>
+          <span class="tag" style="background:#eafaf1;color:#27ae60;">4-6 週</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:#8e44ad;" aria-hidden="true">4</div>
+        <div class="phase-card" role="button" tabindex="0" onclick="showPhaseDetail(3)" onkeydown="activateOnEnterSpace(event, function(){ showPhaseDetail(3) })">
+          <h3>測試階段</h3>
+          <div class="phase-subtitle">自動化掃描、手動測試、輔助科技測試、使用者驗證</div>
+          <span class="tag" style="background:#f4ecf7;color:#8e44ad;">2-3 週</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:#e74c3c;" aria-hidden="true">5</div>
+        <div class="phase-card" role="button" tabindex="0" onclick="showPhaseDetail(4)" onkeydown="activateOnEnterSpace(event, function(){ showPhaseDetail(4) })">
+          <h3>上線階段</h3>
+          <div class="phase-subtitle">最終驗收、上線部署、監控回饋、持續改善計畫</div>
+          <span class="tag" style="background:#fdedec;color:#e74c3c;">1-2 週</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="phase-detail" id="phaseDetail"></div>
+  <div class="next-step-cta" onclick="showSection('checklist')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')showSection('checklist')">
+    下一步：用檢核清單確認每個環節 <span class="arrow" aria-hidden="true">&#x2192;</span>
+  </div>
+</section>
+
+<!-- ===================== SECTION: EMPATHY ===================== -->
+<section class="section" id="sec-empathy" role="tabpanel" aria-labelledby="tab-empathy">
+  <h2 class="section-title">同理心體驗區</h2>
+  <p class="text-sm text-muted mb-24">在這裡，你將親身體驗不同使用者面對網站的真實感受。每完成一個模擬，都會更深刻理解無障礙設計的價值。</p>
+  <div class="sim-grid">
+    <!-- 1. Low Vision -->
+    <div class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#2c3e50,#4a6fa5);" aria-hidden="true">
+        <div style="filter:blur(3px);font-size:1.3rem;">你能讀懂這段文字嗎？<br>這就是低視力者的日常</div>
+      </div>
+      <div class="sim-info">
+        <h3>低視力模擬</h3>
+        <p>模擬黃斑部病變、白內障等造成的視覺模糊。整個頁面將變得模糊，你能完成任務嗎？</p>
+        <button class="sim-btn" onclick="openSim('lowvision')">開始沉浸體驗</button>
+      </div>
+    </div>
+    <!-- 2. Color Blindness -->
+    <div class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#7f8c8d,#95a5a6);" aria-hidden="true">
+        <div style="filter:grayscale(0.8) sepia(0.2);"><span style="color:#e74c3c;font-weight:bold;">錯誤！</span> 與 <span style="color:#27ae60;font-weight:bold;">成功！</span><br>你分得出來嗎？</div>
+      </div>
+      <div class="sim-info">
+        <h3>色覺障礙模擬</h3>
+        <p>全球約 8% 男性有色覺異常。切換紅色弱、綠色弱、全色盲模式，體驗整個頁面的色彩變化。</p>
+        <button class="sim-btn" onclick="openSim('colorblind')">開始沉浸體驗</button>
+      </div>
+    </div>
+    <!-- 3. Screen Reader (Blindness) -->
+    <div class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#1a1a2e,#16213e);" aria-hidden="true">
+        <div style="font-family:'Courier New',monospace;color:#0f0;">[heading level 2]<br>「同理心體驗區」</div>
+      </div>
+      <div class="sim-info">
+        <h3>螢幕閱讀器模擬</h3>
+        <p>螢幕全黑，只能用方向鍵逐一「聽」取頁面元素。體驗全盲者如何理解網頁。</p>
+        <button class="sim-btn" onclick="openSim('screenreader')">開始沉浸體驗</button>
+      </div>
+    </div>
+    <!-- 4. Motor Impairment -->
+    <div class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#d35400,#e67e22);" aria-hidden="true">
+        <div>試著用顫抖的手<br>點擊那個小小的按鈕</div>
+      </div>
+      <div class="sim-info">
+        <h3>肢體障礙模擬</h3>
+        <p>你的游標會不受控制地顫抖。體驗帕金森症患者面對的精確操作挑戰。</p>
+        <button class="sim-btn" onclick="openSim('motor')">開始沉浸體驗</button>
+      </div>
+    </div>
+    <!-- 5. Keyboard Only -->
+    <div class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#1a5276,#2980b9);" aria-hidden="true">
+        <div>如果你的滑鼠壞了<br>你能用鍵盤完成所有操作嗎？</div>
+      </div>
+      <div class="sim-info">
+        <h3>純鍵盤操作</h3>
+        <p>滑鼠完全停用。只能靠 Tab、Enter、方向鍵操作整個頁面。</p>
+        <button class="sim-btn" onclick="openSim('keyboard')">開始沉浸體驗</button>
+      </div>
+    </div>
+    <!-- 6. ADHD -->
+    <div class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#6c3483,#8e44ad);" aria-hidden="true">
+        <div style="font-size:0.85rem;line-height:1.3;">閃爍 · 自動播放 · 倒數計時 · 彈出視窗 · 動態廣告<br>同時處理這些，你還好嗎？</div>
+      </div>
+      <div class="sim-info">
+        <h3>ADHD 注意力分散模擬</h3>
+        <p>倒數計時、彈出通知、自動捲動⋯⋯在這些干擾中完成簡單任務。</p>
+        <button class="sim-btn" onclick="openSim('adhd')">開始沉浸體驗</button>
+      </div>
+    </div>
+    <!-- 7. Autism -->
+    <div class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#c0392b,#e74c3c);" aria-hidden="true">
+        <div style="font-size:0.85rem;">過度飽和 · 版面跳動<br>感覺快要崩潰了</div>
+      </div>
+      <div class="sim-info">
+        <h3>Autism 感覺過載模擬</h3>
+        <p>色彩過度飽和、版面隨機偏移、hover 反應誇張。感受感覺過載的世界。</p>
+        <button class="sim-btn" onclick="openSim('autism')">開始沉浸體驗</button>
+      </div>
+    </div>
+    <!-- 8. Dyslexia -->
+    <div class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#2e86c1,#3498db);" aria-hidden="true">
+        <div style="font-size:0.95rem;">bdpq bdpq<br>文字在跳舞嗎？</div>
+      </div>
+      <div class="sim-info">
+        <h3>Dyslexia 閱讀障礙模擬</h3>
+        <p>字母隨機互換（b/d, p/q）、行距不穩定。體驗閱讀障礙者看到的文字。</p>
+        <button class="sim-btn" onclick="openSim('dyslexia')">開始沉浸體驗</button>
+      </div>
+    </div>
+    <!-- 9. Hearing -->
+    <div class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#117864,#1abc9c);" aria-hidden="true">
+        <div style="font-size:1.1rem;">&#x1F5E3; ......<br>（你聽到了什麼？）</div>
+      </div>
+      <div class="sim-info">
+        <h3>聽覺障礙模擬</h3>
+        <p>沒有字幕的音訊，你能理解多少？體驗聾人面對無字幕影片的真實處境。</p>
+        <button class="sim-btn" onclick="openSim('hearing')">開始體驗</button>
+      </div>
+    </div>
+    <!-- 10. Anxiety -->
+    <div class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#7d3c98,#a569bd);" aria-hidden="true">
+        <div style="font-size:0.85rem;">倒數 00:00:45<br>「發生錯誤。請重試。」</div>
+      </div>
+      <div class="sim-info">
+        <h3>焦慮症模擬</h3>
+        <p>倒數計時壓力、隨機錯誤訊息、按鈕微移。體驗焦慮症患者面對的數位壓力。</p>
+        <button class="sim-btn" onclick="openSim('anxiety')">開始沉浸體驗</button>
+      </div>
+    </div>
+
+    <!-- Education Cards -->
+    <div class="edu-card">
+      <div class="edu-header">教育資訊</div>
+      <div class="sim-info">
+        <h3>臨時障礙情境</h3>
+        <p>手臂骨折、大太陽下看手機、一手抱小孩——每個人都可能成為臨時障礙者。微軟的包容性設計框架指出：永久、臨時、情境障礙的設計解方往往相通。</p>
+        <button class="sim-btn" onclick="openSim('temporary')">探索情境</button>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-header">教育資訊</div>
+      <div class="sim-info">
+        <h3>WCAG 快速指南</h3>
+        <p>WCAG 2.2 四大原則：<strong>可感知</strong>（替代文字、字幕）、<strong>可操作</strong>（鍵盤、充足時間）、<strong>可理解</strong>（清晰語言、一致導航）、<strong>穩健性</strong>（相容各種輔助技術）。</p>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-header">教育資訊</div>
+      <div class="sim-info">
+        <h3>障礙統計數據</h3>
+        <p>全球約 13 億人（16%）有某種形式的障礙。台灣約 120 萬持有身心障礙證明。但任何人在任何時刻都可能經歷臨時或情境障礙。</p>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-header">教育資訊</div>
+      <div class="sim-info">
+        <h3>輔助科技介紹</h3>
+        <p>螢幕閱讀器（NVDA、VoiceOver）、螢幕放大鏡、語音控制、頭部追蹤、眼球追蹤、特殊鍵盤、單指操作切換——了解使用者如何使用你設計的產品。</p>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>你的同理心歷程</h3>
+    <p id="empathyProgress">尚未開始任何體驗。每完成一個模擬，你對使用者的理解就會更深一步。（共 10 個沉浸體驗）</p>
+  </div>
+  <div class="next-step-cta" onclick="showSection('quiz')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')showSection('quiz')">
+    下一步：測試你的無障礙知識 <span class="arrow" aria-hidden="true">&#x2192;</span>
+  </div>
+</section>
+
+<!-- ===== SIMULATION DIALOG (native dialog = free focus trap + Esc) ===== -->
+<dialog class="sim-dialog" id="simDialog" aria-label="同理心模擬體驗">
+  <div id="simModal"></div>
+</dialog>
+
+<!-- ===================== SECTION: QUIZ ===================== -->
+<section class="section" id="sec-quiz" role="tabpanel" aria-labelledby="tab-quiz">
+  <h2 class="section-title">無障礙知識測驗</h2>
+  <p class="text-sm text-muted mb-24">測試你對 WCAG 標準與無障礙實務的理解。答對越多，離「知識達人」徽章越近！</p>
+  <div id="quizContainer"></div>
+  <div class="quiz-score" id="quizScore">
+    <div class="score-num" id="scoreNum">0/0</div>
+    <div class="score-label">正確率</div>
+    <div id="quizBadge"></div>
+    <div style="margin-top:16px;">
+      <button class="sim-btn" onclick="resetQuiz()">重新測驗</button>
+    </div>
+  </div>
+  <div class="next-step-cta" onclick="showSection('phases')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')showSection('phases')">
+    下一步：了解專案階段與你的職責 <span class="arrow" aria-hidden="true">&#x2192;</span>
+  </div>
+</section>
+
+<!-- ===================== SECTION: CHECKLIST ===================== -->
+<section class="section" id="sec-checklist" role="tabpanel" aria-labelledby="tab-checklist">
+  <h2 class="section-title">全流程檢核清單</h2>
+  <p class="text-sm text-muted mb-16">依角色篩選你需要關注的項目。勾選已完成的項目來追蹤進度。</p>
+  <div class="filter-pills" id="checklistFilters" role="group" aria-label="依角色篩選"></div>
+  <div id="checklistContainer"></div>
+</section>
+
+</main>
+
+<footer role="contentinfo">
+  <p>NGO 無障礙網站改版團隊導引手冊 · 基於 WCAG 2.2 AA 標準</p>
+  <p style="margin-top:4px;">讓每一個人，都能平等地取得資訊</p>
+</footer>
+
+<script>
+// ===== UTILITY =====
+function activateOnEnterSpace(event, callback) {
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault();
+    callback();
+  }
+}
+function announce(message) {
+  var el = document.getElementById('liveAnnouncer');
+  el.textContent = '';
+  requestAnimationFrame(function() { el.textContent = message; });
+}
+
+// ===== STATE =====
+var state = {
+  selectedRoles: new Set(),
+  completedSims: new Set(),
+  checkedItems: new Set(),
+  quizAnswered: 0,
+  quizCorrect: 0,
+  badges: new Set()
+};
+
+var roleColors = { pm:'#1a5276', designer:'#e67e22', dev:'#27ae60', content:'#8e44ad', qa:'#e74c3c', visual:'#2980b9', operation:'#d35400', cognitive:'#8e44ad', technical:'#27ae60' };
+var roleNames = { pm:'統籌', designer:'設計', dev:'工程', content:'內容', qa:'測試', visual:'視覺', operation:'操作', cognitive:'認知', technical:'技術' };
+
+// ===== PHASE DATA =====
+var phases = [
+  { name:'規劃階段', color:'var(--primary)', description:'在動手之前，先建立團隊共識、盤點現有網站的無障礙問題、定義目標等級（WCAG 2.2 AA）。',
+    tasks:[{text:'執行現有網站無障礙審計（使用 axe、Lighthouse 等工具）',roles:['qa','dev']},{text:'整理審計報告，列出優先修復項目',roles:['pm','qa']},{text:'訪談身心障礙使用者或團體，收集真實需求',roles:['pm','designer']},{text:'制定無障礙目標（例：WCAG 2.2 AA 全面符合）',roles:['pm']},{text:'建立專案時程表，納入各階段無障礙檢查點',roles:['pm']},{text:'安排團隊無障礙培訓工作坊',roles:['pm']},{text:'盤點現有內容的替代文字、字幕覆蓋率',roles:['content','qa']}],
+    testing:['使用 Lighthouse、axe DevTools 掃描現有網站','用螢幕閱讀器（NVDA / VoiceOver）試用現有網站','記錄所有無法靠鍵盤操作的功能']},
+  { name:'設計階段', color:'var(--accent)', description:'將無障礙需求融入設計系統。確保每個元件從一開始就考慮到多元使用者。',
+    tasks:[{text:'建立色彩系統，確保所有前景/背景組合的對比度 \u2265 4.5:1',roles:['designer']},{text:'設定最小字級 16px，行高 \u2265 1.5 倍',roles:['designer']},{text:'設計觸控目標最小 44\u00d744px',roles:['designer']},{text:'為所有互動元件設計焦點狀態（focus state）',roles:['designer']},{text:'確保焦點元件不被其他內容遮擋（WCAG 2.2 新增 2.4.11）',roles:['designer']},{text:'建立錯誤提示的多重管道：顏色 + 圖示 + 文字',roles:['designer']},{text:'拖曳操作提供替代方式（WCAG 2.2 新增 2.5.7）',roles:['designer']},{text:'製作線框稿並標註語意結構（heading hierarchy）',roles:['designer']},{text:'使用者測試：邀請身心障礙者參與原型測試',roles:['designer','pm']},{text:'撰寫設計交付文件，包含無障礙規格',roles:['designer']}],
+    testing:['使用 Colour Contrast Analyser 驗證所有色彩組合','在設計稿上標註 heading 層級，確認符合邏輯','用 Figma 的 A11y 插件檢查設計稿','模擬灰階模式，確認不依賴顏色傳達資訊']},
+  { name:'開發階段', color:'#27ae60', description:'將設計轉化為語意正確、鍵盤可操作、螢幕閱讀器友善的程式碼。',
+    tasks:[{text:'使用語意 HTML 標籤（nav, main, article, aside, header, footer）',roles:['dev']},{text:'所有圖片加上有意義的 alt 文字',roles:['dev','content']},{text:'表單元素正確綁定 label',roles:['dev']},{text:'實作鍵盤導航：Tab 順序合理、可見焦點指示',roles:['dev']},{text:'確保所有互動元件有正確的 ARIA role 和 state',roles:['dev']},{text:'影片加上字幕、音訊加上文字稿',roles:['content','dev']},{text:'設定 CI/CD 加入 axe-core 自動測試',roles:['dev']},{text:'實作跳過導航（skip navigation）連結',roles:['dev']},{text:'確保頁面在 200% 放大下仍可使用',roles:['dev']},{text:'幫助資訊在各頁面位置一致（WCAG 2.2 新增 3.2.6）',roles:['dev','content']},{text:'驗證不要求使用者重複輸入已提供的資訊（WCAG 2.2 新增 3.3.7）',roles:['dev']},{text:'登入流程提供非認知功能測試的替代方式（WCAG 2.2 新增 3.3.8）',roles:['dev']},{text:'撰寫替代文字指南供內容團隊使用',roles:['content']}],
+    testing:['每次 PR 執行 axe-core 自動掃描','手動鍵盤測試所有互動元件','使用 NVDA / VoiceOver 測試表單流程','在行動裝置上測試觸控目標大小']},
+  { name:'測試階段', color:'#8e44ad', description:'系統性地驗證所有頁面與功能的無障礙合規性。結合自動與手動測試。',
+    tasks:[{text:'執行全站 axe / Lighthouse 自動掃描',roles:['qa','dev']},{text:'每頁手動鍵盤導航測試',roles:['qa']},{text:'使用 NVDA（Windows）+ VoiceOver（macOS/iOS）測試',roles:['qa']},{text:'在 Android TalkBack 上測試',roles:['qa']},{text:'測試所有表單的錯誤處理與提示',roles:['qa']},{text:'驗證色彩對比（前景/背景、大字/小字）',roles:['qa','designer']},{text:'測試頁面 200% 放大的排版',roles:['qa']},{text:'邀請身心障礙使用者進行真人測試',roles:['pm','qa']},{text:'整理缺陷清單並排定修復優先順序',roles:['qa','pm']},{text:'回歸測試修復後的項目',roles:['qa']}],
+    testing:['建立測試矩陣：頁面 \u00d7 瀏覽器 \u00d7 輔助科技','記錄每個缺陷的 WCAG 違反條款','驗證所有 Critical / Major 問題已修復','產出無障礙測試報告']},
+  { name:'上線階段', color:'#e74c3c', description:'最終驗收後部署上線，建立持續監控與改善機制。',
+    tasks:[{text:'最終無障礙驗收測試',roles:['qa','pm']},{text:'撰寫無障礙聲明頁（Accessibility Statement）',roles:['content','pm']},{text:'建立使用者回饋管道（無障礙問題回報）',roles:['dev','pm']},{text:'上線前 Lighthouse 分數確認 \u2265 90',roles:['dev','qa']},{text:'部署後即時監控：檢查關鍵頁面是否正常',roles:['dev']},{text:'制定持續維護計畫：定期掃描、季度審計',roles:['pm']},{text:'建立新內容發布的無障礙檢查 SOP',roles:['content','pm']}],
+    testing:['上線後 24 小時內完整掃描一次','確認無障礙聲明頁可被找到且內容正確','驗證回饋管道本身也是無障礙的']}
+];
+
+// ===== QUIZ DATA =====
+var quizData = [
+  {q:'WCAG 2.2 AA 要求一般文字的最低色彩對比度是多少？',opts:['3:1','4.5:1','7:1','2:1'],correct:1,explain:'WCAG 2.2 AA 要求一般文字（小於 18pt 或 14pt 粗體）的前景與背景對比度至少 4.5:1。大字可放寬至 3:1。'},
+  {q:'以下哪一個 HTML 元素最適合用來標示網站的主要導航列？',opts:['&lt;div class="nav"&gt;','&lt;nav&gt;','&lt;ul class="menu"&gt;','&lt;header&gt;'],correct:1,explain:'&lt;nav&gt; 是語意化的導航標籤，能讓螢幕閱讀器辨識並快速跳至導航區。避免用 div 替代語意標籤。'},
+  {q:'為什麼不應該僅用顏色來傳達資訊？',opts:['因為顏色在行動裝置上顯示不同','因為色覺障礙者無法分辨某些顏色','因為 WCAG 禁止使用顏色','因為黑白列印時看不到顏色'],correct:1,explain:'約 8% 的男性與 0.5% 的女性有某種形式的色覺異常。資訊應同時透過顏色、圖示、文字等多管道傳達（WCAG 1.4.1）。'},
+  {q:'什麼是 ARIA？它的首要原則是什麼？',opts:['一種 CSS 框架；首要原則是使用最新版本','無障礙富網路應用；首要原則是「能用原生 HTML 就不要用 ARIA」','一種 JavaScript 函式庫；首要原則是取代所有 HTML 標籤','一種測試工具；首要原則是自動修復所有問題'],correct:1,explain:'ARIA（Accessible Rich Internet Applications）是 W3C 規範。第一原則：如果原生 HTML 元素能達到目的，就優先使用原生元素，不要加 ARIA。'},
+  {q:'鍵盤使用者按 Tab 鍵時，焦點應該：',opts:['隨機跳到任何可互動元素','按照 DOM 順序依序移動，且有可見的焦點指示','只在表單欄位之間移動','自動跳到頁面底部'],correct:1,explain:'焦點順序應符合邏輯（通常是 DOM 順序），且每個可互動元素都必須有可見的焦點指示（WCAG 2.4.7）。'},
+  {q:'以下何者是「臨時障礙」的例子？',opts:['先天性色覺異常','手臂骨折打石膏，只能單手操作','永久性聽力損失','學習障礙'],correct:1,explain:'臨時障礙是指暫時性的身體限制，如骨折、眼睛手術後、嘈雜環境等。無障礙設計幫助所有人，包括臨時障礙者。'},
+  {q:'圖片的 alt 屬性什麼時候應該留空（alt=""）？',opts:['永遠不應該留空','當圖片純粹是裝飾性的，不含有意義的資訊','當圖片太小看不清楚時','當圖片有 title 屬性時'],correct:1,explain:'裝飾性圖片應使用空的 alt=""，讓螢幕閱讀器跳過它。但有意義的圖片必須提供描述性替代文字。'},
+  {q:'以下哪項測試是自動化工具「無法」完成的？',opts:['檢查色彩對比度','判斷替代文字是否有意義地描述圖片','偵測缺少的 form label','找出缺少 lang 屬性的頁面'],correct:1,explain:'自動化工具只能偵測約 30% 的無障礙問題。判斷 alt 文字是否「有意義」需要人工判斷。這就是為什麼手動測試不可或缺。'},
+  {q:'WCAG 2.2 AA 要求觸控目標的最小尺寸是多少？',opts:['24\u00d724 CSS 像素','44\u00d744 CSS 像素','32\u00d732 CSS 像素','沒有尺寸要求'],correct:0,explain:'WCAG 2.2 新增了 2.5.8 Target Size (Minimum) 準則，AA 等級要求觸控目標至少 24\u00d724 CSS 像素。AAA 等級則要求 44\u00d744。實務上建議以 44\u00d744 為設計目標。'},
+  {q:'什麼是「鍵盤陷阱（keyboard trap）」？',opts:['一種防止使用者離開頁面的安全機制','焦點進入某個元件後，無法用鍵盤離開','一種加快鍵盤輸入速度的技巧','禁止使用者使用快捷鍵的設定'],correct:1,explain:'鍵盤陷阱是嚴重的無障礙問題（WCAG SC 2.1.2 No Keyboard Trap）。使用者的焦點被困在某個元件中，無法靠 Tab 或 Esc 離開。'},
+  {q:'WCAG 2.2 新增了哪一項關於登入流程的準則？',opts:['登入頁面必須使用深色模式','不得要求使用者完成認知功能測試（如記憶密碼以外的驗證）才能登入','必須使用生物辨識登入','登入頁面不得超過三個欄位'],correct:1,explain:'WCAG 2.2 新增 3.3.8 Accessible Authentication (Minimum)，要求登入流程不得依賴認知功能測試，應支援密碼管理器貼上、passkey 等替代方式。'},
+  {q:'WCAG 2.2 的「Focus Not Obscured」(2.4.11) 要求什麼？',opts:['焦點指示必須是紅色','獲得鍵盤焦點的元件不得被其他頁面內容完全遮住','焦點必須自動移到頁面頂部','焦點元件必須放大 200%'],correct:1,explain:'2.4.11 Focus Not Obscured (Minimum) 要求當元件獲得焦點時，不會被固定標頭、浮動面板等完全遮住。這幫助鍵盤使用者始終看到自己操作的位置。'}
+];
+
+// ===== NAVIGATION (ARIA tabs) =====
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('sec-' + id).classList.add('active');
+  document.querySelectorAll('[role="tab"]').forEach(function(t) {
+    var isActive = t.id === 'tab-' + id;
+    t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    t.tabIndex = isActive ? 0 : -1;
+  });
+  updateJourneyStepper(id);
+  window.scrollTo({ top: 200, behavior: 'smooth' });
+}
+
+// ===== JOURNEY PROGRESS =====
+var journeyVisited = new Set(['roles']);
+
+function updateJourneyStepper(activeId) {
+  journeyVisited.add(activeId);
+  document.querySelectorAll('.nav-tab[data-journey]').forEach(function(tab) {
+    var id = tab.dataset.journey;
+    tab.classList.remove('completed');
+    if (id !== activeId && journeyVisited.has(id) && isJourneyStepDone(id)) {
+      tab.classList.add('completed');
+      tab.querySelector('.step-num').textContent = '\u2713';
+    } else if (!tab.classList.contains('completed')) {
+      var idx = ['roles','empathy','quiz','phases','checklist'].indexOf(id);
+      tab.querySelector('.step-num').textContent = idx + 1;
+    }
+  });
+}
+
+function isJourneyStepDone(id) {
+  switch (id) {
+    case 'roles': return state.selectedRoles.size > 0;
+    case 'empathy': return state.completedSims.size >= 1;
+    case 'quiz': return state.quizAnswered > 0;
+    case 'phases': return journeyVisited.has('phases');
+    case 'checklist': return state.checkedItems.size > 0;
+    default: return false;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var tablist = document.querySelector('[role="tablist"]');
+  if (!tablist) return;
+  tablist.addEventListener('keydown', function(e) {
+    var tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
+    var idx = tabs.indexOf(document.activeElement);
+    if (idx === -1) return;
+    var newIdx;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') newIdx = (idx + 1) % tabs.length;
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') newIdx = (idx - 1 + tabs.length) % tabs.length;
+    else if (e.key === 'Home') newIdx = 0;
+    else if (e.key === 'End') newIdx = tabs.length - 1;
+    else return;
+    e.preventDefault();
+    tabs[newIdx].focus();
+    showSection(tabs[newIdx].id.replace('tab-', ''));
+  });
+  tablist.querySelectorAll('[role="tab"]').forEach(function(tab) {
+    tab.addEventListener('click', function() { showSection(tab.id.replace('tab-', '')); });
+  });
+});
+
+// ===== ROLES =====
+function toggleRole(role) {
+  if (state.selectedRoles.has(role)) state.selectedRoles.delete(role);
+  else state.selectedRoles.add(role);
+  var isSelected = state.selectedRoles.has(role);
+  document.querySelectorAll('.role-card').forEach(function(c) {
+    c.setAttribute('aria-pressed', state.selectedRoles.has(c.dataset.role) ? 'true' : 'false');
+  });
+  document.querySelectorAll('#roleSelectorPills .filter-pill').forEach(function(p) {
+    p.setAttribute('aria-pressed', state.selectedRoles.has(p.dataset.role) ? 'true' : 'false');
+  });
+  if (state.selectedRoles.size > 0) earnBadge('role-selected');
+  renderChecklistFilters();
+  updateProgress();
+  updateJourneyStepper('roles');
+  announce(isSelected ? roleNames[role] + ' 已認領' : roleNames[role] + ' 已取消認領');
+}
+
+// ===== PHASES =====
+function showPhaseDetail(idx) {
+  var phase = phases[idx];
+  var detail = document.getElementById('phaseDetail');
+  var overview = document.getElementById('phaseOverview');
+  var tasksHTML = phase.tasks.map(function(t, i) {
+    var roleTags = t.roles.map(function(r) {
+      return '<span class="check-role-tag" style="background:' + roleColors[r] + '20;color:' + roleColors[r] + ';">' + roleNames[r] + '</span>';
+    }).join('');
+    var highlight = state.selectedRoles.size === 0 || t.roles.some(function(r) { return state.selectedRoles.has(r); });
+    return '<li style="opacity:' + (highlight ? 1 : 0.4) + '"><span style="color:var(--text-light);font-size:0.8rem;min-width:20px;">' + (i+1) + '.</span><span class="check-text">' + t.text + ' ' + roleTags + '</span></li>';
+  }).join('');
+  var testHTML = phase.testing.map(function(t) {
+    return '<li style="padding:8px 0;border-bottom:1px solid var(--border);font-size:0.92rem;">' + t + '</li>';
+  }).join('');
+  detail.textContent = '';
+  detail.insertAdjacentHTML('beforeend',
+    '<button class="back-btn" onclick="backToPhases()"><span aria-hidden="true">&larr;</span> 返回階段總覽</button>' +
+    '<div class="card" style="border-left:4px solid ' + phase.color + ';"><h3>' + phase.name + '</h3><p style="margin:8px 0 16px;">' + phase.description + '</p><div style="font-weight:600;margin-bottom:8px;">任務清單</div><ul class="checklist" style="margin-bottom:20px;">' + tasksHTML + '</ul><div style="font-weight:600;margin-bottom:8px;">本階段測試重點</div><ul style="list-style:none;padding:0;">' + testHTML + '</ul></div>'
+  );
+  overview.style.display = 'none';
+  detail.classList.add('active');
+  detail.querySelector('.back-btn').focus();
+}
+
+function backToPhases() {
+  document.getElementById('phaseOverview').style.display = 'block';
+  document.getElementById('phaseDetail').classList.remove('active');
+}
+
+// ===== IMMERSIVE SIMULATION ENGINE =====
+var immersiveSim = {
+  active: null,
+  intervals: [],
+  listeners: [],
+  elements: [],
+  timeout: null,
+  originalBodyFilter: '',
+  originalBodyCursor: '',
+
+  start: function(type, config) {
+    if (this.active) this.stop();
+    this.active = type;
+    this.originalBodyFilter = document.body.style.filter;
+    this.originalBodyCursor = document.body.style.cursor;
+
+    var dialog = document.getElementById('simDialog');
+    if (dialog.open) dialog.close();
+
+    var panel = document.getElementById('simControlPanel');
+    panel.classList.add('active');
+    document.getElementById('simControlTitle').textContent = config.title;
+    document.getElementById('simControlChallenge').textContent = config.challenge;
+
+    var sliderContainer = document.getElementById('simControlSlider');
+    if (config.hasSlider) {
+      sliderContainer.style.display = 'block';
+      var slider = document.getElementById('simIntensity');
+      slider.value = config.sliderDefault || 50;
+      slider.oninput = config.onSliderChange || null;
+      if (config.onSliderChange) config.onSliderChange({ target: slider });
+    } else {
+      sliderContainer.style.display = 'none';
+    }
+
+    var modesContainer = document.getElementById('simControlModes');
+    if (config.modes) {
+      modesContainer.style.display = 'block';
+      modesContainer.textContent = '';
+      modesContainer.className = 'sim-mode-btns';
+      config.modes.forEach(function(mode, i) {
+        var btn = document.createElement('button');
+        btn.className = 'sim-mode-btn' + (i === 0 ? ' active' : '');
+        btn.textContent = mode.label;
+        btn.addEventListener('click', function() {
+          modesContainer.querySelectorAll('.sim-mode-btn').forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          mode.activate();
+        });
+        modesContainer.appendChild(btn);
+      });
+    } else {
+      modesContainer.style.display = 'none';
+    }
+
+    if (config.apply) config.apply();
+
+    this.timeout = setTimeout(function() {
+      announce('模擬已自動停止（3 分鐘時間到）');
+      immersiveSim.stop();
+    }, 180000);
+
+    var escHandler = function(e) {
+      if (e.key === 'Escape' && immersiveSim.active) {
+        e.preventDefault();
+        immersiveSim.stop();
+      }
+    };
+    document.addEventListener('keydown', escHandler);
+    this.listeners.push({ el: document, event: 'keydown', fn: escHandler, capture: false });
+
+    announce(config.title + ' 已啟動。' + config.challenge);
+  },
+
+  addInterval: function(id) { this.intervals.push(id); },
+  addElement: function(el) { this.elements.push(el); },
+  addListener: function(el, event, fn, capture) {
+    el.addEventListener(event, fn, !!capture);
+    this.listeners.push({ el: el, event: event, fn: fn, capture: !!capture });
+  },
+
+  stop: function() {
+    if (!this.active) return;
+    var simType = this.active;
+    this.active = null;
+
+    if (this.timeout) { clearTimeout(this.timeout); this.timeout = null; }
+
+    this.intervals.forEach(function(id) { clearInterval(id); });
+    this.intervals = [];
+
+    this.listeners.forEach(function(l) { l.el.removeEventListener(l.event, l.fn, !!l.capture); });
+    this.listeners = [];
+
+    this.elements.forEach(function(el) { if (el.parentNode) el.parentNode.removeChild(el); });
+    this.elements = [];
+
+    document.body.style.filter = this.originalBodyFilter;
+    document.body.style.cursor = this.originalBodyCursor;
+    document.body.classList.remove('sim-active-motor', 'sim-active-keyboard', 'sim-active-anxiety', 'sim-active-autism');
+
+    document.getElementById('simControlPanel').classList.remove('active');
+
+    document.getElementById('srSimOverlay').classList.remove('active');
+    document.getElementById('fakeCursor').style.display = 'none';
+    var timer = document.getElementById('anxietyTimer');
+    if (timer) timer.style.display = 'none';
+
+    completeSim(simType);
+    announce('模擬已停止');
+  }
+};
+
+function stopImmersiveSim() { immersiveSim.stop(); }
+
+function showPhotosensWarning(callback) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    alert('你的系統已開啟「減少動態效果」。此模擬包含動畫效果，已自動停用。');
+    return;
+  }
+  var dialog = document.getElementById('photosensDialog');
+  var confirmBtn = document.getElementById('photosensConfirm');
+  var cancelBtn = document.getElementById('photosensCancel');
+  var onConfirm = function() {
+    dialog.close();
+    confirmBtn.removeEventListener('click', onConfirm);
+    cancelBtn.removeEventListener('click', onCancel);
+    callback();
+  };
+  var onCancel = function() {
+    dialog.close();
+    confirmBtn.removeEventListener('click', onConfirm);
+    cancelBtn.removeEventListener('click', onCancel);
+  };
+  confirmBtn.addEventListener('click', onConfirm);
+  cancelBtn.addEventListener('click', onCancel);
+  dialog.showModal();
+}
+
+// ===== EMPATHY SIMULATIONS =====
+
+// -- Immersive sim functions --
+
+function simLowVision() {
+  var scotoma = document.createElement('div');
+  scotoma.id = 'scotomaOverlay';
+  scotoma.style.cssText = 'position:fixed;inset:0;z-index:9995;pointer-events:none;';
+  document.body.appendChild(scotoma);
+  immersiveSim.addElement(scotoma);
+
+  var updateScotoma = function(e) {
+    scotoma.style.background = 'radial-gradient(circle 80px at ' + e.clientX + 'px ' + e.clientY + 'px, rgba(0,0,0,0.6) 0%, transparent 100%)';
+  };
+  immersiveSim.addListener(document, 'mousemove', updateScotoma);
+
+  immersiveSim.start('lowvision', {
+    title: '低視力模擬（黃斑部病變）',
+    challenge: '挑戰：找到「檢核清單」頁籤，勾選任一項目',
+    hasSlider: true,
+    sliderDefault: 40,
+    onSliderChange: function(e) {
+      var v = parseInt(e.target.value);
+      var blur = 2 + (v / 100) * 6;
+      var contrast = 0.9 - (v / 100) * 0.3;
+      document.body.style.filter = 'blur(' + blur + 'px) contrast(' + contrast + ')';
+      document.getElementById('simIntensityLabel').textContent =
+        v < 33 ? '輕微' : v < 66 ? '中等' : '嚴重';
+      document.getElementById('simControlPanel').style.filter = 'none';
+    }
+  });
+}
+
+function simColorBlind() {
+  immersiveSim.start('colorblind', {
+    title: '色覺障礙模擬',
+    challenge: '挑戰：切到「知識測驗」，回答關於顏色的那題',
+    hasSlider: false,
+    modes: [
+      { label: '紅色弱', activate: function() { document.body.style.filter = 'url(#sim-protanopia)'; }},
+      { label: '綠色弱', activate: function() { document.body.style.filter = 'url(#sim-deuteranopia)'; }},
+      { label: '全色盲', activate: function() { document.body.style.filter = 'grayscale(1)'; }}
+    ],
+    apply: function() { document.body.style.filter = 'url(#sim-protanopia)'; }
+  });
+}
+
+function simScreenReader() {
+  var overlay = document.getElementById('srSimOverlay');
+  var roleEl = document.getElementById('srSimRole');
+  var textEl = document.getElementById('srSimText');
+
+  var elements = [];
+  var activeSection = document.querySelector('.section.active');
+  if (activeSection) {
+    activeSection.querySelectorAll('h1,h2,h3,h4,p,button,a,li,label').forEach(function(el) {
+      if (el.offsetParent === null) return;
+      var role = el.tagName.toLowerCase();
+      if (role === 'h1' || role === 'h2' || role === 'h3' || role === 'h4')
+        role = 'heading level ' + role[1];
+      else if (role === 'a') role = 'link';
+      else if (role === 'button') role = 'button';
+      else if (role === 'li') role = 'list item';
+      else if (role === 'label') role = 'label';
+      else role = 'text';
+      var text = el.textContent.trim().substring(0, 200);
+      if (text) elements.push({ role: role, text: text });
+    });
+  }
+  if (elements.length === 0) elements = [{ role: 'text', text: '（此頁無可讀取的內容）' }];
+
+  var currentIdx = 0;
+  var synth = window.speechSynthesis || null;
+
+  function showElement(idx) {
+    if (idx < 0 || idx >= elements.length) return;
+    currentIdx = idx;
+    var item = elements[idx];
+    roleEl.textContent = '[' + item.role + '] (' + (idx + 1) + '/' + elements.length + ')';
+    textEl.textContent = item.text;
+    if (synth) {
+      synth.cancel();
+      var utter = new SpeechSynthesisUtterance(item.text);
+      utter.lang = 'zh-TW';
+      utter.rate = 0.9;
+      synth.speak(utter);
+    }
+  }
+
+  var keyHandler = function(e) {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      showElement(currentIdx + 1);
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      showElement(currentIdx - 1);
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      var item = elements[currentIdx];
+      if (item.role === 'button' || item.role === 'link') {
+        textEl.textContent = '（已啟動：' + item.text + '）';
+      }
+    }
+  };
+
+  overlay.classList.add('active');
+  showElement(0);
+  immersiveSim.addListener(document, 'keydown', keyHandler);
+
+  immersiveSim.start('screenreader', {
+    title: '螢幕閱讀器模擬（全盲體驗）',
+    challenge: '挑戰：用方向鍵聽完前三個元素，按 Enter 啟動一個連結',
+    hasSlider: false,
+    apply: function() {}
+  });
+
+  var originalStop = immersiveSim.stop.bind(immersiveSim);
+  var patchedStop = function() {
+    if (synth) synth.cancel();
+    overlay.classList.remove('active');
+    originalStop();
+    immersiveSim.stop = originalStop;
+  };
+  immersiveSim.stop = patchedStop;
+}
+
+function simMotor() {
+  var fakeCursor = document.getElementById('fakeCursor');
+  fakeCursor.style.display = 'block';
+  document.body.style.cursor = 'none';
+
+  var jitterAmp = 12;
+
+  var moveHandler = function(e) {
+    var jx = (Math.random() - 0.5) * 2 * jitterAmp;
+    var jy = (Math.random() - 0.5) * 2 * jitterAmp;
+    fakeCursor.style.left = (e.clientX + jx) + 'px';
+    fakeCursor.style.top = (e.clientY + jy) + 'px';
+  };
+  immersiveSim.addListener(document, 'mousemove', moveHandler);
+
+  immersiveSim.start('motor', {
+    title: '肢體障礙模擬（手部顫抖）',
+    challenge: '挑戰：在「角色總覽」中認領一個能力區域',
+    hasSlider: true,
+    sliderDefault: 40,
+    onSliderChange: function(e) {
+      var v = parseInt(e.target.value);
+      jitterAmp = 5 + (v / 100) * 20;
+      document.getElementById('simIntensityLabel').textContent =
+        v < 33 ? '輕微' : v < 66 ? '中等' : '嚴重';
+    }
+  });
+}
+
+function simKeyboard() {
+  document.body.style.cursor = 'none';
+
+  var clickBlocker = function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    announce('滑鼠已停用。請使用 Tab、Enter、方向鍵操作。');
+  };
+  immersiveSim.addListener(document, 'click', clickBlocker, true);
+  immersiveSim.addListener(document, 'mousedown', function(e) { e.preventDefault(); }, true);
+
+  immersiveSim.start('keyboard', {
+    title: '純鍵盤操作體驗',
+    challenge: '挑戰：只用鍵盤切換到「專案階段」並展開任一階段',
+    hasSlider: false,
+    apply: function() {}
+  });
+}
+
+function simADHD() {
+  immersiveSim.start('adhd', {
+    title: 'ADHD 注意力分散模擬',
+    challenge: '挑戰：在這些干擾中找到並切換到「檢核清單」頁籤',
+    hasSlider: true,
+    sliderDefault: 50,
+    onSliderChange: function(e) {
+      document.getElementById('simIntensityLabel').textContent =
+        parseInt(e.target.value) < 33 ? '輕微' : parseInt(e.target.value) < 66 ? '中等' : '嚴重';
+    },
+    apply: function() {
+      var chat = document.createElement('div');
+      chat.className = 'adhd-distraction';
+      chat.style.cssText = 'bottom:80px;left:20px;background:var(--accent);color:white;max-width:200px;';
+      chat.textContent = '需要幫助嗎？按此開始對話！';
+      document.body.appendChild(chat);
+      immersiveSim.addElement(chat);
+
+      var banner = document.createElement('div');
+      banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9996;background:var(--danger);color:white;text-align:center;padding:8px;font-weight:700;font-size:0.9rem;';
+      var seconds = 120;
+      banner.textContent = '工作階段剩餘時間：' + Math.floor(seconds/60) + ':' + ('0'+seconds%60).slice(-2);
+      document.body.appendChild(banner);
+      immersiveSim.addElement(banner);
+      var countdownId = setInterval(function() {
+        seconds = (seconds > 0) ? seconds - 1 : 120;
+        banner.textContent = '工作階段剩餘時間：' + Math.floor(seconds/60) + ':' + ('0'+seconds%60).slice(-2);
+      }, 1000);
+      immersiveSim.addInterval(countdownId);
+
+      var cards = document.querySelectorAll('.card');
+      var pulseId = setInterval(function() {
+        var card = cards[Math.floor(Math.random() * cards.length)];
+        if (card) {
+          card.style.boxShadow = '0 0 20px var(--accent)';
+          setTimeout(function() { card.style.boxShadow = ''; }, 1500);
+        }
+      }, 3000);
+      immersiveSim.addInterval(pulseId);
+
+      var scrollId = setInterval(function() {
+        window.scrollBy({ top: Math.random() > 0.5 ? 30 : -20, behavior: 'smooth' });
+      }, 4000);
+      immersiveSim.addInterval(scrollId);
+
+      var tabs = document.querySelectorAll('[role="tab"]');
+      var notifId = setInterval(function() {
+        var tab = tabs[Math.floor(Math.random() * tabs.length)];
+        if (!tab) return;
+        var dot = document.createElement('span');
+        dot.style.cssText = 'display:inline-block;width:8px;height:8px;background:var(--danger);border-radius:50%;margin-left:4px;vertical-align:top;';
+        tab.appendChild(dot);
+        immersiveSim.addElement(dot);
+        setTimeout(function() { if (dot.parentNode) dot.parentNode.removeChild(dot); }, 5000);
+      }, 6000);
+      immersiveSim.addInterval(notifId);
+    }
+  });
+}
+
+function simAutism() {
+  immersiveSim.start('autism', {
+    title: 'Autism 感覺過載模擬',
+    challenge: '挑戰：找到並閱讀「全員必備素養」區塊',
+    hasSlider: true,
+    sliderDefault: 50,
+    onSliderChange: function(e) {
+      var v = parseInt(e.target.value);
+      var sat = 1.5 + (v / 100) * 1.5;
+      document.body.style.filter = 'saturate(' + sat + ')';
+      document.getElementById('simIntensityLabel').textContent =
+        v < 33 ? '輕微' : v < 66 ? '中等' : '嚴重';
+    },
+    apply: function() {
+      document.body.style.filter = 'saturate(2.5)';
+
+      var shiftId = setInterval(function() {
+        var els = document.querySelectorAll('.card, .foundation-item, .role-card');
+        var el = els[Math.floor(Math.random() * els.length)];
+        if (el) {
+          var shift = (Math.random() - 0.5) * 6;
+          el.style.marginLeft = shift + 'px';
+          setTimeout(function() { el.style.marginLeft = ''; }, 2000);
+        }
+      }, 3000);
+      immersiveSim.addInterval(shiftId);
+
+      var hoverStyle = document.createElement('style');
+      hoverStyle.textContent = '.sim-active-autism .card:hover,.sim-active-autism .role-card:hover,.sim-active-autism button:hover{transform:scale(1.08) rotate(1deg) !important;transition:transform 0.1s !important;}';
+      document.head.appendChild(hoverStyle);
+      immersiveSim.addElement(hoverStyle);
+      document.body.classList.add('sim-active-autism');
+
+      var hue = 0;
+      var hueId = setInterval(function() {
+        hue = (hue + 2) % 360;
+        document.body.style.filter = 'saturate(2.5) hue-rotate(' + hue + 'deg)';
+      }, 200);
+      immersiveSim.addInterval(hueId);
+    }
+  });
+}
+
+function simDyslexia() {
+  var swapPairs = [['b','d'],['p','q'],['m','w'],['n','u']];
+  var affectedNodes = [];
+
+  function scrambleText() {
+    var section = document.querySelector('.section.active');
+    if (!section) return;
+    var walker = document.createTreeWalker(section, NodeFilter.SHOW_TEXT);
+    var node;
+    while (node = walker.nextNode()) {
+      if (node.textContent.trim().length < 3) continue;
+      if (node.parentElement.closest('.sim-control-panel')) continue;
+      var original = node.textContent;
+      var chars = original.split('');
+      for (var i = 0; i < chars.length; i++) {
+        if (Math.random() > 0.05) continue;
+        for (var p = 0; p < swapPairs.length; p++) {
+          if (chars[i] === swapPairs[p][0]) { chars[i] = swapPairs[p][1]; break; }
+          if (chars[i] === swapPairs[p][1]) { chars[i] = swapPairs[p][0]; break; }
+        }
+      }
+      node.textContent = chars.join('');
+      affectedNodes.push({ node: node, original: original });
+    }
+  }
+
+  immersiveSim.start('dyslexia', {
+    title: 'Dyslexia 閱讀障礙模擬',
+    challenge: '挑戰：閱讀第一個測驗題目並選擇答案',
+    hasSlider: true,
+    sliderDefault: 50,
+    onSliderChange: function(e) {
+      document.getElementById('simIntensityLabel').textContent =
+        parseInt(e.target.value) < 33 ? '輕微' : parseInt(e.target.value) < 66 ? '中等' : '嚴重';
+    },
+    apply: function() {
+      scrambleText();
+      var scrambleId = setInterval(function() {
+        affectedNodes.forEach(function(an) { an.node.textContent = an.original; });
+        affectedNodes = [];
+        scrambleText();
+      }, 4000);
+      immersiveSim.addInterval(scrambleId);
+
+      var lineStyle = document.createElement('style');
+      lineStyle.textContent = '.section.active p,.section.active li,.section.active span{line-height:' + (1.5 + Math.random()) + ' !important;}';
+      document.head.appendChild(lineStyle);
+      immersiveSim.addElement(lineStyle);
+
+      var origStop = immersiveSim.stop.bind(immersiveSim);
+      immersiveSim.stop = function() {
+        affectedNodes.forEach(function(an) { an.node.textContent = an.original; });
+        affectedNodes = [];
+        origStop();
+        immersiveSim.stop = origStop;
+      };
+    }
+  });
+}
+
+function simHearing() {
+  var dialog = document.getElementById('simDialog');
+  var modal = document.getElementById('simModal');
+  modal.textContent = '';
+  modal.insertAdjacentHTML('beforeend',
+    '<button class="sim-close" onclick="closeSim()" aria-label="關閉">X</button>' +
+    '<h2 style="font-size:1.2rem;margin-bottom:12px;">聽覺障礙模擬</h2>' +
+    '<div style="background:#1a1a2e;border-radius:12px;padding:40px;text-align:center;margin-bottom:16px;">' +
+    '  <div style="font-size:3rem;margin-bottom:16px;">&#x1F5E3;</div>' +
+    '  <div style="background:#333;border-radius:20px;padding:12px 20px;display:inline-block;color:#888;">' +
+    '    <span style="animation:blink 1s infinite;">...</span> ' +
+    '    <span style="animation:blink 1s infinite 0.3s;">...</span> ' +
+    '    <span style="animation:blink 1s infinite 0.6s;">...</span>' +
+    '  </div>' +
+    '  <p style="color:#666;margin-top:12px;font-size:0.85rem;">（正在播放音訊... 你聽到了什麼？）</p>' +
+    '</div>' +
+    '<div style="margin-bottom:16px;">' +
+    '  <p style="font-weight:600;margin-bottom:8px;">問題：剛才的說話者傳達了什麼訊息？</p>' +
+    '  <div style="display:flex;flex-direction:column;gap:8px;">' +
+    '    <button class="quiz-opt" onclick="hearingReveal()" style="text-align:left;">A. 明天下午兩點開會</button>' +
+    '    <button class="quiz-opt" onclick="hearingReveal()" style="text-align:left;">B. 報名截止日延長到週五</button>' +
+    '    <button class="quiz-opt" onclick="hearingReveal()" style="text-align:left;">C. 我完全不知道，因為沒有字幕</button>' +
+    '  </div>' +
+    '</div>' +
+    '<div id="hearingRevealArea" style="display:none;">' +
+    '  <div class="card" style="background:#eafaf1;border-left:4px solid var(--success);">' +
+    '    <h3>正確答案是 C</h3>' +
+    '    <p class="text-sm">沒有字幕的情況下，聾人和重聽者<strong>完全無法</strong>獲取音訊內容。即使「猜」也只是猜。這就是為什麼 WCAG 1.2.2 要求所有預錄影片都必須提供字幕。</p>' +
+    '  </div>' +
+    '  <div class="card" style="background:#fff;margin-top:8px;">' +
+    '    <h3>加上字幕後：</h3>' +
+    '    <div style="background:#1a1a2e;border-radius:12px;padding:24px;text-align:center;color:white;">' +
+    '      <div style="font-size:2rem;margin-bottom:8px;">&#x1F5E3;</div>' +
+    '      <div style="background:rgba(0,0,0,0.7);border-radius:8px;padding:8px 16px;display:inline-block;font-size:0.95rem;">' +
+    '        「各位好，提醒大家本週五是改版上線的截止日，請確認所有無障礙檢查已完成。」' +
+    '      </div>' +
+    '    </div>' +
+    '    <p class="text-sm" style="margin-top:12px;">有了字幕，所有人——包括在嘈雜環境中的聽人——都能理解內容。</p>' +
+    '  </div>' +
+    '  <div style="text-align:center;margin-top:16px;">' +
+    '    <button class="sim-btn" onclick="completeSim(\'hearing\');closeSim();" style="background:var(--success);">完成此體驗</button>' +
+    '  </div>' +
+    '</div>'
+  );
+  dialog.showModal();
+}
+
+function hearingReveal() {
+  document.getElementById('hearingRevealArea').style.display = 'block';
+  document.querySelectorAll('#simModal .quiz-opt').forEach(function(o) { o.style.pointerEvents = 'none'; o.style.opacity = '0.6'; });
+  document.querySelectorAll('#simModal .quiz-opt')[2].style.borderColor = 'var(--success)';
+  document.querySelectorAll('#simModal .quiz-opt')[2].style.background = '#eafaf1';
+  document.querySelectorAll('#simModal .quiz-opt')[2].style.opacity = '1';
+}
+
+function simAnxiety() {
+  var timerEl = document.getElementById('anxietyTimer');
+  var seconds = 45;
+
+  immersiveSim.start('anxiety', {
+    title: '焦慮症模擬',
+    challenge: '挑戰：試著在壓力下勾選任一檢核清單項目',
+    hasSlider: false,
+    apply: function() {
+      timerEl.style.display = 'block';
+      timerEl.textContent = '你的操作時間還剩 ' + seconds + ' 秒';
+      var timerId = setInterval(function() {
+        seconds--;
+        if (seconds <= 0) seconds = 45;
+        timerEl.textContent = '你的操作時間還剩 ' + seconds + ' 秒';
+        if (seconds <= 10) timerEl.style.background = '#c0392b';
+        else timerEl.style.background = 'var(--danger)';
+      }, 1000);
+      immersiveSim.addInterval(timerId);
+
+      var errorHandler = function(e) {
+        if (e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT') {
+          if (e.target.closest('.sim-control-panel')) return;
+          if (Math.random() > 0.5) {
+            var err = document.createElement('div');
+            err.style.cssText = 'position:fixed;top:60px;left:50%;transform:translateX(-50%);z-index:9997;background:#fdf2f2;border:2px solid var(--danger);border-radius:8px;padding:12px 24px;font-size:0.9rem;color:var(--danger);font-weight:600;box-shadow:var(--shadow);';
+            err.textContent = '發生錯誤。請重試。';
+            document.body.appendChild(err);
+            immersiveSim.addElement(err);
+            setTimeout(function() { if (err.parentNode) err.parentNode.removeChild(err); }, 3000);
+          }
+        }
+      };
+      immersiveSim.addListener(document, 'click', errorHandler);
+
+      var shiftId = setInterval(function() {
+        var btns = document.querySelectorAll('.nav-tab, .filter-pill');
+        var btn = btns[Math.floor(Math.random() * btns.length)];
+        if (btn) {
+          btn.style.transform = 'translateX(' + ((Math.random()-0.5)*4) + 'px)';
+          setTimeout(function() { btn.style.transform = ''; }, 2000);
+        }
+      }, 5000);
+      immersiveSim.addInterval(shiftId);
+    }
+  });
+}
+
+// -- Router --
+
+function startImmersive(type) {
+  var sims = {
+    lowvision: simLowVision,
+    colorblind: simColorBlind,
+    motor: simMotor,
+    keyboard: simKeyboard,
+    adhd: simADHD,
+    autism: simAutism,
+    dyslexia: simDyslexia,
+    screenreader: simScreenReader,
+    anxiety: simAnxiety
+  };
+  if (sims[type]) sims[type]();
+}
+
+function openSim(type) {
+  var immersiveTypes = ['lowvision','colorblind','motor','keyboard','adhd','autism','dyslexia','screenreader','anxiety'];
+  if (immersiveTypes.indexOf(type) !== -1) {
+    var needsWarning = ['lowvision','motor','adhd','autism','dyslexia'].indexOf(type) !== -1;
+    if (needsWarning) {
+      showPhotosensWarning(function() { startImmersive(type); });
+    } else {
+      startImmersive(type);
+    }
+    return;
+  }
+  openDialogSim(type);
+}
+
+function openDialogSim(type) {
+  var dialog = document.getElementById('simDialog');
+  var modal = document.getElementById('simModal');
+  if (type === 'hearing') { simHearing(); return; }
+  if (type === 'temporary') {
+    modal.textContent = '';
+    modal.insertAdjacentHTML('beforeend',
+      '<button class="sim-close" onclick="closeSim()" aria-label="關閉模擬體驗">X</button>' +
+      '<h2 style="font-size:1.2rem;margin-bottom:4px;">臨時障礙情境</h2>' +
+      '<h3 style="margin-bottom:12px;">每個人都可能是障礙者</h3><p class="text-sm text-muted">以下是日常中常見的臨時障礙場景。</p>' +
+      '<div style="display:grid;gap:12px;margin-top:16px;">' +
+      '<details class="disclosure-card"><summary>手臂骨折 &rarr; 類似單手操作障礙</summary><div class="detail-content"><p class="text-sm">石膏固定後你只能單手操作。那些需要雙手的操作、過小的按鈕，都會成為障礙。</p><p class="text-sm" style="margin-top:8px;color:var(--success);font-weight:600;">&rarr; 設計提示：確保所有功能都可以單手完成</p></div></details>' +
+      '<details class="disclosure-card"><summary>大太陽下看手機 &rarr; 類似低視力</summary><div class="detail-content"><p class="text-sm">強光直射下螢幕反光嚴重，低對比度的文字完全看不見。</p><p class="text-sm" style="margin-top:8px;color:var(--success);font-weight:600;">&rarr; 設計提示：高對比度設計幫助所有使用者</p></div></details>' +
+      '<details class="disclosure-card"><summary>一手抱嬰兒 &rarr; 類似單手操作障礙</summary><div class="detail-content"><p class="text-sm">新手爸媽經常一手抱著孩子。複雜手勢幾乎不可能完成。</p><p class="text-sm" style="margin-top:8px;color:var(--success);font-weight:600;">&rarr; 設計提示：觸控目標要大、避免複雜手勢</p></div></details>' +
+      '<details class="disclosure-card"><summary>吵雜餐廳中 &rarr; 類似聽覺障礙</summary><div class="detail-content"><p class="text-sm">嘈雜環境中聽不到影片聲音。沒有字幕的影片等於無法使用。</p><p class="text-sm" style="margin-top:8px;color:var(--success);font-weight:600;">&rarr; 設計提示：所有影片提供字幕</p></div></details>' +
+      '<details class="disclosure-card"><summary>老花眼 &rarr; 類似低視力</summary><div class="detail-content"><p class="text-sm">隨著年齡增長，過小的字級和低對比度文字都會造成困擾。</p><p class="text-sm" style="margin-top:8px;color:var(--success);font-weight:600;">&rarr; 設計提示：字級至少 16px、避免淺灰色文字</p></div></details>' +
+      '</div>' +
+      '<div class="card" style="margin-top:16px;background:#eaf2f8;"><h3>核心觀點</h3><p class="text-sm">無障礙不只是「為少數人設計」——它是為<strong>所有人在所有情境下</strong>設計。微軟的包容性設計框架指出：永久障礙、臨時障礙、情境障礙，三者的設計解方往往是相通的。</p></div>' +
+      '<div style="text-align:center;margin-top:20px;"><button class="sim-btn" onclick="completeSim(\'temporary\')" style="background:var(--success);">完成此體驗</button></div>'
+    );
+    dialog.showModal();
+  }
+}
+
+function closeSim() { document.getElementById('simDialog').close(); }
+
+function completeSim(type) {
+  state.completedSims.add(type);
+  var dialog = document.getElementById('simDialog');
+  if (dialog.open) dialog.close();
+  var count = state.completedSims.size;
+  document.getElementById('empathyProgress').textContent = '已完成 ' + count + '/10 個同理心體驗。' + (count >= 10 ? ' 全部完成，太棒了！' : count >= 3 ? ' 繼續加油！' : ' 繼續探索更多情境吧！');
+  if (count >= 1) earnBadge('empathy-1');
+  if (count >= 3) earnBadge('empathy-3');
+  if (count >= 10) earnBadge('empathy-all');
+  updateProgress();
+  updateJourneyStepper('empathy');
+  announce('已完成 ' + count + ' 個同理心體驗');
+}
+
+// ===== QUIZ =====
+function renderQuiz() {
+  var container = document.getElementById('quizContainer');
+  container.textContent = '';
+  quizData.forEach(function(q, i) {
+    var card = document.createElement('div');
+    card.className = 'quiz-card';
+    card.id = 'quiz-' + i;
+    card.setAttribute('role', 'group');
+    card.setAttribute('aria-labelledby', 'quiz-q-' + i);
+    var optsHTML = q.opts.map(function(opt, j) {
+      return '<button class="quiz-opt" role="radio" aria-checked="false" data-qi="' + i + '" data-oi="' + j + '" onclick="answerQuiz(' + i + ',' + j + ')">' + opt + '</button>';
+    }).join('');
+    card.insertAdjacentHTML('beforeend',
+      '<div class="quiz-q" id="quiz-q-' + i + '"><span class="q-num" aria-hidden="true">' + (i+1) + '</span><span>' + q.q + '</span></div>' +
+      '<div class="quiz-options" role="radiogroup" aria-labelledby="quiz-q-' + i + '">' + optsHTML + '</div>' +
+      '<div class="quiz-explain" id="explain-' + i + '" role="status">' + q.explain + '</div>'
+    );
+    container.appendChild(card);
+  });
+}
+
+function answerQuiz(qi, oi) {
+  var q = quizData[qi];
+  var card = document.getElementById('quiz-' + qi);
+  var opts = card.querySelectorAll('.quiz-opt');
+  var explain = document.getElementById('explain-' + qi);
+  if (opts[0].getAttribute('aria-disabled') === 'true') return;
+  opts.forEach(function(o, j) {
+    o.setAttribute('aria-disabled', 'true');
+    o.setAttribute('aria-checked', j === oi ? 'true' : 'false');
+    if (j === q.correct) o.classList.add('correct');
+    if (j === oi && j !== q.correct) o.classList.add('wrong');
+  });
+  var isCorrect = oi === q.correct;
+  explain.classList.add('show', isCorrect ? 'correct-bg' : 'wrong-bg');
+  state.quizAnswered++;
+  if (isCorrect) state.quizCorrect++;
+  updateJourneyStepper('quiz');
+  announce(isCorrect ? '答對了！' : '答錯了。正確答案是：' + q.opts[q.correct]);
+  if (state.quizAnswered === quizData.length) {
+    setTimeout(function() {
+      var score = document.getElementById('quizScore');
+      document.getElementById('scoreNum').textContent = state.quizCorrect + '/' + quizData.length;
+      score.classList.add('show');
+      if (state.quizCorrect >= quizData.length * 0.7) {
+        document.getElementById('quizBadge').textContent = '';
+        document.getElementById('quizBadge').insertAdjacentHTML('beforeend', '<div class="badge-earned">知識達人徽章已解鎖！</div>');
+        earnBadge('quiz-pass');
+      } else {
+        document.getElementById('quizBadge').textContent = '答對 70% 以上可獲得「知識達人」徽章，再試一次吧！';
+      }
+      updateProgress();
+    }, 600);
+  }
+}
+
+function resetQuiz() { state.quizAnswered = 0; state.quizCorrect = 0; document.getElementById('quizScore').classList.remove('show'); renderQuiz(); announce('測驗已重設'); }
+
+// ===== CHECKLIST (real checkboxes) =====
+var checklistData = [
+  {phase:'基礎',text:'全員完成無障礙基礎培訓（WCAG 2.2 四原則、障礙類型）',roles:['pm','designer','dev','content','qa']},
+  {phase:'基礎',text:'全員實際體驗純鍵盤操作網站（至少 15 分鐘）',roles:['pm','designer','dev','content','qa']},
+  {phase:'基礎',text:'全員體驗螢幕閱讀器（VoiceOver 或 NVDA）',roles:['pm','designer','dev','content','qa']},
+  {phase:'基礎',text:'全員完成同理心體驗區的至少 3 個模擬',roles:['pm','designer','dev','content','qa']},
+  {phase:'基礎',text:'全員通過知識測驗（\u226570%）',roles:['pm','designer','dev','content','qa']},
+  {phase:'規劃',text:'完成現有網站無障礙審計',roles:['qa','dev']},
+  {phase:'規劃',text:'訪談身心障礙使用者或團體',roles:['pm','designer']},
+  {phase:'規劃',text:'制定 WCAG 2.2 AA 合規目標',roles:['pm']},
+  {phase:'設計',text:'色彩對比度全部通過 4.5:1 檢驗',roles:['designer']},
+  {phase:'設計',text:'觸控目標 \u2265 44\u00d744px',roles:['designer']},
+  {phase:'設計',text:'所有互動元件有焦點狀態設計',roles:['designer']},
+  {phase:'設計',text:'錯誤提示不僅依賴顏色',roles:['designer']},
+  {phase:'設計',text:'焦點元件不被浮動元素遮擋（2.4.11）',roles:['designer']},
+  {phase:'設計',text:'拖曳操作有替代單點操作方式（2.5.7）',roles:['designer','dev']},
+  {phase:'設計',text:'完成無障礙原型使用者測試',roles:['designer','pm']},
+  {phase:'開發',text:'使用語意 HTML 標籤',roles:['dev']},
+  {phase:'開發',text:'所有圖片有適當 alt 文字',roles:['dev','content']},
+  {phase:'開發',text:'表單元素正確綁定 label',roles:['dev']},
+  {phase:'開發',text:'鍵盤導航流暢、焦點可見',roles:['dev']},
+  {phase:'開發',text:'ARIA 屬性正確使用',roles:['dev']},
+  {phase:'開發',text:'實作跳過導航連結',roles:['dev']},
+  {phase:'開發',text:'CI/CD 加入 axe-core 自動測試',roles:['dev']},
+  {phase:'開發',text:'影片字幕與音訊文字稿就位',roles:['content','dev']},
+  {phase:'開發',text:'幫助資訊跨頁面位置一致（3.2.6）',roles:['dev','content']},
+  {phase:'開發',text:'不重複要求使用者輸入已知資訊（3.3.7）',roles:['dev']},
+  {phase:'開發',text:'登入無需認知功能測試（3.3.8）',roles:['dev']},
+  {phase:'測試',text:'全站自動掃描通過（axe / Lighthouse）',roles:['qa','dev']},
+  {phase:'測試',text:'每頁手動鍵盤導航測試完成',roles:['qa']},
+  {phase:'測試',text:'NVDA + VoiceOver 測試完成',roles:['qa']},
+  {phase:'測試',text:'TalkBack（Android）測試完成',roles:['qa']},
+  {phase:'測試',text:'色彩對比驗證完成',roles:['qa','designer']},
+  {phase:'測試',text:'200% 放大測試通過',roles:['qa']},
+  {phase:'測試',text:'身心障礙使用者真人測試完成',roles:['pm','qa']},
+  {phase:'上線',text:'最終無障礙驗收測試通過',roles:['qa','pm']},
+  {phase:'上線',text:'無障礙聲明頁已發布',roles:['content','pm']},
+  {phase:'上線',text:'使用者回饋管道建立完成',roles:['dev','pm']},
+  {phase:'上線',text:'Lighthouse 分數 \u2265 90',roles:['dev','qa']},
+  {phase:'上線',text:'持續監控計畫已制定',roles:['pm']},
+  {phase:'交叉審核',text:'設計師審查工程實作',roles:['designer']},
+  {phase:'交叉審核',text:'工程師審查內容',roles:['dev']},
+  {phase:'交叉審核',text:'內容編輯審查設計',roles:['content']},
+  {phase:'交叉審核',text:'PM 審查測試',roles:['pm']},
+  {phase:'交叉審核',text:'QA 審查驗收標準',roles:['qa']}
+];
+
+function renderChecklistFilters() {
+  var container = document.getElementById('checklistFilters');
+  var allRoles = ['all','pm','designer','dev','content','qa'];
+  var allLabels = { all:'全部', pm:'統籌', designer:'設計', dev:'工程', content:'內容', qa:'測試' };
+  container.textContent = '';
+  allRoles.forEach(function(r) {
+    var btn = document.createElement('button');
+    btn.className = 'filter-pill';
+    btn.setAttribute('aria-pressed', r === 'all' ? 'true' : 'false');
+    btn.textContent = allLabels[r];
+    btn.addEventListener('click', function() { filterChecklist(r); });
+    container.appendChild(btn);
+  });
+}
+
+function filterChecklist(role) {
+  var allLabels = { all:'全部', pm:'統籌', designer:'設計', dev:'工程', content:'內容', qa:'測試' };
+  document.querySelectorAll('#checklistFilters .filter-pill').forEach(function(p) {
+    p.setAttribute('aria-pressed', p.textContent === allLabels[role] ? 'true' : 'false');
+  });
+  renderChecklist(role);
+}
+
+function renderChecklist(roleFilter) {
+  roleFilter = roleFilter || 'all';
+  var container = document.getElementById('checklistContainer');
+  var phaseGroups = {};
+  checklistData.forEach(function(item, i) {
+    if (roleFilter !== 'all' && item.roles.indexOf(roleFilter) === -1) return;
+    if (state.selectedRoles.size > 0 && roleFilter === 'all') {
+      if (!item.roles.some(function(r) { return state.selectedRoles.has(r); })) return;
+    }
+    if (!phaseGroups[item.phase]) phaseGroups[item.phase] = [];
+    phaseGroups[item.phase].push({ text: item.text, roles: item.roles, idx: i });
+  });
+  container.textContent = '';
+  Object.keys(phaseGroups).forEach(function(phase) {
+    var items = phaseGroups[phase];
+    var card = document.createElement('div');
+    card.className = 'card';
+    card.style.marginBottom = '16px';
+    var title = phase === '基礎' ? '全員基礎素養' : phase === '交叉審核' ? '交叉審核' : phase + '階段';
+    var h3 = document.createElement('h3');
+    h3.style.marginBottom = '12px';
+    h3.textContent = title;
+    card.appendChild(h3);
+    var ul = document.createElement('ul');
+    ul.className = 'checklist';
+    items.forEach(function(item) {
+      var checked = state.checkedItems.has(item.idx);
+      var li = document.createElement('li');
+      if (checked) li.className = 'checked';
+      var label = document.createElement('label');
+      var cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.checked = checked;
+      cb.addEventListener('change', function() { toggleCheck(item.idx); });
+      var span = document.createElement('span');
+      span.className = 'check-text';
+      span.textContent = item.text + ' ';
+      item.roles.forEach(function(r) {
+        var tag = document.createElement('span');
+        tag.className = 'check-role-tag';
+        tag.style.background = roleColors[r] + '20';
+        tag.style.color = roleColors[r];
+        tag.textContent = roleNames[r];
+        span.appendChild(tag);
+      });
+      label.appendChild(cb);
+      label.appendChild(span);
+      li.appendChild(label);
+      ul.appendChild(li);
+    });
+    card.appendChild(ul);
+    container.appendChild(card);
+  });
+}
+
+function toggleCheck(idx) {
+  if (state.checkedItems.has(idx)) state.checkedItems.delete(idx);
+  else state.checkedItems.add(idx);
+  var activeFilter = document.querySelector('#checklistFilters .filter-pill[aria-pressed="true"]');
+  var allLabels = { '全部':'all', '統籌':'pm', '設計':'designer', '工程':'dev', '內容':'content', '測試':'qa' };
+  var role = activeFilter ? (allLabels[activeFilter.textContent] || 'all') : 'all';
+  renderChecklist(role);
+  var total = checklistData.length;
+  if (state.checkedItems.size >= total * 0.5) earnBadge('checklist-50');
+  if (state.checkedItems.size >= total) earnBadge('checklist-100');
+  updateProgress();
+  updateJourneyStepper('checklist');
+}
+
+// ===== BADGES =====
+function earnBadge(id) {
+  if (state.badges.has(id)) return;
+  state.badges.add(id);
+  var el = document.querySelector('[data-badge="' + id + '"]');
+  if (el) {
+    el.classList.add('earned');
+    var labelEl = el.querySelector('.badge-label');
+    el.setAttribute('aria-label', (labelEl ? labelEl.textContent : id) + ' — 已達成');
+    el.style.animation = 'badgePop 0.4s ease';
+  }
+  announce('徽章解鎖：' + (el && el.querySelector('.badge-label') ? el.querySelector('.badge-label').textContent : id));
+}
+
+// ===== PROGRESS =====
+function updateProgress() {
+  var done = 0;
+  if (state.selectedRoles.size > 0) done += 10;
+  done += (state.completedSims.size / 10) * 30;
+  if (state.quizAnswered === quizData.length) done += (state.quizCorrect / quizData.length) * 20;
+  done += (state.checkedItems.size / checklistData.length) * 40;
+  var pct = Math.round(done);
+  var bar = document.getElementById('globalProgress');
+  bar.style.width = pct + '%';
+  bar.setAttribute('aria-valuenow', pct);
+  document.getElementById('globalPct').textContent = pct + '%';
+}
+
+// ===== INIT =====
+renderQuiz();
+renderChecklistFilters();
+renderChecklist();
+updateProgress();
+
+var extraStyle = document.createElement('style');
+extraStyle.textContent = '@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }';
+document.head.appendChild(extraStyle);
+</script>
+</body>
+</html>
