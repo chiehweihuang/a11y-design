@@ -1145,7 +1145,7 @@
 
 <!-- Photosensitivity warning dialog -->
 <dialog class="photosens-dialog" id="photosensDialog">
-  <h2 style="margin-bottom:12px;font-size:1.1rem;">Photosensitivity Warning</h2>
+  <div role="heading" aria-level="2" style="margin-bottom:12px;font-size:1.1rem;font-weight:700;">Photosensitivity Warning</div>
   <p style="margin-bottom:16px;font-size:0.9rem;color:var(--text-light);">
     此模擬包含動態視覺效果（移動、色彩變化）。如果你有光敏性癲癇或對閃爍敏感，請勿使用此模擬。
   </p>
@@ -1157,7 +1157,7 @@
 
 <!-- Floating control panel -->
 <div class="sim-control-panel" id="simControlPanel">
-  <h3 id="simControlTitle"></h3>
+  <div id="simControlTitle" role="heading" aria-level="3" style="font-size:1rem;font-weight:700;margin-bottom:8px;"></div>
   <div id="simControlSlider" style="display:none;">
     <label for="simIntensity" style="font-size:0.8rem;color:var(--text-light);">
       強度：<span id="simIntensityLabel">中</span>
