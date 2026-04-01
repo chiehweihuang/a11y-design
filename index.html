@@ -555,6 +555,8 @@
     box-shadow: var(--shadow);
     overflow: hidden;
     transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
   }
   .sim-card:hover { transform: translateY(-2px); }
   .sim-preview {
@@ -569,7 +571,8 @@
     position: relative;
     overflow: hidden;
   }
-  .sim-info { padding: 16px 20px; }
+  .sim-info { padding: 16px 20px; flex: 1; display: flex; flex-direction: column; }
+  .sim-info .sim-btn { margin-top: auto; align-self: flex-start; }
   .sim-info h3 { font-size: 1rem; margin-bottom: 4px; }
   .sim-info p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 12px; }
   .sim-btn {
@@ -585,6 +588,7 @@
     transition: background 0.2s;
   }
   .sim-btn:hover { background: var(--primary-light); }
+  .sim-btn:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
 
   /* Simulation Dialog */
   .sim-dialog {
@@ -968,11 +972,17 @@
   box-shadow: 0 8px 32px rgba(0,0,0,0.2);
   padding: 20px 24px;
   max-width: 340px;
+  max-height: 80vh;
+  overflow-y: auto;
   width: 90%;
   filter: none !important;
   display: none;
 }
 .sim-control-panel.active { display: block; }
+@keyframes panelFlash {
+  0%, 100% { box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
+  50% { box-shadow: 0 0 0 8px var(--accent), 0 8px 32px rgba(0,0,0,0.2); }
+}
 .sim-control-panel h3 { font-size: 1rem; margin-bottom: 8px; }
 .sim-control-panel .challenge {
   font-size: 0.85rem;
@@ -1163,8 +1173,9 @@
   </p>
   <div style="display:flex;gap:8px;justify-content:center;">
     <button class="sim-btn" id="photosensConfirm" style="background:var(--primary);">我了解，繼續</button>
-    <button class="sim-btn" id="photosensCancel" style="background:var(--text-light);">取消</button>
+    <button class="sim-btn" id="photosensCancel" style="background:var(--text-light);" autofocus>取消</button>
   </div>
+  <p style="margin-top:12px;font-size:0.72rem;color:var(--text-light);line-height:1.5;">試試按 Tab 切換到下一個按鈕，Shift+Tab 回到上一個。注意焦點預設在「取消」上，因為這是安全選項。好的設計會讓預設行為保護使用者，而不是把風險留給他們。</p>
 </dialog>
 
 <!-- Floating control panel -->
@@ -1182,6 +1193,7 @@
   <div style="font-size:0.75rem;color:var(--text-light);margin-top:8px;text-align:center;">按 Esc 也可以停止</div>
 </div>
 
+<div id="pageWrapper">
 <!-- Skip to main content (WCAG 2.4.1) -->
 <div class="skip-links-wrapper">
   <a href="#main-content" class="skip-link">跳到主要內容</a>
@@ -1232,7 +1244,7 @@
 
 <!-- ===== HERO (semantic header) ===== -->
 <header class="hero" role="banner">
-  <h1>讓更多人能用的設計（無障礙設計）</h1>
+  <h1>讓更多人能用的設計（無障礙網頁設計）</h1>
   <p>你做的每一個設計決定，都在決定誰能用、誰不能用。</p>
 </header>
 
@@ -1342,6 +1354,19 @@
     </div>
   </div>
 
+  <div style="max-width:1000px;margin:24px auto;padding:24px;text-align:center;">
+    <p style="font-size:0.9rem;color:var(--text-light);margin-bottom:8px;">Accessibility / 無障礙 / 可及性 / 可達性 / 數位親和力</p>
+    <p style="font-size:0.9rem;line-height:1.4;margin-bottom:8px;">不是為了符合某個規範，而是確保每一個人，不論能力、年齡、處境、使用的工具，都能平等地取得資訊、完成操作、參與其中。</p>
+    <p style="font-size:0.9rem;line-height:1.4;margin-bottom:8px;">包括你 85 歲的奶奶、打石膏的上班族、在吵雜咖啡廳看沒字幕影片的你、瞇眼讀手機的大學生、被倒數計時器逼到無法思考的人、語言不通只能靠圖示猜的旅客、網路很慢只能等文字先載入的偏鄉使用者。也包括從來沒想過這些事的設計師、工程師、產品經理，他們不知道自己每天的決定，正在決定誰能用、誰不能用。</p>
+    <p style="font-size:0.9rem;line-height:1.4;margin-bottom:8px;">也包括正在讀這段文字、覺得眼睛開始不太舒服的你。</p>
+    <p style="font-size:0.9rem;line-height:1.4;margin-bottom:12px;color:var(--text-light);">如果你覺得哪裡不對勁</p>
+    <button onclick="fixCenteredSection()" style="display:block;margin:0 auto 16px;padding:12px 32px;background:var(--primary);color:white;border:none;border-radius:24px;font-size:1rem;font-weight:600;cursor:pointer;">一鍵修好這段</button>
+    <div style="padding:12px 16px;background:var(--card-bg);border-left:3px solid var(--danger);border-radius:8px;text-align:left;max-width:600px;margin:0 auto;">
+      <p style="font-size:0.85rem;line-height:1.8;color:var(--text-light);margin-bottom:8px;"><span style="color:var(--danger);font-weight:600;">注意：</span>你剛才按下的那個按鈕，每個人都會同意改完比較舒服。但你只是讀了一段文字就覺得累，閱讀障礙者、ADHD、低視力者，每天打開每一個網站都是這種感覺。</p>
+      <p style="font-size:0.85rem;line-height:1.8;color:var(--text-light);">你花了一秒鐘修好的事，對他們來說是每一天的障礙。</p>
+    </div>
+  </div>
+
   <div class="next-step-cta" onclick="showSection('roles')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSection('roles')}">
     準備好了？來看看你的角色 <span class="arrow" aria-hidden="true">&#x2192;</span>
   </div>
@@ -1354,7 +1379,8 @@
 
   <div class="layer-diagram">
     <h3 style="text-align:center;margin-bottom:16px;">我們怎麼一起做到</h3>
-    <p class="text-sm text-muted" style="text-align:center;margin-bottom:20px;">不是「誰該做什麼」，而是「我們一起確認什麼不能漏掉」。不需要每個人都是專家——AI 補足技能缺口，但最終的判斷是人的。</p>
+    <p class="text-sm text-muted" style="text-align:center;margin-bottom:8px;">不是「誰該做什麼」，而是「我們一起確認什麼不能漏掉」。</p>
+    <p class="text-sm text-muted" style="text-align:center;margin-bottom:20px;">不需要每個人都是專家，AI 補足技能缺口，但最終的判斷是人的。</p>
     <div class="layer-ring">
       <div class="layer layer-outer">
         <div class="layer-label">交付前一起確認</div>
@@ -1449,15 +1475,15 @@
     <h3>AI 在團隊中的三重角色</h3>
     <p class="text-sm" style="margin-bottom: 14px;">在這個專案中，AI 不是工具，是隊友。它同時扮演三種角色：</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">
-      <div class="foundation-item" style="flex-direction:column;text-align:center;">
+      <div class="foundation-item" style="flex-direction:column;text-align:left;">
         <strong>即時顧問</strong>
         <span>不確定 ARIA role 該用哪個？對比度夠不夠？直接問 AI，秒速得到 WCAG 條款引用和範例程式碼。</span>
       </div>
-      <div class="foundation-item" style="flex-direction:column;text-align:center;">
+      <div class="foundation-item" style="flex-direction:column;text-align:left;">
         <strong>自動審查員</strong>
         <span>CI/CD 串接 axe-core，每次提交自動掃描。AI 標記問題，人類判斷優先序和修復方式。</span>
       </div>
-      <div class="foundation-item" style="flex-direction:column;text-align:center;">
+      <div class="foundation-item" style="flex-direction:column;text-align:left;">
         <strong>技能平衡器</strong>
         <span>設計師不懂 ARIA？AI 幫你寫。工程師不懂色彩理論？AI 幫你判斷。每個人都能跨出自己的傳統邊界。</span>
       </div>
@@ -1471,22 +1497,17 @@
     <h3>團隊可用的無障礙工具總覽</h3>
     <p class="text-sm" style="margin-bottom: 14px;">以下工具已安裝或可免費取得，涵蓋從寫 code 到上線前的完整檢測流程。</p>
 
-    <h4 style="font-size:0.85rem;color:var(--primary);margin:16px 0 8px;border-bottom:1px solid var(--border);padding-bottom:4px;">使用的工具</h4>
+    <h4 style="font-size:0.85rem;color:var(--primary);margin:16px 0 8px;border-bottom:1px solid var(--border);padding-bottom:4px;">我實際在用的工具</h4>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;">
       <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
-        <strong style="color:var(--primary);">UI Reviewer Agent <span style="font-size:0.7rem;background:var(--primary);color:white;padding:1px 6px;border-radius:4px;vertical-align:middle;">自行開發</span></strong>
-        <span>專門審查 UI 無障礙的 AI agent。輸入程式碼或截圖，自動檢查對比度、鍵盤可操作性、ARIA 正確性、焦點管理等（基於 WCAG 2.2 AA）。</span>
-        <span style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">使用：在 Claude Code 對話中請 AI「審查這段 UI 的無障礙」</span>
-      </div>
-      <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
-        <strong style="color:var(--primary);">A11y Advisor &amp; Audit Skills <span style="font-size:0.7rem;background:var(--primary);color:white;padding:1px 6px;border-radius:4px;vertical-align:middle;">自行開發</span></strong>
-        <span><strong>a11y-advisor</strong> 在寫 UI 時即時提供 WCAG 建議（自動觸發）；<strong>a11y-audit</strong> 對頁面做結構化稽核，產出 WCAG 條款對照報告。</span>
-        <span style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">資料來源：WCAG 2.2、WAI-ARIA Authoring Practices</span>
+        <strong style="color:var(--primary);">a11y-advisor / a11y-audit <span style="font-size:0.7rem;background:var(--primary);color:white;padding:1px 6px;border-radius:4px;vertical-align:middle;">自行開發</span></strong>
+        <span>兩個個人開發的 AI skill，都需要手動呼叫。advisor 比較輕量，問它「這個設計有沒有無障礙問題」它會用白話回答；audit 比較完整，對整個頁面跑一次結構化稽核，產出報告告訴你哪些要先修。</span>
+        <span style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">我怎麼用：做完一個東西之後跑一次 audit，過程中有疑問就問 advisor。還沒做到自動觸發，但已經比沒有好很多。（個人開發工具，非商業產品）</span>
       </div>
       <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
         <strong style="color:var(--primary);">Playwright + axe-core</strong>
-        <span>自動開啟瀏覽器，注入 axe-core 引擎掃描。偵測對比度不足、缺少 alt text、ARIA 錯誤等。可整合進 CI/CD 每次提交自動跑。</span>
-        <span style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">使用：<code style="background:var(--bg);padding:2px 6px;border-radius:4px;">claude &gt; /e2e</code> 搭配 axe-core 斷言</span>
+        <span>用 Playwright 自動開瀏覽器載入頁面，注入 axe-core 引擎掃描。適合在 CI/CD 裡設定，每次提交程式碼自動跑一次無障礙掃描，攔下最基本的問題。</span>
+        <span style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">適合的時機：上線前的自動化防線。不是取代手動測試，是確保基本的東西不會漏掉。</span>
       </div>
     </div>
 
@@ -1865,26 +1886,14 @@
 
 </main>
 
-<div style="max-width:1000px;margin:0 auto;padding:40px 24px 24px;text-align:center;">
-  <p style="font-size:0.9rem;color:var(--text-light);margin-bottom:8px;">Accessibility / 無障礙 / 可及性 / 可達性 / 數位親和力</p>
-  <p style="font-size:0.9rem;line-height:1.4;margin-bottom:8px;">不是為了符合某個規範，而是確保每一個人——不論能力、年齡、處境、使用的工具——都能平等地取得資訊、完成操作、參與其中。</p>
-  <p style="font-size:0.9rem;line-height:1.4;margin-bottom:8px;">包括你 85 歲的奶奶、打石膏的上班族、在吵雜咖啡廳看沒字幕影片的你、瞇眼讀手機的大學生、被倒數計時器逼到無法思考的人、語言不通只能靠圖示猜的旅客、網路很慢只能等文字先載入的偏鄉使用者。也包括從來沒想過這些事的設計師、工程師、產品經理——他們不知道自己每天的決定，正在決定誰能用、誰不能用。</p>
-  <p style="font-size:0.9rem;line-height:1.4;margin-bottom:8px;">也包括正在讀這段文字、覺得眼睛開始不太舒服的你。</p>
-  <p style="font-size:0.9rem;line-height:1.4;margin-bottom:12px;color:var(--text-light);">如果你覺得哪裡不對勁——</p>
-  <button onclick="fixCenteredSection()" style="display:block;margin:0 auto 16px;padding:12px 32px;background:var(--primary);color:white;border:none;border-radius:24px;font-size:1rem;font-weight:600;cursor:pointer;">一鍵修好這段</button>
-  <div style="padding:12px 16px;background:var(--card-bg);border-left:3px solid var(--danger);border-radius:8px;text-align:left;max-width:600px;margin:0 auto;">
-    <p style="font-size:0.85rem;line-height:1.8;color:var(--text-light);margin-bottom:8px;"><span style="color:var(--danger);font-weight:600;">注意：</span>你剛才按下的那個按鈕，每個人都會同意改完比較舒服。但你只是讀了一段文字就覺得累——閱讀障礙者、ADHD、低視力者，每天打開每一個網站都是這種感覺。</p>
-    <p style="font-size:0.85rem;line-height:1.8;color:var(--text-light);">你花了一秒鐘修好的事，對他們來說是每一天的障礙。</p>
-  </div>
-</div>
-
 <footer role="contentinfo">
-  <p>讓更多人能用的設計（無障礙設計）</p>
+  <p>讓更多人能用的設計（無障礙網頁設計）</p>
   <p style="margin-top:4px;">基於法規、科技、以人為本</p>
   <p style="margin-top:8px;">黃介韋 Chieh-Wei Huang</p>
   <p style="margin-top:4px;"><a href="mailto:chieh.wei.huang@gmail.com" style="color:inherit;text-decoration:underline;">chieh.wei.huang@gmail.com</a></p>
   <p style="margin-top:8px;font-size:0.75rem;">v2026.04.01 · <a href="https://creativecommons.org/licenses/by/4.0/deed.zh-hant" style="color:inherit;text-decoration:underline;">CC BY 4.0</a></p>
 </footer>
+</div><!-- /pageWrapper -->
 
 <script>
 // ===== UTILITY =====
@@ -2223,6 +2232,10 @@ var immersiveSim = {
     this.listeners.push({ el: document, event: 'keydown', fn: escHandler, capture: false });
 
     document.body.classList.add('sim-running');
+    // Flash control panel to draw attention
+    panel.style.animation = 'none';
+    panel.offsetHeight; // force reflow
+    panel.style.animation = 'panelFlash 0.6s ease 2';
     announce(config.title + ' 已啟動。' + config.challenge);
   },
 
@@ -2250,6 +2263,8 @@ var immersiveSim = {
     this.elements = [];
 
     document.body.style.filter = this.originalBodyFilter;
+    var wrapper = document.getElementById('pageWrapper');
+    if (wrapper) wrapper.style.filter = '';
     document.body.style.cursor = this.originalBodyCursor;
     document.body.classList.remove('sim-active-motor', 'sim-active-keyboard', 'sim-active-anxiety', 'sim-active-autism');
 
@@ -2290,6 +2305,7 @@ function showPhotosensWarning(callback) {
   confirmBtn.addEventListener('click', onConfirm);
   cancelBtn.addEventListener('click', onCancel);
   dialog.showModal();
+  requestAnimationFrame(function() { cancelBtn.focus(); });
 }
 
 // ===== EMPATHY SIMULATIONS =====
@@ -2310,14 +2326,14 @@ function simLowVision() {
 
   immersiveSim.start('lowvision', {
     title: '低視力模擬（黃斑部病變）',
-    challenge: '挑戰：找到「檢核清單」頁籤，勾選任一項目。右下角可以停止體驗，或按 Esc。',
+    challenge: '挑戰：找到「檢核清單」頁籤，勾選任一項目。按 Esc 停止。',
     hasSlider: true,
     sliderDefault: 40,
     onSliderChange: function(e) {
       var v = parseInt(e.target.value);
       var blur = 2 + (v / 100) * 6;
       var contrast = 0.9 - (v / 100) * 0.3;
-      document.body.style.filter = 'blur(' + blur + 'px) contrast(' + contrast + ')';
+      document.getElementById('pageWrapper').style.filter = 'blur(' + blur + 'px) contrast(' + contrast + ')';
       document.getElementById('simIntensityLabel').textContent =
         v < 33 ? '輕微' : v < 66 ? '中等' : '嚴重';
       document.getElementById('simControlPanel').style.filter = 'none';
@@ -2328,14 +2344,14 @@ function simLowVision() {
 function simColorBlind() {
   immersiveSim.start('colorblind', {
     title: '色覺障礙模擬',
-    challenge: '挑戰：觀察頁面上的彩色按鈕和徽章，切換三種模式比較差異。然後切到「知識測驗」回答關於顏色的那題。右下角可以停止體驗，或按 Esc。',
+    challenge: '挑戰：觀察頁面上的彩色按鈕和徽章，切換三種模式比較差異。按 Esc 停止。',
     hasSlider: false,
     modes: [
-      { label: '紅色弱', activate: function() { document.body.style.filter = 'url(#sim-protanopia)'; }},
-      { label: '綠色弱', activate: function() { document.body.style.filter = 'url(#sim-deuteranopia)'; }},
-      { label: '全色盲', activate: function() { document.body.style.filter = 'grayscale(1)'; }}
+      { label: '紅色弱', activate: function() { document.getElementById('pageWrapper').style.filter = 'url(#sim-protanopia)'; }},
+      { label: '綠色弱', activate: function() { document.getElementById('pageWrapper').style.filter = 'url(#sim-deuteranopia)'; }},
+      { label: '全色盲', activate: function() { document.getElementById('pageWrapper').style.filter = 'grayscale(1)'; }}
     ],
-    apply: function() { document.body.style.filter = 'url(#sim-protanopia)'; }
+    apply: function() { document.getElementById('pageWrapper').style.filter = 'url(#sim-protanopia)'; }
   });
 }
 
@@ -2401,13 +2417,6 @@ function simScreenReader() {
   showElement(0);
   immersiveSim.addListener(document, 'keydown', keyHandler);
 
-  // Move control panel to bottom-left so it doesn't cover the centered text
-  var panel = document.getElementById('simControlPanel');
-  panel.style.left = '24px';
-  panel.style.right = 'auto';
-  panel.style.bottom = '24px';
-  panel.style.maxWidth = '280px';
-  panel.style.fontSize = '0.85rem';
 
   immersiveSim.start('screenreader', {
     title: '螢幕閱讀器模擬（全盲體驗）',
@@ -2420,11 +2429,6 @@ function simScreenReader() {
   var patchedStop = function() {
     if (synth) synth.cancel();
     overlay.classList.remove('active');
-    // Restore control panel position
-    panel.style.left = '';
-    panel.style.right = '24px';
-    panel.style.maxWidth = '340px';
-    panel.style.fontSize = '';
     originalStop();
     immersiveSim.stop = originalStop;
   };
@@ -2561,12 +2565,12 @@ function simAutism() {
     onSliderChange: function(e) {
       var v = parseInt(e.target.value);
       var sat = 1.5 + (v / 100) * 1.5;
-      document.body.style.filter = 'saturate(' + sat + ')';
+      document.getElementById('pageWrapper').style.filter = 'saturate(' + sat + ')';
       document.getElementById('simIntensityLabel').textContent =
         v < 33 ? '輕微' : v < 66 ? '中等' : '嚴重';
     },
     apply: function() {
-      document.body.style.filter = 'saturate(2.5)';
+      document.getElementById('pageWrapper').style.filter = 'saturate(2.5)';
 
       var shiftId = setInterval(function() {
         var els = document.querySelectorAll('.card, .foundation-item, .role-card');
@@ -2588,7 +2592,7 @@ function simAutism() {
       var hue = 0;
       var hueId = setInterval(function() {
         hue = (hue + 2) % 360;
-        document.body.style.filter = 'saturate(2.5) hue-rotate(' + hue + 'deg)';
+        document.getElementById('pageWrapper').style.filter = 'saturate(2.5) hue-rotate(' + hue + 'deg)';
       }, 200);
       immersiveSim.addInterval(hueId);
     }
@@ -2918,7 +2922,7 @@ function resetQuiz() { state.quizAnswered = 0; state.quizCorrect = 0; document.g
 // ===== CHECKLIST (real checkboxes) =====
 var checklistData = [
   {phase:'30 秒',text:'按 Tab 鍵三次，看看焦點跑去哪裡',roles:['dev','designer','qa']},
-  {phase:'30 秒',text:'看一下你的網站有沒有 <h1>',roles:['dev','content']},
+  {phase:'30 秒',text:'打開你的網站，按 Ctrl+U 看原始碼，搜尋 h1，看看有沒有主標題',roles:['dev','content']},
   {phase:'30 秒',text:'對任何一張圖片按右鍵 > 檢查，看看有沒有 alt',roles:['dev','content']},
   {phase:'30 秒',text:'用手機打開你的網站，試著用大拇指點最小的按鈕',roles:['designer','dev']},
   {phase:'30 秒',text:'把瀏覽器縮放到 200%，看看有沒有東西跑掉',roles:['dev','qa']},
@@ -3089,7 +3093,8 @@ function fixCenteredSection() {
   });
   var btn = section.querySelector('button');
   if (btn) {
-    btn.textContent = '這就是無障礙。一個改動，所有人受益。';
+    btn.innerHTML = '這就是 Accessibility（無障礙／可及性）<br>一個改動，所有人受益。';
+    btn.style.textAlign = 'left';
     btn.style.background = 'var(--success)';
     btn.style.cursor = 'default';
     btn.onclick = null;
