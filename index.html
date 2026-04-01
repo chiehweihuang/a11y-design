@@ -6,16 +6,16 @@
 <meta name="description" content="95.9% 的網站有無障礙錯誤。這份互動指南讓你用 30 秒體驗不同使用者的處境，然後動手修好自己的網站。包含 10 個沉浸式模擬、知識測驗、檢核清單。">
 <meta name="author" content="Chieh-Wei Huang">
 <!-- Open Graph (社群分享預覽) -->
-<meta property="og:title" content="你的網站，95.9% 的機率有問題">
+<meta property="og:title" content="你的網站正在流失你看不到的使用者">
 <meta property="og:description" content="互動式無障礙網頁設計指南：10 個沉浸式模擬讓你體驗視障、聽障、肢障、認知障礙者的網頁體驗。30 秒就能開始。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://chiehweihuang.github.io/web-a11y-design/">
 <meta property="og:locale" content="zh_TW">
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="你的網站，95.9% 的機率有問題">
+<meta name="twitter:title" content="你的網站正在流失你看不到的使用者">
 <meta name="twitter:description" content="互動式無障礙網頁設計指南：10 個沉浸式模擬、知識測驗、檢核清單。花 30 秒體驗，然後動手做。">
-<title>通用（無障礙）網頁設計指南</title>
+<title>讓更多人能用的設計（無障礙設計）— 網頁篇</title>
 <style>
   :root {
     --primary: #1a5276;
@@ -1185,7 +1185,7 @@
 <!-- Skip to main content (WCAG 2.4.1) -->
 <div class="skip-links-wrapper">
   <a href="#main-content" class="skip-link">跳到主要內容</a>
-  <span class="skip-links-label">&#x2190; 這是 skip link。一般網站它是隱藏的，按 Tab 才會出現。這裡刻意讓你看到，因為這是教學網站。</span>
+  <span class="skip-links-label">&#x2190; 這是 skip link，讓鍵盤使用者跳過導航直接到內容。一般網站它是隱藏的，按 Tab 才會出現。</span>
 </div>
 
 <!-- ===== NAVIGATION ===== -->
@@ -1226,13 +1226,13 @@
       <input id="search-input" type="search" placeholder="搜尋指南內容..." autocomplete="off">
       <button type="submit">搜尋</button>
     </form>
-    <p class="text-sm text-muted" style="text-align:center;margin-top:6px;font-size:0.75rem;">搜尋列（Search Bar）提供第二條路徑找到內容，對認知障礙或不熟悉網站的使用者特別重要（WCAG 2.4.5）</p>
+    <p class="text-sm text-muted" style="text-align:center;margin-top:6px;font-size:0.75rem;">搜尋列（Search Bar）提供第二條路徑找到內容——不是每個人都能靠瀏覽選單找到東西</p>
   </search>
 </div>
 
 <!-- ===== HERO (semantic header) ===== -->
 <header class="hero" role="banner">
-  <h1>通用（無障礙）網頁設計指南</h1>
+  <h1>讓更多人能用的設計（無障礙設計）</h1>
   <p>你做的每一個設計決定，都在決定誰能用、誰不能用。</p>
 </header>
 
@@ -1296,51 +1296,49 @@
   <div class="card" style="border-left:4px solid var(--text);background:var(--card-bg);">
     <h3 style="margin-bottom:12px;">先試三件事</h3>
     <p style="font-size:1.05rem;line-height:1.8;margin-bottom:16px;"><strong>1.</strong> 打開你自己的網站，把滑鼠收起來，只用 Tab 和 Enter 操作 60 秒。<br><strong>2.</strong> 把螢幕亮度調到最低，試著讀完一段文字。<br><strong>3.</strong> 想像你爸媽打開同一個頁面。他們找得到按鈕嗎？還是先被彈出廣告困住了？</p>
-    <p style="font-size:1.05rem;line-height:1.8;">如果任何一個讓你猶豫了——全球 95.9% 的網站都有這些問題（WebAIM 2025）。你做好了，就是那 4.1%。</p>
+    <p style="font-size:1.05rem;line-height:1.8;margin-bottom:12px;">如果任何一個讓你猶豫了——全球 95.9% 的網站都有這些問題（WebAIM 2025）。你做好了，就是那 4.1%：更多人能用你的產品、AI agent 可能更願意推薦你的頁面、進入國際市場少一道法律障礙。</p>
+    <p style="font-size:0.95rem;line-height:1.8;color:var(--text-light);">很多時候我們不是不願意做，而是不知道要做、不知道能幫助到誰。台灣人在國際上的形象是友善的，但我們做出來的數位產品，對自己人卻不夠友善。要打入國際市場，無障礙更是基本門檻——歐盟 EAA 2025 年已經生效，不合規就進不去。但如果只是為了過關而做到最低標準，那不是友善，那只是合規。</p>
   </div>
 
   <div class="card" style="border-left:4px solid var(--accent);background:var(--card-bg);border-color:var(--accent);">
     <h3 style="margin-bottom:8px;">「讓 AI 做就好了吧？」</h3>
-    <p class="text-sm" style="margin-bottom:12px;">可以，而且你應該讓 AI 先做。但試完之後問自己這三個問題：</p>
+    <p class="text-sm" style="margin-bottom:12px;">我自己大量使用 AI 寫 code、做設計、跑測試。它確實幫我省下很多時間。但用了一陣子之後，我發現幾件事：</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:14px;">
       <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
-        <strong>AI 掃完說「通過」，你敢上線嗎？</strong>
-        <span>自動化工具只能抓到 30-40% 的問題。「這段文案認知障礙者讀得懂嗎？」「這個流程讓焦慮症使用者壓力多大？」——工具不會告訴你。</span>
+        <strong>工具說「通過」，但我自己用的時候還是覺得哪裡不對</strong>
+        <span>規則型工具（axe、Lighthouse）能抓到約 30-40% 的問題——缺 alt text、對比度不夠這類。AI 視覺分析可以再多抓 20-30%——alt text 寫得好不好、閱讀難度高不高。但剩下的 20-30% 只有人能判斷：「報名流程要填幾頁？」「半夜看手機刺不刺眼？」「趕時間找不找得到按鈕？」——我偶爾遇到的不便，認知障礙者、焦慮症使用者、低視力者<strong>每一次</strong>都在經歷。</span>
       </div>
       <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
-        <strong>AI 寫的 code，你確定是對的？</strong>
-        <span>AI 寫的 HTML 經常 heading 跳級、ARIA 亂加、表單沒綁 label。如果你自己不懂，連 AI 的錯都看不出來。你能分辨嗎？</span>
+        <strong>AI 能檢查別人的問題，但自己寫的 code 也有盲點</strong>
+        <span>就像校對員能抓別人的錯字，自己寫的文章卻看不到一樣。AI 生成的 HTML 經常 heading 跳級、ARIA 亂加、表單沒綁 label。所以我會讓 AI 寫完之後，再用另一個 AI 工具檢查它——然後自己或請人實際用一遍。機器查機器，人查體驗。</span>
       </div>
       <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
-        <strong>你親手操作過自己的產品嗎？</strong>
-        <span>鍵盤控制順不順、遊戲搖桿操作卡不卡、流程讓不讓人焦慮——這些沒辦法自動化。你必須自己按過，直到覺得不彆扭為止。</span>
+        <strong>所以我開始把這些經驗寫成 skill，讓 AI 替我記</strong>
+        <span>我建了無障礙審查的 AI skill，每次寫 UI 時自動提醒我之前忽略過的事。重複的檢查可以更快完成——但鍵盤順不順、流程讓不讓人焦慮，我還是得自己按過一遍才知道。因為當資訊量大到某個程度，連我自己都開始在意我吸收的方式。</span>
       </div>
     </div>
     <div style="padding:10px 14px;background:rgba(230,126,34,0.08);border-radius:8px;">
-      <p class="text-sm" style="margin-bottom:8px;"><strong>好消息是：</strong>AI 幫你掃掉了最煩的 40%（技術規則），剩下的不是「學 86 條準則」，是「自己用一遍然後問：這樣舒服嗎？」</p>
-      <p class="text-sm">AI 讓任何人都能快速建一個網站，但工具放大的是你的意圖——你在意的事會被做對 100 次，你忽略的事也會被做錯 100 次。而且 AI agent 操作網站時依賴的是和螢幕閱讀器同一棵 accessibility tree（CHI 2026 實測：成功率從 78% 跌到 42%）。你的網站對人不友善，對 AI 也不友善。</p>
+      <p class="text-sm" style="margin-bottom:8px;">AI 已經幫我掃掉了最煩的 40%。省下來的時間，或許足夠我花時間思考如何把產品做得讓人用起來更舒服一點。然後把這些經驗建立成流程、建立成標準、建立成 skill，讓接下來每一個分享、服務、產品，都是以提供更多人幫助而非障礙為出發點。這份指南是我在嘗試的起點。</p>
+      <p class="text-sm">補充一個事實：AI agent 操作網站時依賴的是和螢幕閱讀器同一棵 accessibility tree（CHI 2026 實測：成功率從 78% 跌到 42%）。你的網站對人不友善，對 AI 也不友善。</p>
     </div>
   </div>
 
   <div class="card" style="border-left:4px solid var(--primary);position:relative;">
-    <h3 style="margin-bottom:8px;">試試右上角的深色模式切換</h3>
-    <p class="text-sm" style="margin-bottom:12px;">重點不是深色比較好，而是<strong>讓使用者自己選</strong>。不同的人需要不同的顯示方式。</p>
+    <h3 style="margin-bottom:8px;">你已經在用無障礙功能了——只是不知道而已</h3>
+    <p class="text-sm" style="margin-bottom:12px;">試試右上角的深色模式切換。你大概每天都在手機上切深色模式吧？這就是無障礙。不是什麼特殊功能，是讓不同的人在不同情境下都能舒服地使用。</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:14px;">
       <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
-        <strong>視覺障礙 ≠ 全盲</strong>
-        <span>全球 22 億人有視覺障礙（WHO 2023），但其中<strong>超過 80% 是「看不清楚」而非「完全看不見」</strong>。包括未矯正的近視、老花、高度散光、白內障初期、黃斑部病變等。這些人需要的是可調整的顯示方式，不是螢幕閱讀器。</span>
+        <strong>你可能就是「需要無障礙的人」</strong>
+        <span>台灣近視率超過 85%（國健署 2024），大學生高度近視比例達 20%。半夜滑手機覺得刺眼？螢幕字太小要瞇眼？這些就是視覺無障礙要解決的事——不是給「別人」用的，是給你用的。</span>
       </div>
       <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
-        <strong>深色幫助一些人，淺色幫助另一些人</strong>
-        <span>高度近視或光敏感者：深色底減少眩光和文字邊緣散射。但老年人和有散光的人：淺色背景上的深色文字反而更清楚——深底亮字會讓字邊緣發散（halation effect）。沒有「對所有人最好」的模式。</span>
+        <strong>沒有「對所有人最好」的模式</strong>
+        <span>近視、光敏感者偏好深色底。老年人、散光者偏好淺色底——深底亮字會讓字邊緣發散。所以重點不是哪個比較好，是讓使用者自己選。</span>
       </div>
       <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
-        <strong>這跟你有關</strong>
-        <span>台灣近視率超過 85%（國健署 2024），大學生高度近視（>600 度）比例達 20%。你的使用者裡一定有需要深色模式的人，也一定有需要淺色模式的人。提供選擇，讓他們自己決定。</span>
+        <strong>一行 CSS 就能做到</strong>
+        <span>深色模式的實作成本極低，但它能幫助全球 22 億視覺困難者（WHO 2023）更舒服地使用你的網站。這可能是投資報酬率最高的無障礙改善。</span>
       </div>
-    </div>
-    <div style="padding:10px 14px;background:rgba(26,82,118,0.06);border-radius:8px;">
-      <p class="text-sm">提供深色/淺色切換不是設計趨勢，是承認一個事實：<strong>沒有一種顯示方式適合所有人</strong>。這是最低成本、最高覆蓋率的無障礙改善之一。</p>
     </div>
   </div>
 
@@ -1867,23 +1865,25 @@
 
 </main>
 
-<div style="max-width:700px;margin:0 auto;padding:40px 24px 24px;text-align:center;">
-  <p style="font-size:0.85rem;color:var(--text-light);margin-bottom:12px;">Accessibility / 無障礙 / 可及性 / 可達性 / 數位親和力</p>
-  <p style="font-size:1.1rem;line-height:1.8;margin-bottom:12px;">不是為了符合某個規範，而是確保每一個人——不論能力、年齡、處境、使用的工具——都能平等地取得資訊、完成操作、參與其中。</p>
-  <p style="font-size:0.95rem;line-height:1.8;margin-bottom:12px;">這裡說的「每一個人」，包括你 85 歲的奶奶用平板看孫子的照片、包括手臂打石膏的上班族單手操作筆電、包括在吵雜咖啡廳裡看沒有字幕的教學影片的你、包括高度近視盯著手機瞇眼讀字的大學生、包括因為焦慮症而被倒數計時器逼到無法思考的人。</p>
-  <p style="font-size:0.95rem;line-height:1.8;margin-bottom:12px;">也包括從來沒有想過這些事的設計師、工程師、產品經理、內容編輯——因為他們不知道自己每天做的決定，正在決定誰能用、誰不能用。</p>
-  <p style="font-size:0.95rem;line-height:1.8;margin-bottom:12px;">在 AI 時代，這個「每一個人」還包括代替你操作的 agent。你為人做的無障礙，同時也在為機器鋪路。而你忽略的每一個問題，也會被 AI 等比放大。</p>
-  <p style="font-size:0.95rem;line-height:1.8;margin-bottom:16px;color:var(--text-light);">你已經讀到這裡了。如果你覺得眼睛有點累——往下看。</p>
-  <div style="padding:12px 16px;background:var(--card-bg);border-left:3px solid var(--danger);border-radius:8px;text-align:left;">
-    <p style="font-size:0.78rem;line-height:1.6;color:var(--text-light);"><span style="color:var(--danger);font-weight:600;">注意：</span>你剛才讀的這段文字是置中對齊的。覺得哪裡不對勁嗎？每一行的起點都不同，眼睛必須重新搜尋——當文字超過兩行，對閱讀障礙者、ADHD、以及其實所有人來說，左對齊更容易找到每一行的起點。短標題置中沒問題，但段落文字置中就會開始吃力。同時注意上方的文字缺少足夠的行距和段落間距（padding），讓內容顯得擁擠、難以區分段落。這份指南的其他內容都靠左且有充足的間距，這裡是唯一的例外，為了讓你感受差異。</p>
+<div style="max-width:1000px;margin:0 auto;padding:40px 24px 24px;text-align:center;">
+  <p style="font-size:0.9rem;color:var(--text-light);margin-bottom:8px;">Accessibility / 無障礙 / 可及性 / 可達性 / 數位親和力</p>
+  <p style="font-size:0.9rem;line-height:1.4;margin-bottom:8px;">不是為了符合某個規範，而是確保每一個人——不論能力、年齡、處境、使用的工具——都能平等地取得資訊、完成操作、參與其中。</p>
+  <p style="font-size:0.9rem;line-height:1.4;margin-bottom:8px;">包括你 85 歲的奶奶、打石膏的上班族、在吵雜咖啡廳看沒字幕影片的你、瞇眼讀手機的大學生、被倒數計時器逼到無法思考的人、語言不通只能靠圖示猜的旅客、網路很慢只能等文字先載入的偏鄉使用者。也包括從來沒想過這些事的設計師、工程師、產品經理——他們不知道自己每天的決定，正在決定誰能用、誰不能用。</p>
+  <p style="font-size:0.9rem;line-height:1.4;margin-bottom:8px;">也包括正在讀這段文字、覺得眼睛開始不太舒服的你。</p>
+  <p style="font-size:0.9rem;line-height:1.4;margin-bottom:12px;color:var(--text-light);">如果你覺得哪裡不對勁——</p>
+  <button onclick="fixCenteredSection()" style="display:block;margin:0 auto 16px;padding:12px 32px;background:var(--primary);color:white;border:none;border-radius:24px;font-size:1rem;font-weight:600;cursor:pointer;">一鍵修好這段</button>
+  <div style="padding:12px 16px;background:var(--card-bg);border-left:3px solid var(--danger);border-radius:8px;text-align:left;max-width:600px;margin:0 auto;">
+    <p style="font-size:0.85rem;line-height:1.8;color:var(--text-light);margin-bottom:8px;"><span style="color:var(--danger);font-weight:600;">注意：</span>你剛才按下的那個按鈕，每個人都會同意改完比較舒服。但你只是讀了一段文字就覺得累——閱讀障礙者、ADHD、低視力者，每天打開每一個網站都是這種感覺。</p>
+    <p style="font-size:0.85rem;line-height:1.8;color:var(--text-light);">你花了一秒鐘修好的事，對他們來說是每一天的障礙。</p>
   </div>
 </div>
 
 <footer role="contentinfo">
-  <p>通用（無障礙）網頁設計指南 · 基於 WCAG 2.2 AA</p>
+  <p>讓更多人能用的設計（無障礙設計）</p>
+  <p style="margin-top:4px;">基於法規、科技、以人為本</p>
   <p style="margin-top:8px;">黃介韋 Chieh-Wei Huang</p>
   <p style="margin-top:4px;"><a href="mailto:chieh.wei.huang@gmail.com" style="color:inherit;text-decoration:underline;">chieh.wei.huang@gmail.com</a></p>
-  <p style="margin-top:8px;font-size:0.75rem;">v2026.04.01 · MIT License</p>
+  <p style="margin-top:8px;font-size:0.75rem;">v2026.04.01 · <a href="https://creativecommons.org/licenses/by/4.0/deed.zh-hant" style="color:inherit;text-decoration:underline;">CC BY 4.0</a></p>
 </footer>
 
 <script>
@@ -3073,6 +3073,28 @@ function updateProgress() {
   bar.style.width = pct + '%';
   bar.setAttribute('aria-valuenow', pct);
   document.getElementById('globalPct').textContent = pct + '%';
+}
+
+// ===== FIX CENTERED SECTION =====
+function fixCenteredSection() {
+  var section = document.querySelector('[style*="text-align:center"][style*="max-width:1000px"]');
+  if (!section) return;
+  section.style.textAlign = 'left';
+  section.style.maxWidth = '700px';
+  section.style.lineHeight = '1.8';
+  var ps = section.querySelectorAll('p');
+  ps.forEach(function(p) {
+    p.style.marginBottom = '16px';
+    p.style.lineHeight = '1.9';
+  });
+  var btn = section.querySelector('button');
+  if (btn) {
+    btn.textContent = '這就是無障礙。一個改動，所有人受益。';
+    btn.style.background = 'var(--success)';
+    btn.style.cursor = 'default';
+    btn.onclick = null;
+  }
+  announce('文字已改為左對齊，行距和段落間距也已調整。');
 }
 
 // ===== BACK TO TOP =====
