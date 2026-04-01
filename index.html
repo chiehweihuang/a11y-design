@@ -1361,9 +1361,10 @@
     <p style="font-size:0.9rem;line-height:1.4;margin-bottom:8px;">也包括正在讀這段文字、覺得眼睛開始不太舒服的你。</p>
     <p style="font-size:0.9rem;line-height:1.4;margin-bottom:12px;color:var(--text-light);">如果你覺得哪裡不對勁</p>
     <button onclick="fixCenteredSection()" style="display:block;margin:0 auto 16px;padding:12px 32px;background:var(--primary);color:white;border:none;border-radius:24px;font-size:1rem;font-weight:600;cursor:pointer;">一鍵修好這段</button>
-    <div style="padding:12px 16px;background:var(--card-bg);border-left:3px solid var(--danger);border-radius:8px;text-align:left;max-width:600px;margin:0 auto;">
-      <p style="font-size:0.85rem;line-height:1.8;color:var(--text-light);margin-bottom:8px;"><span style="color:var(--danger);font-weight:600;">注意：</span>你剛才按下的那個按鈕，每個人都會同意改完比較舒服。但你只是讀了一段文字就覺得累，閱讀障礙者、ADHD、低視力者，每天打開每一個網站都是這種感覺。</p>
+    <div id="fixReveal" style="display:none;padding:12px 16px;background:var(--card-bg);border-left:3px solid var(--danger);border-radius:8px;text-align:left;max-width:600px;margin:0 auto;">
+      <p style="font-size:0.85rem;line-height:1.8;color:var(--text-light);margin-bottom:8px;"><span style="color:var(--danger);font-weight:600;">注意：</span>你剛才按下的那個按鈕，每個人都會同意改完比較舒服。但你只是讀了一段文字就覺得累，閱讀障礙者、ADHD、低視力者，每一分每一秒打開每一個網站都是這種感覺。</p>
       <p style="font-size:0.85rem;line-height:1.8;color:var(--text-light);">你花了一秒鐘修好的事，對他們來說是每一天的障礙。</p>
+      <p style="font-size:0.85rem;line-height:1.8;color:var(--text);margin-top:8px;">傳統的 accessibility 問的是「能不能用」。但當 AI 已經能幫你解決大部分技術面的「能用」問題，人該做的就是往上走：<strong>任何人使用你的網頁，都應該能舒服、簡單地獲得資訊、完成操作。</strong>在 AI 時代，每個人都可能是 builder。最難的不是怎麼做到，而是意識到這已經是你的事了。</p>
     </div>
   </div>
 
@@ -1507,7 +1508,7 @@
       <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
         <strong style="color:var(--primary);">Playwright + axe-core</strong>
         <span>用 Playwright 自動開瀏覽器載入頁面，注入 axe-core 引擎掃描。適合在 CI/CD 裡設定，每次提交程式碼自動跑一次無障礙掃描，攔下最基本的問題。</span>
-        <span style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">適合的時機：上線前的自動化防線。不是取代手動測試，是確保基本的東西不會漏掉。</span>
+        <span style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">適合的時機：上線前的自動化防線。不是取代手動測試，是確保基本的東西在部署的時候不會不小心漏掉。</span>
       </div>
     </div>
 
@@ -1594,7 +1595,7 @@
       <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
         <strong>ANDI</strong>
         <span>美國社會安全局開發的免費書籤工具（bookmarklet），不需安裝。拖到書籤列就能用。檢查焦點元素、ARIA 屬性、表格結構、色彩對比度。會直接在頁面上標示每個元素的無障礙名稱。</span>
-        <span style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">ssa.gov/accessibility/andi &#x2014; 免費，書籤工具（不需安裝）</span>
+        <span style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">ssa.gov/accessibility/andi &#x2014; 免費，書籤工具（不需安裝）。也有非官方的 Chrome 擴充套件版本。</span>
       </div>
     </div>
 
@@ -3110,6 +3111,8 @@ function fixCenteredSection() {
     btn.style.cursor = 'default';
     btn.onclick = null;
   }
+  var reveal = document.getElementById('fixReveal');
+  if (reveal) reveal.style.display = 'block';
   announce('文字已改為左對齊，行距和段落間距也已調整。');
 }
 
