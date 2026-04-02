@@ -52,7 +52,8 @@
 
   /* Dark mode contrast fixes: light bg needs dark text */
   [data-theme="dark"] .step-num,
-  [data-theme="dark"] .q-num {
+  [data-theme="dark"] .q-num,
+  [data-theme="dark"] .timeline-dot {
     color: #1a1a2e;
   }
   [data-theme="dark"] .search-bar button,
@@ -63,7 +64,8 @@
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) .step-num,
-    :root:not([data-theme="light"]) .q-num {
+    :root:not([data-theme="light"]) .q-num,
+    :root:not([data-theme="light"]) .timeline-dot {
       color: #1a1a2e;
     }
     :root:not([data-theme="light"]) .search-bar button,
