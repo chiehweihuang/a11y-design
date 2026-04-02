@@ -1,3 +1,12 @@
+// ===== REDUCED MOTION TOGGLE =====
+function toggleReducedMotion(checked) {
+  if (checked) {
+    document.body.classList.add('reduced-motion');
+  } else {
+    document.body.classList.remove('reduced-motion');
+  }
+}
+
 // ===== UTILITY =====
 function activateOnEnterSpace(event, callback) {
   if (event.key === 'Enter' || event.key === ' ') {

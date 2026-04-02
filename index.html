@@ -92,7 +92,7 @@
 <!-- Skip to main content (WCAG 2.4.1) -->
 <div class="skip-links-wrapper">
   <a href="#main-content" class="skip-link">跳到主要內容</a>
-  <span class="skip-links-label">&#x2190; 這是 skip link，讓鍵盤使用者跳過導航直接到內容。一般網站它是隱藏的，按 Tab 才會出現。</span>
+  <span class="skip-links-label">&#x2190; 這是 skip link，讓鍵盤使用者跳過導航直接到內容。<br>一般網站它是隱藏的，按 Tab 時才會出現。螢幕閱讀器使用者每次進入頁面都會聽到它，用來決定要不要跳過重複的選單。</span>
 </div>
 
 <!-- ===== NAVIGATION ===== -->
@@ -794,11 +794,16 @@
 
 <footer role="contentinfo">
   <p>讓更多人能用的設計（無障礙網頁設計）</p>
-  <p style="margin-top:4px;">基於法規、科技、以人為本</p>
-  <p style="margin-top:8px;">黃介韋 Chieh-Wei Huang</p>
-  <p style="margin-top:4px;"><a href="mailto:chieh.wei.huang@gmail.com" style="color:inherit;text-decoration:underline;">chieh.wei.huang@gmail.com</a></p>
-  <p style="margin-top:4px;"><a href="https://github.com/chiehweihuang/a11y-design/discussions" style="color:inherit;text-decoration:underline;">提問、建議、討論</a></p>
-  <p style="margin-top:8px;font-size:0.75rem;">v2026.04.01 · <a href="https://creativecommons.org/licenses/by/4.0/deed.zh-hant" style="color:inherit;text-decoration:underline;">CC BY 4.0</a></p>
+  <div style="margin:16px auto;max-width:500px;padding:12px 16px;background:var(--card-bg);border-radius:8px;text-align:left;font-size:0.8rem;">
+    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+      <input type="checkbox" id="reduceMotionToggle" onchange="toggleReducedMotion(this.checked)" style="width:18px;height:18px;accent-color:var(--primary);">
+      <span>模擬「減少動態效果」（prefers-reduced-motion）</span>
+    </label>
+    <p style="margin-top:8px;font-size:0.75rem;color:var(--text-light);">試試把滑鼠移到下面那一行的文字上，然後勾選這個選項再移一次，比較看看差異。有些使用者對動態效果會感到頭暈或不適，這個設定讓他們可以關閉不必要的動畫。你的網站有尊重這個偏好嗎？</p>
+    <p style="margin-top:6px;font-size:0.7rem;color:var(--text-light);">註：這個偏好其實是作業系統內建的（Windows：設定 &gt; 協助工具 &gt; 視覺效果 &gt; 動畫效果；macOS：系統偏好設定 &gt; 輔助使用 &gt; 顯示器 &gt; 減少動態效果）。網站不需要自己做開關，只要在 CSS 裡用 <code style="background:var(--bg);padding:1px 4px;border-radius:3px;">@media (prefers-reduced-motion: reduce)</code> 偵測並尊重使用者的系統設定就好。這裡的 checkbox 只是為了讓你體驗差異。</p>
+  </div>
+  <p style="margin-top:8px;"><span class="footer-highlight">黃介韋 Bertram Huang</span> &#x25AE; <span style="position:relative;display:inline-block;"><a href="mailto:chieh.wei.huang@gmail.com" class="footer-highlight footer-email-link" style="color:inherit;text-decoration:underline;">寫信給 Bertram</a><span class="footer-email-tip">為什麼不直接寫 email 地址？因為螢幕閱讀器會逐字念出 c-h-i-e-h-w-e-i...。用「寫信給 Bertram」，聽到的人馬上知道這是什麼。做法很簡單，把連結文字從 email 地址改成有意義的描述就好，email 放在 href 裡：&lt;a href="mailto:..."&gt;寫信給 Bertram&lt;/a&gt;</span></span> &#x25AE; <a href="https://github.com/chiehweihuang/a11y-design/discussions" class="footer-highlight" style="color:inherit;text-decoration:underline;">歡迎提問、建議、討論</a></p>
+  <p style="margin-top:8px;font-size:0.75rem;">2026-04-02 Updated · <a href="https://creativecommons.org/licenses/by/4.0/deed.zh-hant" style="color:inherit;text-decoration:underline;">CC BY 4.0</a></p>
 </footer>
 </div><!-- /pageWrapper -->
 

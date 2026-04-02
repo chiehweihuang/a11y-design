@@ -100,20 +100,21 @@
   .back-to-top:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
   .back-to-top-tooltip {
     position: absolute;
-    right: 54px;
-    bottom: 4px;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
+    right: 0;
+    bottom: calc(100% + 8px);
+    background: #fff;
+    border: 3px solid #000;
     border-radius: 8px;
-    padding: 8px 12px;
+    padding: 10px 14px;
     font-size: 0.75rem;
-    color: var(--text-light);
-    width: 220px;
-    line-height: 1.4;
-    box-shadow: var(--shadow);
+    color: #000;
+    width: 280px;
+    line-height: 1.5;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s;
+    text-align: left;
   }
   .back-to-top:hover .back-to-top-tooltip,
   .back-to-top:focus-visible .back-to-top-tooltip { opacity: 1; }
@@ -1101,4 +1102,72 @@
   text-align: center;
   box-shadow: 0 8px 40px rgba(0,0,0,0.3);
 }
+/* High contrast mode (system preference) */
+@media (prefers-contrast: more) {
+  :root {
+    --border: #000;
+    --text-light: #333;
+    --shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .card, .foundation-item, .sim-card, .nav-tab {
+    border: 2px solid var(--text);
+  }
+  .sim-btn { border: 2px solid currentColor; }
+}
+
 .photosens-dialog::backdrop { background: rgba(0,0,0,0.7); }
+
+/* Footer highlight */
+.footer-highlight {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: all 0.3s;
+  cursor: default;
+}
+a.footer-highlight { cursor: pointer; }
+.footer-highlight:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(230,126,34,0.3), 0 0 16px rgba(230,126,34,0.2);
+  background: rgba(230,126,34,0.08);
+  transform: scale(1.15);
+  font-weight: 700;
+}
+@media (prefers-reduced-motion: reduce) {
+  .footer-highlight:hover {
+    transform: none;
+    transition: none;
+  }
+}
+.reduced-motion .footer-highlight:hover {
+  transform: none;
+  transition: none;
+}
+
+/* Footer email tooltip */
+.footer-email-link { position: relative; }
+.footer-email-tip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border: 3px solid #000;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.75rem;
+  color: #000;
+  width: 280px;
+  line-height: 1.5;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  text-align: left;
+}
+.footer-email-link:hover + .footer-email-tip,
+.footer-email-link:focus + .footer-email-tip,
+.footer-email-tip:hover {
+  opacity: 1;
+}
