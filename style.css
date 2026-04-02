@@ -1009,13 +1009,23 @@
   .nav-tab .tab-label { display: none; }
   .nav-tab .tab-label-short { display: inline; }
   .nav-mode-info { display: none !important; }
-  .theme-toggle { top: 8px; right: 8px; padding: 6px 10px; font-size: 0.7rem; }
-  .search-container p.text-sm { display: none; }
-  .skip-links-wrapper { flex-direction: column; padding: 4px 12px; }
-  .skip-links-label { font-size: 0.65rem; }
-  .hero { padding: 24px 16px; }
-  .hero h1 { font-size: 1.3rem; }
-  .hero p { font-size: 0.85rem; }
+  .theme-toggle { top: auto; bottom: 100px; right: 8px; padding: 4px 8px; font-size: 0.65rem; z-index: 10001; }
+  .theme-toggle .theme-toggle-icon { font-size: 0.9rem; }
+  .search-container { display: none; }
+  .skip-links-wrapper { display: none; }
+  .hero { padding: 16px 16px; }
+  .hero h1 { font-size: 1.2rem; }
+  .hero p { font-size: 0.8rem; margin-bottom: 0; }
+  .hero p:first-of-type { font-size: 0.7rem; }
+  .progress-bar-container { margin-top: 0; }
+  .badges-row { gap: 6px; }
+  .badge-icon { width: 44px; height: 44px; font-size: 1.2rem; }
+  .badge-item { width: 60px; }
+  .badge-label { font-size: 0.6rem; }
+  .section { padding: 0 12px; }
+  .card { padding: 14px; }
+  .chat-trigger { width: 48px; height: 48px; font-size: 1.2rem; }
+  .back-to-top { width: 48px; height: 48px; font-size: 1.2rem; bottom: 160px; }
 }
 @media (min-width: 601px) {
   .nav-tab .tab-label-short { display: none; }
