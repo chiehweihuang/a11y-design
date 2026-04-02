@@ -130,6 +130,7 @@
     background: var(--bg);
     color: var(--text);
     line-height: 1.7;
+    overflow-x: hidden;
   }
 
   /* ===== SKIP LINKS (WCAG 2.4.1) ===== */
@@ -1004,7 +1005,9 @@
 .next-step-cta .arrow { font-size: 1.2rem; }
 
 @media (max-width: 600px) {
-  .nav-tab { padding: 10px 12px; font-size: 0.75rem; gap: 4px; flex: none; white-space: nowrap; }
+  .nav-tabs { flex-wrap: wrap; overflow-x: visible; }
+  .nav-tabs-wrapper::after { display: none; }
+  .nav-tab { padding: 8px 0; font-size: 0.75rem; gap: 4px; flex: 1 1 30%; text-align: center; justify-content: center; border-bottom: 1px solid var(--border); }
   .nav-tab .step-num { width: 20px; height: 20px; font-size: 0.6rem; }
   .nav-tab .tab-label { display: none; }
   .nav-tab .tab-label-short { display: inline; }
