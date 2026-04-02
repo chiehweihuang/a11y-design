@@ -670,14 +670,14 @@ function simADHD() {
       // Chat popup
       var chat = document.createElement('div');
       chat.className = 'adhd-distraction';
-      chat.style.cssText = 'bottom:80px;left:20px;background:var(--accent);color:white;max-width:200px;';
+      chat.style.cssText = 'bottom:80px;left:20px;background:var(--accent);color:var(--bg);max-width:200px;';
       chat.textContent = '需要幫助嗎？按此開始對話！';
       document.body.appendChild(chat);
       immersiveSim.addElement(chat);
 
       // Countdown banner
       var banner = document.createElement('div');
-      banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9996;background:var(--danger);color:white;text-align:center;padding:8px;font-weight:700;font-size:0.9rem;';
+      banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9996;background:var(--danger);color:var(--bg);text-align:center;padding:8px;font-weight:700;font-size:0.9rem;';
       var seconds = 120;
       banner.textContent = '工作階段剩餘時間：' + Math.floor(seconds/60) + ':' + ('0'+seconds%60).slice(-2);
       document.body.appendChild(banner);
@@ -696,7 +696,7 @@ function simADHD() {
       cookieText.style.cssText = 'font-size:0.82rem;color:var(--text);';
       cookieText.textContent = '本網站使用 Cookie 以提供您最佳體驗。繼續使用即表示您同意我們的隱私政策。';
       var cookieBtn = document.createElement('button');
-      cookieBtn.style.cssText = 'padding:8px 20px;background:var(--primary);color:white;border:none;border-radius:8px;font-weight:600;cursor:pointer;white-space:nowrap;';
+      cookieBtn.style.cssText = 'padding:8px 20px;background:var(--primary);color:var(--bg);border:none;border-radius:8px;font-weight:600;cursor:pointer;white-space:nowrap;';
       cookieBtn.textContent = '我同意';
       cookieBtn.onclick = function() { cookie.style.display = 'none'; };
       cookie.appendChild(cookieText);
@@ -722,7 +722,7 @@ function simADHD() {
         nlInput.style.cssText = 'width:100%;padding:10px;border:2px solid var(--border);border-radius:8px;margin-bottom:8px;font-size:0.9rem;';
         nlInput.placeholder = '輸入你的 Email...';
         var nlBtn = document.createElement('button');
-        nlBtn.style.cssText = 'width:100%;padding:10px;background:var(--accent);color:white;border:none;border-radius:8px;font-weight:600;font-size:0.9rem;cursor:pointer;';
+        nlBtn.style.cssText = 'width:100%;padding:10px;background:var(--accent);color:var(--bg);border:none;border-radius:8px;font-weight:600;font-size:0.9rem;cursor:pointer;';
         nlBtn.textContent = '立即訂閱';
         newsletter.appendChild(nlClose);
         newsletter.appendChild(nlTitle);
@@ -760,7 +760,7 @@ function simADHD() {
       // Notification sound simulation (visual ping)
       var pingId = setInterval(function() {
         var ping = document.createElement('div');
-        ping.style.cssText = 'position:fixed;top:20px;right:20px;z-index:9996;background:var(--primary);color:white;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 0 20px var(--primary);animation:adhd-float 0.5s ease;';
+        ping.style.cssText = 'position:fixed;top:20px;right:20px;z-index:9996;background:var(--primary);color:var(--bg);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 0 20px var(--primary);animation:adhd-float 0.5s ease;';
         ping.textContent = '1';
         document.body.appendChild(ping);
         immersiveSim.addElement(ping);
@@ -969,7 +969,7 @@ function simHearing() {
     '  </div>' +
     '  <div class="card" style="background:#fff;margin-top:8px;">' +
     '    <h3>加上字幕後：</h3>' +
-    '    <div style="background:#1a1a2e;border-radius:12px;padding:24px;text-align:center;color:white;">' +
+    '    <div style="background:#1a1a2e;border-radius:12px;padding:24px;text-align:center;color:var(--bg);">' +
     '      <div style="font-size:2rem;margin-bottom:8px;">&#x1F5E3;</div>' +
     '      <div style="background:rgba(0,0,0,0.7);border-radius:8px;padding:8px 16px;display:inline-block;font-size:0.95rem;">' +
     '        「各位好，提醒大家本週五是改版上線的截止日，請確認所有無障礙檢查已完成。」' +
