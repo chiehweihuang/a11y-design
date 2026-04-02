@@ -55,7 +55,10 @@
   [data-theme="dark"] .q-num {
     color: #1a1a2e;
   }
-  [data-theme="dark"] .search-bar button {
+  [data-theme="dark"] .search-bar button,
+  [data-theme="dark"] .sim-btn,
+  [data-theme="dark"] .sim-stop-btn,
+  [data-theme="dark"] .sim-mode-btn {
     color: #1a1a2e;
   }
   @media (prefers-color-scheme: dark) {
@@ -63,7 +66,10 @@
     :root:not([data-theme="light"]) .q-num {
       color: #1a1a2e;
     }
-    :root:not([data-theme="light"]) .search-bar button {
+    :root:not([data-theme="light"]) .search-bar button,
+    :root:not([data-theme="light"]) .sim-btn,
+    :root:not([data-theme="light"]) .sim-stop-btn,
+    :root:not([data-theme="light"]) .sim-mode-btn {
       color: #1a1a2e;
     }
   }
