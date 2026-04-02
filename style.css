@@ -248,8 +248,6 @@
     max-width: 1100px;
     margin: -8px auto 24px;
     padding: 0 24px;
-    position: relative;
-    z-index: 2;
   }
   .progress-card {
     background: var(--card-bg);
@@ -746,10 +744,13 @@
   .badge-item {
     width: 72px;
     text-align: center;
-    opacity: 0.3;
+    opacity: 0.5;
     transition: all 0.3s;
+    cursor: help;
   }
+  .badge-item:hover { opacity: 0.8; transform: translateY(-2px); }
   .badge-item.earned { opacity: 1; }
+  .badge-item.earned:hover { transform: translateY(-4px); }
   .badge-icon {
     width: 56px;
     height: 56px;
@@ -761,7 +762,35 @@
     margin: 0 auto 4px;
     border: 3px solid #ddd;
   }
-  .badge-item.earned .badge-icon { border-color: var(--accent); box-shadow: 0 2px 8px rgba(230,126,34,0.3); }
+  .badge-item.earned .badge-icon { border: 3px solid #d4a017; box-shadow: 0 0 0 3px rgba(212,160,23,0.3), 0 4px 12px rgba(212,160,23,0.2); }
+  .badge-item.earned:hover .badge-icon { box-shadow: 0 0 0 5px rgba(212,160,23,0.4), 0 6px 20px rgba(212,160,23,0.3); }
+  .badge-item { position: relative; }
+  .badge-item .badge-tip {
+    position: absolute;
+    bottom: calc(100% + 20px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    border: 3px solid #000;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    color: #000;
+    width: 200px;
+    line-height: 1.5;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s, visibility 0.2s;
+    text-align: left;
+    z-index: 9000;
+  }
+  .badge-item:hover .badge-tip,
+  .badge-item:focus-within .badge-tip {
+    opacity: 1;
+    visibility: visible;
+  }
   .badge-label { font-size: 0.7rem; color: var(--text-light); }
 
   /* ===== SHARED FOUNDATION ===== */

@@ -200,33 +200,45 @@
 <!-- ===== GAMIFICATION BADGES ===== -->
 <div style="max-width:1100px;margin:0 auto 16px;padding:0 24px;">
   <div class="badges-row" id="badgesRow" aria-label="成就徽章">
+    <div class="badge-item" data-badge="first-fix" aria-label="第一次修好 — 尚未達成">
+      <div class="badge-icon" style="background:var(--card-bg);" aria-hidden="true">&#x1F527;</div>
+      <div class="badge-label">第一次修好</div>
+      <span class="badge-tip">按下「一鍵修好這段」按鈕</span>
+    </div>
     <div class="badge-item" data-badge="role-selected" aria-label="角色就位 — 尚未達成">
       <div class="badge-icon" style="background:var(--card-bg);" aria-hidden="true">&#x1F3AD;</div>
       <div class="badge-label">角色就位</div>
+      <span class="badge-tip">在「選擇角色」中選擇至少一個角色</span>
     </div>
-    <div class="badge-item" data-badge="empathy-1" aria-label="同理之眼 — 尚未達成">
-      <div class="badge-icon" style="background:#fef9e7;" aria-hidden="true">&#x1F441;&#xFE0F;</div>
-      <div class="badge-label">同理之眼</div>
+    <div class="badge-item" data-badge="empathy-1" aria-label="初次體驗 — 尚未達成">
+      <div class="badge-icon" style="background:var(--card-bg);" aria-hidden="true">&#x1F441;&#xFE0F;</div>
+      <div class="badge-label">初次體驗</div>
+      <span class="badge-tip">完成任意 1 個同理心模擬</span>
     </div>
-    <div class="badge-item" data-badge="empathy-3" aria-label="全面同理 — 尚未達成">
-      <div class="badge-icon" style="background:#fdf2e9;" aria-hidden="true">&#x1F91D;</div>
-      <div class="badge-label">全面同理</div>
+    <div class="badge-item" data-badge="empathy-5" aria-label="深入同理 — 尚未達成">
+      <div class="badge-icon" style="background:var(--card-bg);" aria-hidden="true">&#x1F91D;</div>
+      <div class="badge-label">深入同理</div>
+      <span class="badge-tip">完成 5 個同理心模擬</span>
     </div>
-    <div class="badge-item" data-badge="empathy-all" aria-label="同理大師 — 尚未達成">
-      <div class="badge-icon" style="background:#f9ebea;" aria-hidden="true">&#x1F3C6;</div>
-      <div class="badge-label">同理大師</div>
+    <div class="badge-item" data-badge="empathy-all" aria-label="全面體驗 — 尚未達成">
+      <div class="badge-icon" style="background:var(--card-bg);" aria-hidden="true">&#x1F3C6;</div>
+      <div class="badge-label">全面體驗</div>
+      <span class="badge-tip">完成全部 10 個同理心模擬</span>
+    </div>
+    <div class="badge-item" data-badge="demo-explorer" aria-label="動手試過 — 尚未達成">
+      <div class="badge-icon" style="background:var(--card-bg);" aria-hidden="true">&#x1F50D;</div>
+      <div class="badge-label">動手試過</div>
+      <span class="badge-tip">體驗過對比度、focus indicator、或字體間距的 demo</span>
     </div>
     <div class="badge-item" data-badge="quiz-pass" aria-label="知識達人 — 尚未達成">
       <div class="badge-icon" style="background:var(--card-bg);" aria-hidden="true">&#x1F4DD;</div>
       <div class="badge-label">知識達人</div>
+      <span class="badge-tip">知識測驗答對 70% 以上</span>
     </div>
-    <div class="badge-item" data-badge="checklist-50" aria-label="半途勇者 — 尚未達成">
-      <div class="badge-icon" style="background:#f4ecf7;" aria-hidden="true">&#x2705;</div>
-      <div class="badge-label">半途勇者</div>
-    </div>
-    <div class="badge-item" data-badge="checklist-100" aria-label="全面就緒 — 尚未達成">
-      <div class="badge-icon" style="background:#fdedec;" aria-hidden="true">&#x1F3C6;</div>
-      <div class="badge-label">全面就緒</div>
+    <div class="badge-item" data-badge="checklist-5" aria-label="起步了 — 尚未達成">
+      <div class="badge-icon" style="background:var(--card-bg);" aria-hidden="true">&#x2705;</div>
+      <div class="badge-label">起步了</div>
+      <span class="badge-tip">完成 5 個檢核清單項目</span>
     </div>
   </div>
 </div>
@@ -297,7 +309,7 @@
     <p style="font-size:0.75rem;color:var(--text-light);">WCAG 2.2 AA 要求一般文字對比度至少 4.5:1。勾選後對比度降到約 2:1，這是很多網站實際的對比度。你覺得難讀嗎？低視力者、老年人、在戶外看手機的人，每天都在讀這樣的文字。</p>
   </article>
 
-  <div style="max-width:1000px;margin:24px auto;padding:24px;text-align:center;">
+  <div id="centeredDemo" style="max-width:1000px;margin:24px auto;padding:24px;text-align:center;">
     <p style="font-size:0.9rem;color:var(--text-light);margin-bottom:8px;">Accessibility / 無障礙 / 可及性 / 可達性 / 數位親和力</p>
     <p style="font-size:0.9rem;line-height:1.4;margin-bottom:8px;">不是為了符合某個規範，而是確保每一個人，不論能力、年齡、處境、使用的工具，都能平等地取得資訊、完成操作、參與其中。</p>
     <p style="font-size:0.9rem;line-height:1.4;margin-bottom:8px;">包括你 85 歲的奶奶、打石膏的上班族、在吵雜咖啡廳看沒字幕影片的你、瞇眼讀手機的大學生、被倒數計時器逼到無法思考的人、語言不通只能靠圖示猜的旅客、網路很慢只能等文字先載入的偏鄉使用者。也包括從來沒想過這些事的設計師、工程師、產品經理，他們不知道自己每天的決定，正在決定誰能用、誰不能用。</p>

@@ -133,6 +133,7 @@ function toggleTablistMode(enabled) {
       tab.setAttribute('role', 'tab');
       var isActive = tab.getAttribute('aria-selected') === 'true';
       tab.tabIndex = isActive ? 0 : -1;
+      if (isActive) tab.focus();
     });
   } else {
     container.removeAttribute('role');
@@ -1091,7 +1092,7 @@ function completeSim(type) {
   var count = state.completedSims.size;
   document.getElementById('empathyProgress').textContent = '已完成 ' + count + '/10 個同理心體驗。' + (count >= 10 ? ' 全部完成，太棒了！' : count >= 3 ? ' 繼續加油！' : ' 繼續探索更多情境吧！');
   if (count >= 1) earnBadge('empathy-1');
-  if (count >= 3) earnBadge('empathy-3');
+  if (count >= 5) earnBadge('empathy-5');
   if (count >= 10) earnBadge('empathy-all');
   updateProgress();
   updateJourneyStepper('empathy');
@@ -1308,8 +1309,7 @@ function toggleCheck(idx) {
     }
   });
   var total = checklistData.length;
-  if (state.checkedItems.size >= total * 0.5) earnBadge('checklist-50');
-  if (state.checkedItems.size >= total) earnBadge('checklist-100');
+  if (state.checkedItems.size >= 5) earnBadge('checklist-5');
   updateProgress();
   updateJourneyStepper('checklist');
 }
@@ -1427,6 +1427,7 @@ document.addEventListener('keydown', function(e) {
 function switchFont(type) {
   var el = document.getElementById('fontDemoText');
   if (!el) return;
+  earnBadge('demo-explorer');
   switch(type) {
     case 'default':
       el.style.fontSize = '0.85rem';
@@ -1462,6 +1463,7 @@ function switchFont(type) {
 // ===== FOCUS INDICATOR TOGGLE =====
 var focusStyleSheet = null;
 function toggleFocusIndicator(hide) {
+  earnBadge('demo-explorer');
   if (hide) {
     focusStyleSheet = document.createElement('style');
     focusStyleSheet.textContent = '*:focus-visible { outline: none !important; box-shadow: none !important; }';
@@ -1480,6 +1482,7 @@ function toggleFocusIndicator(hide) {
 function toggleContrast(lowContrast) {
   var text = document.getElementById('contrastText');
   if (!text) return;
+  earnBadge('demo-explorer');
   if (lowContrast) {
     text.style.color = '#b0b0b0';
     announce('對比度已降低。你還讀得清楚嗎？');
@@ -1491,7 +1494,7 @@ function toggleContrast(lowContrast) {
 
 var centeredFixed = false;
 function toggleCenteredSection() {
-  var section = document.querySelector('[style*="max-width:1000px"]');
+  var section = document.getElementById('centeredDemo');
   if (!section) return;
   var btn = document.getElementById('fixBtn');
   var reveal = document.getElementById('fixReveal');
@@ -1513,6 +1516,7 @@ function toggleCenteredSection() {
     if (reveal) reveal.style.display = 'block';
     announce('文字已改為左對齊，行距和段落間距也已調整。');
     centeredFixed = true;
+    earnBadge('first-fix');
   } else {
     section.style.textAlign = 'center';
     section.style.maxWidth = '1000px';
