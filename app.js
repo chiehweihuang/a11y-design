@@ -1343,6 +1343,122 @@ function updateProgress() {
 }
 
 // ===== FIX CENTERED SECTION =====
+// ===== ACCESSIBLE WEBCHAT DEMO =====
+function toggleChat() {
+  var win = document.getElementById('chatWindow');
+  var trigger = document.getElementById('chatTrigger');
+  var isOpen = win.classList.contains('open');
+  if (isOpen) {
+    win.classList.remove('open');
+    trigger.setAttribute('aria-expanded', 'false');
+    trigger.focus();
+    announce('對話視窗已關閉');
+  } else {
+    win.classList.add('open');
+    trigger.setAttribute('aria-expanded', 'true');
+    document.getElementById('chatInput').focus();
+    announce('對話視窗已開啟');
+  }
+}
+
+var chatResponses = [
+  '這是一個示範用的 chatbot。注意每則訊息都標記了發送者（助理/你），螢幕閱讀器會自動念出新訊息。',
+  '試試按 Tab 在輸入框和送出按鈕之間移動。按 Escape 可以關閉這個視窗。',
+  '這個 chat 使用了 role="log" 和 aria-live="polite"，讓新訊息能被螢幕閱讀器自動偵測和朗讀。',
+  '設計參考來自 Craig Abbott 的文章。他指出大部分 webchat 對鍵盤使用者和螢幕閱讀器使用者都不友善。',
+  '謝謝你的測試！你可以關閉這個視窗了。'
+];
+var chatResponseIdx = 0;
+
+function sendChatDemo() {
+  var input = document.getElementById('chatInput');
+  var msg = input.value.trim();
+  if (!msg) return;
+
+  var messages = document.getElementById('chatMessages');
+
+  // User message
+  var userDiv = document.createElement('div');
+  userDiv.className = 'chat-msg user';
+  var userSender = document.createElement('span');
+  userSender.className = 'chat-sender';
+  userSender.setAttribute('aria-hidden', 'true');
+  userSender.textContent = '你';
+  var userText = document.createElement('span');
+  userText.textContent = msg;
+  userDiv.appendChild(userSender);
+  userDiv.appendChild(userText);
+  messages.appendChild(userDiv);
+
+  input.value = '';
+
+  // Bot response after short delay
+  setTimeout(function() {
+    var botDiv = document.createElement('div');
+    botDiv.className = 'chat-msg bot';
+    var botSender = document.createElement('span');
+    botSender.className = 'chat-sender';
+    botSender.setAttribute('aria-hidden', 'true');
+    botSender.textContent = '助理';
+    var botText = document.createElement('span');
+    botText.textContent = chatResponses[chatResponseIdx % chatResponses.length];
+    chatResponseIdx++;
+    botDiv.appendChild(botSender);
+    botDiv.appendChild(botText);
+    messages.appendChild(botDiv);
+    messages.scrollTop = messages.scrollHeight;
+  }, 800);
+
+  messages.scrollTop = messages.scrollHeight;
+  input.focus();
+}
+
+// Escape to close chat
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    var win = document.getElementById('chatWindow');
+    if (win && win.classList.contains('open')) {
+      toggleChat();
+    }
+  }
+});
+
+// ===== FONT/SPACING DEMO =====
+function switchFont(type) {
+  var el = document.getElementById('fontDemoText');
+  if (!el) return;
+  switch(type) {
+    case 'default':
+      el.style.fontSize = '0.85rem';
+      el.style.lineHeight = '1.8';
+      el.style.letterSpacing = '0';
+      el.style.wordSpacing = '0';
+      announce('已恢復預設');
+      break;
+    case 'cramped':
+      el.style.fontSize = '0.75rem';
+      el.style.lineHeight = '1.2';
+      el.style.letterSpacing = '-0.5px';
+      el.style.wordSpacing = '-1px';
+      announce('字距行距已縮小——這是很多網站的實際狀態');
+      break;
+    case 'spacious':
+      el.style.fontSize = '0.85rem';
+      el.style.lineHeight = '2.2';
+      el.style.letterSpacing = '1.5px';
+      el.style.wordSpacing = '3px';
+      announce('字距行距已加大——對閱讀障礙者和低視力者更舒適');
+      break;
+    case 'large':
+      el.style.fontSize = '1.2rem';
+      el.style.lineHeight = '2';
+      el.style.letterSpacing = '0.5px';
+      el.style.wordSpacing = '2px';
+      announce('字體已放大——WCAG 建議 body text 至少 16px');
+      break;
+  }
+}
+
 // ===== FOCUS INDICATOR TOGGLE =====
 var focusStyleSheet = null;
 function toggleFocusIndicator(hide) {
