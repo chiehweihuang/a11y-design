@@ -305,6 +305,23 @@
     overflow-x: auto;
     padding-bottom: 4px;
     position: relative;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .nav-tabs-wrapper {
+    position: relative;
+  }
+  .nav-tabs-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 4px;
+    width: 40px;
+    background: linear-gradient(to right, transparent, var(--bg));
+    pointer-events: none;
+    z-index: 1;
   }
   .nav-tab {
     flex: 1;
@@ -987,10 +1004,12 @@
 .next-step-cta .arrow { font-size: 1.2rem; }
 
 @media (max-width: 600px) {
-  .nav-tab { padding: 10px 8px; font-size: 0.75rem; gap: 4px; }
+  .nav-tab { padding: 10px 12px; font-size: 0.75rem; gap: 4px; flex: none; white-space: nowrap; }
   .nav-tab .step-num { width: 20px; height: 20px; font-size: 0.6rem; }
   .nav-tab .tab-label { display: none; }
   .nav-tab .tab-label-short { display: inline; }
+  .nav-mode-info { display: none; }
+  .theme-toggle { top: 8px; right: 8px; padding: 6px 10px; font-size: 0.7rem; }
 }
 @media (min-width: 601px) {
   .nav-tab .tab-label-short { display: none; }

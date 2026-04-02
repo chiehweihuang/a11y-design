@@ -137,6 +137,7 @@
 
 <!-- ===== NAVIGATION ===== -->
 <div id="site-nav" class="nav-container" aria-label="學習旅程導航">
+  <div class="nav-tabs-wrapper">
   <div class="nav-tabs" id="navTabs" aria-label="章節">
     <button class="nav-tab" id="tab-why" aria-selected="true" aria-controls="sec-why" data-journey="why" onclick="showSection('why')">
       <span class="step-num">0</span>
@@ -163,6 +164,7 @@
       <span class="tab-label">專案規劃</span><span class="tab-label-short">專案</span>
     </button>
   </div>
+  </div><!-- /nav-tabs-wrapper -->
   <div class="nav-mode-info" style="text-align:center;margin-top:4px;">
     <label style="font-size:0.7rem;color:var(--text-light);cursor:pointer;display:inline-flex;align-items:center;gap:4px;">
       <input type="checkbox" id="tablistModeToggle" onchange="toggleTablistMode(this.checked)" style="width:14px;height:14px;">
