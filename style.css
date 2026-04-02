@@ -1008,8 +1008,14 @@
   .nav-tab .step-num { width: 20px; height: 20px; font-size: 0.6rem; }
   .nav-tab .tab-label { display: none; }
   .nav-tab .tab-label-short { display: inline; }
-  .nav-mode-info { display: none; }
+  .nav-mode-info { display: none !important; }
   .theme-toggle { top: 8px; right: 8px; padding: 6px 10px; font-size: 0.7rem; }
+  .search-container p.text-sm { display: none; }
+  .skip-links-wrapper { flex-direction: column; padding: 4px 12px; }
+  .skip-links-label { font-size: 0.65rem; }
+  .hero { padding: 24px 16px; }
+  .hero h1 { font-size: 1.3rem; }
+  .hero p { font-size: 0.85rem; }
 }
 @media (min-width: 601px) {
   .nav-tab .tab-label-short { display: none; }
