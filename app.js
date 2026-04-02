@@ -1340,6 +1340,19 @@ function updateProgress() {
 }
 
 // ===== FIX CENTERED SECTION =====
+// ===== CONTRAST TOGGLE =====
+function toggleContrast(lowContrast) {
+  var text = document.getElementById('contrastText');
+  if (!text) return;
+  if (lowContrast) {
+    text.style.color = '#b0b0b0';
+    announce('對比度已降低。你還讀得清楚嗎？');
+  } else {
+    text.style.color = '';
+    announce('對比度已恢復正常。');
+  }
+}
+
 var centeredFixed = false;
 function toggleCenteredSection() {
   var section = document.querySelector('[style*="max-width:1000px"]');
@@ -1384,15 +1397,23 @@ function toggleCenteredSection() {
   }
 }
 
-// ===== BACK TO TOP =====
+// ===== BACK TO TOP + NAV SCROLL =====
 window.addEventListener('scroll', function() {
   var btn = document.getElementById('backToTop');
+  var nav = document.getElementById('site-nav');
   if (window.scrollY > window.innerHeight) {
     btn.classList.add('visible');
     btn.removeAttribute('tabindex');
   } else {
     btn.classList.remove('visible');
     btn.setAttribute('tabindex', '-1');
+  }
+  if (nav) {
+    if (window.scrollY > 200) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
   }
 });
 

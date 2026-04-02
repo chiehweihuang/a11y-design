@@ -136,7 +136,7 @@
       <span class="tab-label">專案規劃</span><span class="tab-label-short">專案</span>
     </button>
   </div>
-  <div style="text-align:center;margin-top:4px;">
+  <div class="nav-mode-info" style="text-align:center;margin-top:4px;">
     <label style="font-size:0.7rem;color:var(--text-light);cursor:pointer;display:inline-flex;align-items:center;gap:4px;">
       <input type="checkbox" id="tablistModeToggle" onchange="toggleTablistMode(this.checked)" style="width:14px;height:14px;">
       切換為 Tablist 模式（方向鍵導航，Tab 只停一次）
@@ -255,6 +255,18 @@
         <span>深色模式的實作成本極低，但它能幫助全球 22 億視覺困難者（WHO 2023）更舒服地使用你的網站。這可能是投資報酬率最高的無障礙改善。</span>
       </div>
     </div>
+  </article>
+
+  <article class="card" style="border-left:4px solid var(--accent);position:relative;">
+    <h3 style="margin-bottom:8px;">你看得到這段文字嗎？</h3>
+    <div id="contrastDemo" style="padding:16px;background:var(--card-bg);border-radius:8px;margin-bottom:12px;">
+      <p id="contrastText" style="font-size:1rem;line-height:1.7;color:var(--text);">這段文字現在的對比度是正常的。勾選下面的選項，體驗對比度不足的感覺。想像你在大太陽下看手機、或者你的視力不太好——這就是低對比度文字帶來的閱讀障礙。全球超過 22 億人有視覺困難，其中 80% 不是全盲，而是「看不清楚」。</p>
+    </div>
+    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.85rem;margin-bottom:8px;">
+      <input type="checkbox" id="contrastToggle" onchange="toggleContrast(this.checked)" style="width:18px;height:18px;accent-color:var(--accent);">
+      模擬對比度不足（把文字變成淺灰色）
+    </label>
+    <p style="font-size:0.75rem;color:var(--text-light);">WCAG 2.2 AA 要求一般文字對比度至少 4.5:1。勾選後對比度降到約 2:1，這是很多網站實際的對比度。你覺得難讀嗎？低視力者、老年人、在戶外看手機的人，每天都在讀這樣的文字。</p>
   </article>
 
   <div style="max-width:1000px;margin:24px auto;padding:24px;text-align:center;">
