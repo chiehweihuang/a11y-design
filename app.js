@@ -325,7 +325,9 @@ var immersiveSim = {
 
     var panel = document.getElementById('simControlPanel');
     panel.classList.add('active');
-    document.getElementById('simControlTitle').textContent = config.title;
+    var titleEl = document.getElementById('simControlTitle');
+    titleEl.textContent = config.title;
+    titleEl.removeAttribute('aria-hidden');
     document.getElementById('simControlChallenge').textContent = config.challenge;
 
     var sliderContainer = document.getElementById('simControlSlider');
@@ -413,6 +415,7 @@ var immersiveSim = {
     document.body.classList.remove('sim-active-motor', 'sim-active-keyboard', 'sim-active-anxiety', 'sim-active-autism');
 
     document.getElementById('simControlPanel').classList.remove('active');
+    document.getElementById('simControlTitle').setAttribute('aria-hidden', 'true');
 
     document.getElementById('srSimOverlay').classList.remove('active');
     document.getElementById('fakeCursor').style.display = 'none';

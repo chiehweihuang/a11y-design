@@ -102,7 +102,7 @@
 
 <!-- Floating control panel -->
 <div class="sim-control-panel" id="simControlPanel">
-  <div id="simControlTitle" role="heading" aria-level="3" style="font-size:1rem;font-weight:700;margin-bottom:8px;"></div>
+  <div id="simControlTitle" role="heading" aria-level="3" aria-hidden="true" style="font-size:1rem;font-weight:700;margin-bottom:8px;"></div>
   <div id="simControlSlider" style="display:none;">
     <label for="simIntensity" style="font-size:0.8rem;color:var(--text-light);">
       強度：<span id="simIntensityLabel">中</span>
@@ -456,7 +456,7 @@
     <h4 style="font-size:0.85rem;color:var(--primary);margin:16px 0 8px;border-bottom:1px solid var(--border);padding-bottom:4px;">我實際在用的工具</h4>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;">
       <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
-        <strong style="color:var(--primary);">a11y-advisor / a11y-audit <span style="font-size:0.7rem;background:var(--primary);color:white;padding:1px 6px;border-radius:4px;vertical-align:middle;">自行開發</span></strong>
+        <strong style="color:var(--primary);">a11y-advisor / a11y-audit <span style="font-size:0.7rem;background:var(--primary);color:var(--bg);padding:1px 6px;border-radius:4px;vertical-align:middle;">自行開發</span></strong>
         <span>這是我個人開發的 AI coding agent skill，都需要手動呼叫。advisor 比較輕量，問它「這個設計有沒有無障礙問題」它會用白話回答；audit 比較完整，對整個頁面跑一次結構化稽核，產出報告告訴你哪些要先修。</span>
         <span style="font-size:0.75rem;color:var(--text-light);margin-top:4px;">我怎麼用：做完一個東西之後跑一次 audit，過程中有疑問就問 advisor。還沒做到自動觸發，但已經比沒有好很多。（個人開發工具，非商業產品）</span>
       </div>
