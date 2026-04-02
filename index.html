@@ -701,6 +701,23 @@
         <button class="sim-btn" onclick="openSim('dyslexia')">開始沉浸體驗</button>
       </div>
     </article>
+    <!-- 8.5 Font/Spacing Experience -->
+    <article class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#2c3e50,#34495e);" aria-hidden="true">
+        <div style="font-size:0.8rem;letter-spacing:-0.5px;line-height:1.1;">字距太小行距太擠<br>你還讀得下去嗎？</div>
+      </div>
+      <div class="sim-info">
+        <h3>字體、字距、行距體驗</h3>
+        <p>對閱讀障礙者和低視力者，字距和行距的影響比字體本身更大。中文不存在 b/d 鏡像混淆問題，所以 OpenDyslexic 等特殊字體對中文無效——真正有幫助的是間距和大小。</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">
+          <button class="sim-btn" style="font-size:0.75rem;padding:4px 10px;" onclick="switchFont('default')">預設</button>
+          <button class="sim-btn" style="font-size:0.75rem;padding:4px 10px;" onclick="switchFont('cramped')">擠在一起</button>
+          <button class="sim-btn" style="font-size:0.75rem;padding:4px 10px;" onclick="switchFont('spacious')">加大間距</button>
+          <button class="sim-btn" style="font-size:0.75rem;padding:4px 10px;" onclick="switchFont('large')">放大字體</button>
+        </div>
+        <p id="fontDemoText" style="font-size:0.85rem;line-height:1.8;padding:12px;background:var(--bg);border-radius:8px;transition:all 0.3s;">在 AI 時代，每個人都可能是 builder。這段文字讓你體驗字距、行距、字體大小對閱讀舒適度的影響。對閱讀障礙者和低視力者來說，這些不是美學選擇，是能不能讀完一段話的差別。試試「擠在一起」——這是很多網站的實際狀態。</p>
+      </div>
+    </article>
     <!-- 9. Hearing -->
     <article class="sim-card">
       <div class="sim-preview" style="background:linear-gradient(135deg,#117864,#1abc9c);" aria-hidden="true">
@@ -862,17 +879,6 @@
       <span>模擬「減少動態效果」（prefers-reduced-motion）</span>
     </label>
     <p style="margin-top:8px;font-size:0.8rem;color:var(--text-light);">試試把滑鼠移到下面那一行的文字上，然後勾選這個選項再移一次，比較看看差異。有些使用者對動態效果會感到頭暈或不適，這個設定讓他們可以關閉不必要的動畫。你的網站有尊重這個偏好嗎？</p>
-    <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);">
-      <p style="font-size:0.8rem;margin-bottom:8px;"><strong>字體、字距、行距對閱讀的影響</strong></p>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">
-        <button class="sim-btn" style="font-size:0.75rem;padding:4px 10px;" onclick="switchFont('default')">預設</button>
-        <button class="sim-btn" style="font-size:0.75rem;padding:4px 10px;" onclick="switchFont('cramped')">擠在一起</button>
-        <button class="sim-btn" style="font-size:0.75rem;padding:4px 10px;" onclick="switchFont('spacious')">加大間距</button>
-        <button class="sim-btn" style="font-size:0.75rem;padding:4px 10px;" onclick="switchFont('large')">放大字體</button>
-      </div>
-      <p id="fontDemoText" style="font-size:0.85rem;line-height:1.8;padding:12px;background:var(--bg);border-radius:8px;transition:all 0.3s;">在 AI 時代，每個人都可能是 builder。這段文字讓你體驗字距、行距、字體大小對閱讀舒適度的影響。對閱讀障礙者和低視力者來說，這些不是美學選擇，是能不能讀完一段話的差別。</p>
-      <p style="font-size:0.8rem;color:var(--text-light);margin-top:4px;">研究顯示：對中文閱讀障礙者，字距和行距的影響比字體本身更大。OpenDyslexic 等特殊字體對中文沒有效果，因為中文字不存在 b/d、p/q 的鏡像混淆問題。</p>
-    </div>
     <p style="margin-top:6px;font-size:0.8rem;color:var(--text-light);">註：這個偏好其實是作業系統內建的（Windows：設定 &gt; 協助工具 &gt; 視覺效果 &gt; 動畫效果；macOS：系統偏好設定 &gt; 輔助使用 &gt; 顯示器 &gt; 減少動態效果）。網站不需要自己做開關，只要在 CSS 裡用 <code style="background:var(--bg);padding:1px 4px;border-radius:3px;">@media (prefers-reduced-motion: reduce)</code> 偵測並尊重使用者的系統設定就好。這裡的 checkbox 只是為了讓你體驗差異。</p>
   </div>
   <p style="margin-top:8px;"><span class="footer-highlight">黃介韋 Bertram Huang</span> &#x25AE; <span style="position:relative;display:inline-block;"><a href="mailto:bertram.huang@berotics.com" class="footer-highlight footer-email-link" style="color:inherit;text-decoration:underline;">寫信給 Bertram</a><span class="footer-email-tip">為什麼不直接寫 email 地址？因為螢幕閱讀器會逐字念出 b-e-r-t-r-a-m dot h-u-a-n-g...。用「寫信給 Bertram」，聽到的人馬上知道這是什麼。做法很簡單，把連結文字從 email 地址改成有意義的描述就好，email 放在 href 裡：&lt;a href="mailto:..."&gt;寫信給 Bertram&lt;/a&gt;</span></span> &#x25AE; <a href="https://github.com/chiehweihuang/a11y-design/discussions" class="footer-highlight" style="color:inherit;text-decoration:underline;">歡迎提問、建議、討論</a></p>
