@@ -50,6 +50,24 @@
     --shadow: 0 2px 12px rgba(0,0,0,0.3);
   }
 
+  /* Dark mode contrast fixes: light bg needs dark text */
+  [data-theme="dark"] .step-num,
+  [data-theme="dark"] .q-num {
+    color: #1a1a2e;
+  }
+  [data-theme="dark"] .search-bar button {
+    color: #1a1a2e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .step-num,
+    :root:not([data-theme="light"]) .q-num {
+      color: #1a1a2e;
+    }
+    :root:not([data-theme="light"]) .search-bar button {
+      color: #1a1a2e;
+    }
+  }
+
   /* Theme toggle */
   .theme-toggle {
     position: fixed;
