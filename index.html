@@ -168,7 +168,7 @@
       <input type="checkbox" id="tablistModeToggle" onchange="toggleTablistMode(this.checked)" style="width:14px;height:14px;">
       切換為 Tablist 模式（方向鍵導航，Tab 只停一次）
     </label>
-    <span style="font-size:0.65rem;color:var(--text-light);display:block;margin-top:2px;">目前是 Nav 模式：Tab 逐一經過每個選項，這就是為什麼 skip link 存在</span>
+    <span style="font-size:0.65rem;color:var(--text-light);display:block;margin-top:2px;">鍵盤操作：Tab 往下一個、Shift+Tab 回上一個。目前是 Nav 模式：Tab 逐一經過每個選項，這就是為什麼 skip link 存在</span>
   </div>
 </div>
 
@@ -354,8 +354,8 @@
   </figure>
 
   <div class="foundation-box">
-    <h3>全員必備：無障礙基礎素養</h3>
-    <p class="text-sm">不管你的角色是什麼，以下能力是<strong>每一位團隊成員</strong>都需要具備的。這不是「加分項」，而是參與這個專案的基本門檻。</p>
+    <h3>每個 builder 都該知道的事</h3>
+    <p class="text-sm">AI 時代，每個人都在設計東西——網頁、app、簡報、表單、甚至一封 email。只要你做的東西會被別人用，以下這些就跟你有關。</p>
     <div class="foundation-items">
       <div class="foundation-item">
         <span class="fi-icon" aria-hidden="true">&#x1F9E0;</span>
@@ -602,6 +602,24 @@
       <button class="sim-btn" style="background:var(--success);color:var(--bg);" onclick="this.blur()">按鈕 C</button>
     </div>
     <p style="font-size:0.75rem;color:var(--text-light);">很多設計師覺得 focus 邊框「很醜」所以加上 <code style="background:var(--bg);padding:1px 4px;border-radius:3px;">outline:none</code>。結果鍵盤使用者完全不知道自己在哪——就像在黑暗中走路，腳下沒有地板的感覺。</p>
+  </article>
+
+  <article class="card" style="border-left:4px solid var(--danger);">
+    <h3 style="margin-bottom:8px;">鍵盤陷阱體驗</h3>
+    <p class="text-sm" style="margin-bottom:12px;">按下面的按鈕，你的焦點會被困在一個假的「訂閱」彈窗裡。Tab 怎麼按都出不來——這就是鍵盤陷阱（keyboard trap）。只有按 Esc 才能逃脫。</p>
+    <button class="sim-btn" onclick="openKeyboardTrap()">進入鍵盤陷阱</button>
+    <div id="keyboardTrapDemo" style="display:none;margin-top:12px;padding:20px;background:var(--card-bg);border:3px solid var(--danger);border-radius:12px;">
+      <p style="font-weight:700;margin-bottom:8px;">訂閱我們的電子報！</p>
+      <label for="trapEmail" style="font-size:0.85rem;display:block;margin-bottom:4px;">你的 Email</label>
+      <input id="trapEmail" type="email" placeholder="name@example.com" style="width:100%;padding:10px;border:2px solid var(--border);border-radius:8px;font-size:0.9rem;margin-bottom:8px;background:var(--card-bg);color:var(--text);">
+      <label for="trapName" style="font-size:0.85rem;display:block;margin-bottom:4px;">你的名字</label>
+      <input id="trapName" type="text" placeholder="Bertram" style="width:100%;padding:10px;border:2px solid var(--border);border-radius:8px;font-size:0.9rem;margin-bottom:8px;background:var(--card-bg);color:var(--text);">
+      <button class="sim-btn" style="width:100%;background:var(--danger);" onclick="return false;">訂閱（這個按鈕故意不能用）</button>
+      <p style="font-size:0.75rem;color:var(--danger);margin-top:8px;font-weight:600;">你被困住了。Tab 試試看——焦點只在這三個元素之間循環。按 Esc 逃脫。</p>
+    </div>
+    <div id="keyboardTrapResult" style="display:none;margin-top:8px;padding:10px 14px;background:var(--card-bg);border-left:3px solid var(--success);border-radius:8px;">
+      <p style="font-size:0.85rem;">你逃出來了。真實的鍵盤陷阱沒有 Esc 可以按——使用者只能重新整理頁面，失去所有未儲存的內容。這是 WCAG 2.1.2 明確禁止的。常見於：自訂的彈窗、嵌入式影片播放器、第三方廣告。</p>
+    </div>
   </article>
 
   <article class="card" style="background:var(--bg);">
@@ -969,10 +987,10 @@
   <details id="a11yDetails" open style="margin:24px auto;max-width:700px;">
     <summary style="cursor:pointer;list-style:none;padding:12px 0;">
       <span class="a11y-stmt-header" style="font-size:1.3rem;font-weight:700;color:var(--primary);display:flex;align-items:center;gap:8px;">
-        <span style="display:inline-block;transition:transform 0.2s;">&#x25BC;</span> Accessibility Statement
+        <span style="display:inline-block;transition:transform 0.2s;">&#x25BC;</span> 無障礙聲明
       </span>
       <span class="a11y-stmt-collapsed" style="display:none;align-items:center;justify-content:center;gap:16px;font-size:0.9rem;">
-        <span class="a11y-stmt-link" style="color:var(--text-light);cursor:pointer;">Accessibility Statement</span>
+        <span class="a11y-stmt-link" style="color:var(--text-light);cursor:pointer;">無障礙聲明</span>
         <a href="https://github.com/chiehweihuang/a11y-design" aria-label="GitHub" style="color:var(--text-light);text-decoration:none;" onclick="event.stopPropagation();">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" role="img" aria-label="GitHub"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
         </a>

@@ -84,8 +84,15 @@ function showSection(id, skipScroll) {
   updateJourneyStepper(id);
   history.replaceState(null, '', '#' + id);
   if (!skipScroll) {
-    var nav = document.getElementById('site-nav');
-    if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(function() {
+      var section = document.getElementById('sec-' + id);
+      var heading = section.querySelector('h2');
+      if (heading) {
+        heading.setAttribute('tabindex', '-1');
+        heading.focus({ preventScroll: true });
+      }
+    }, 300);
   }
 }
 
@@ -1486,13 +1493,50 @@ function toggleFocusIndicator(hide) {
   }
 }
 
+// ===== KEYBOARD TRAP DEMO =====
+var trapActive = false;
+function openKeyboardTrap() {
+  var demo = document.getElementById('keyboardTrapDemo');
+  demo.style.display = 'block';
+  trapActive = true;
+  var firstInput = document.getElementById('trapEmail');
+  firstInput.focus();
+
+  var trapElements = demo.querySelectorAll('input, button');
+  var trapHandler = function(e) {
+    if (!trapActive) return;
+    if (e.key === 'Tab') {
+      var list = Array.from(trapElements);
+      var idx = list.indexOf(document.activeElement);
+      if (e.shiftKey) {
+        e.preventDefault();
+        list[(idx - 1 + list.length) % list.length].focus();
+      } else {
+        e.preventDefault();
+        list[(idx + 1) % list.length].focus();
+      }
+    }
+    if (e.key === 'Escape') {
+      trapActive = false;
+      demo.style.display = 'none';
+      document.getElementById('keyboardTrapResult').style.display = 'block';
+      document.removeEventListener('keydown', trapHandler, true);
+      announce('你逃出了鍵盤陷阱。');
+      earnBadge('demo-explorer');
+    }
+  };
+  document.addEventListener('keydown', trapHandler, true);
+}
+
 // ===== CONTRAST TOGGLE =====
 function toggleContrast(lowContrast) {
   var text = document.getElementById('contrastText');
   if (!text) return;
   earnBadge('demo-explorer');
   if (lowContrast) {
-    text.style.color = '#b0b0b0';
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark' ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches && document.documentElement.getAttribute('data-theme') !== 'light');
+    text.style.color = isDark ? '#4a4a6a' : '#b0b0b0';
     announce('對比度已降低。你還讀得清楚嗎？');
   } else {
     text.style.color = '';
@@ -1576,6 +1620,11 @@ function toggleTheme() {
   document.getElementById('themeLabel').textContent = next === 'dark' ? '\u6DFA\u8272\u6A21\u5F0F' : '\u6DF1\u8272\u6A21\u5F0F';
   try { localStorage.setItem('theme', next); } catch(e) {}
   announce(next === 'dark' ? '\u5DF2\u5207\u63DB\u81F3\u6DF1\u8272\u6A21\u5F0F' : '\u5DF2\u5207\u63DB\u81F3\u6DFA\u8272\u6A21\u5F0F');
+  // Update contrast demo if active
+  var contrastToggle = document.getElementById('contrastToggle');
+  if (contrastToggle && contrastToggle.checked) {
+    toggleContrast(true);
+  }
 }
 
 // Restore saved theme
