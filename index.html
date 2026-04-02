@@ -657,6 +657,30 @@
         <button class="sim-btn" onclick="openSim('motor')">開始沉浸體驗</button>
       </div>
     </article>
+    <!-- 4.5 Touch Target Size -->
+    <article class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#7d3c98,#5b2c6f);" aria-hidden="true">
+        <div style="font-size:0.85rem;">12px 的按鈕<br>你點得到嗎？</div>
+      </div>
+      <div class="sim-info">
+        <h3>按鈕大小體驗</h3>
+        <p>WCAG 2.2 AA 要求觸控目標至少 24x24px，建議 44x44px。試試點擊下面兩組按鈕，感受差異。</p>
+        <div style="margin-bottom:12px;">
+          <p style="font-size:0.75rem;color:var(--text-light);margin-bottom:4px;">太小（12x12px）：</p>
+          <div style="display:flex;gap:24px;">
+            <button style="width:12px;height:12px;background:var(--danger);border:none;border-radius:2px;cursor:pointer;padding:0;" aria-label="太小的確認按鈕" onclick="announce('很難點到吧？這就是手抖的人每天面對的挫折。')"></button>
+            <button style="width:12px;height:12px;background:var(--text-light);border:none;border-radius:2px;cursor:pointer;padding:0;" aria-label="太小的取消按鈕" onclick="announce('很難點到吧？想像你的手在抖。')"></button>
+          </div>
+        </div>
+        <div>
+          <p style="font-size:0.75rem;color:var(--text-light);margin-bottom:4px;">夠大（44x44px）：</p>
+          <div style="display:flex;gap:12px;">
+            <button style="width:44px;height:44px;background:var(--success);color:white;border:none;border-radius:8px;cursor:pointer;font-size:1.2rem;" aria-label="適當大小的確認按鈕" onclick="announce('舒服多了。44x44px 讓所有人都能輕鬆操作。')">V</button>
+            <button style="width:44px;height:44px;background:var(--text-light);color:white;border:none;border-radius:8px;cursor:pointer;font-size:1.2rem;" aria-label="適當大小的取消按鈕" onclick="announce('這個大小對手機大拇指操作也很友善。')">X</button>
+          </div>
+        </div>
+      </div>
+    </article>
     <!-- 5. Keyboard Only -->
     <article class="sim-card">
       <div class="sim-preview" style="background:linear-gradient(135deg,#1a5276,#2980b9);" aria-hidden="true">
@@ -808,6 +832,51 @@
 <section class="section" id="sec-checklist" role="tabpanel" aria-labelledby="tab-checklist">
   <h2 class="section-title">從 30 秒開始</h2>
   <p class="text-sm text-muted mb-16">每個步驟都小到不好意思不做。從最上面開始，做到你覺得夠了為止——回頭一看，你會發現自己做了不少。</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-bottom:24px;">
+    <!-- Placeholder as Label demo -->
+    <article class="card" style="border-left:4px solid var(--accent);">
+      <h3 style="margin-bottom:8px;">Placeholder 不是 Label</h3>
+      <p class="text-sm" style="margin-bottom:12px;">試著在下面兩個欄位打字，看看差異。</p>
+      <div style="margin-bottom:12px;">
+        <p style="font-size:0.75rem;color:var(--danger);margin-bottom:4px;">錯誤做法：用 placeholder 當 label</p>
+        <input type="text" placeholder="你的名字" style="width:100%;padding:10px;border:2px solid var(--border);border-radius:8px;font-size:0.9rem;background:var(--card-bg);color:var(--text);">
+        <p style="font-size:0.7rem;color:var(--text-light);margin-top:2px;">打字後提示消失了——你還記得這欄要填什麼嗎？</p>
+      </div>
+      <div>
+        <p style="font-size:0.75rem;color:var(--success);margin-bottom:4px;">正確做法：用 label + placeholder</p>
+        <label for="demoName" style="font-size:0.85rem;font-weight:600;display:block;margin-bottom:4px;">你的名字</label>
+        <input id="demoName" type="text" placeholder="例如：Bertram" style="width:100%;padding:10px;border:2px solid var(--border);border-radius:8px;font-size:0.9rem;background:var(--card-bg);color:var(--text);">
+        <p style="font-size:0.7rem;color:var(--text-light);margin-top:2px;">label 永遠在，placeholder 只是補充提示。</p>
+      </div>
+    </article>
+
+    <!-- Error message demo -->
+    <article class="card" style="border-left:4px solid var(--danger);">
+      <h3 style="margin-bottom:8px;">錯誤訊息的三種做法</h3>
+      <p class="text-sm" style="margin-bottom:12px;">色盲使用者看不到紅色。哪一種他們讀得懂？</p>
+      <div style="margin-bottom:12px;">
+        <p style="font-size:0.75rem;color:var(--danger);margin-bottom:4px;">只有顏色：</p>
+        <div style="padding:8px 12px;border:2px solid var(--danger);border-radius:8px;color:var(--danger);font-size:0.85rem;">
+          電子郵件格式不正確
+        </div>
+      </div>
+      <div style="margin-bottom:12px;">
+        <p style="font-size:0.75rem;color:var(--accent);margin-bottom:4px;">顏色 + 圖示：</p>
+        <div style="padding:8px 12px;border:2px solid var(--danger);border-radius:8px;color:var(--danger);font-size:0.85rem;">
+          &#x26A0; 電子郵件格式不正確
+        </div>
+      </div>
+      <div>
+        <p style="font-size:0.75rem;color:var(--success);margin-bottom:4px;">顏色 + 圖示 + 建議：</p>
+        <div style="padding:8px 12px;border:2px solid var(--danger);border-radius:8px;font-size:0.85rem;" role="alert">
+          <span style="color:var(--danger);">&#x26A0; 電子郵件格式不正確</span><br>
+          <span style="font-size:0.8rem;color:var(--text-light);">請輸入完整的 email 地址，例如 name@example.com</span>
+        </div>
+      </div>
+      <p style="font-size:0.7rem;color:var(--text-light);margin-top:8px;">第三種加了 <code style="background:var(--bg);padding:1px 4px;border-radius:3px;">role="alert"</code>，螢幕閱讀器會自動念出錯誤訊息。</p>
+    </article>
+  </div>
   <div class="filter-pills" id="checklistFilters" role="group" aria-label="依角色篩選"></div>
   <div id="checklistContainer"></div>
   <button class="next-step-cta" onclick="showSection('phases')">
