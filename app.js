@@ -71,7 +71,7 @@ var quizData = [
 ];
 
 // ===== NAVIGATION (ARIA tabs) =====
-function showSection(id) {
+function showSection(id, skipScroll) {
   document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
   document.getElementById('sec-' + id).classList.add('active');
   document.querySelectorAll('.nav-tab').forEach(function(t) {
@@ -82,8 +82,11 @@ function showSection(id) {
     }
   });
   updateJourneyStepper(id);
-  var nav = document.getElementById('site-nav');
-  if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  history.replaceState(null, '', '#' + id);
+  if (!skipScroll) {
+    var nav = document.getElementById('site-nav');
+    if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 }
 
 // ===== JOURNEY PROGRESS =====
@@ -1340,6 +1343,23 @@ function updateProgress() {
 }
 
 // ===== FIX CENTERED SECTION =====
+// ===== FOCUS INDICATOR TOGGLE =====
+var focusStyleSheet = null;
+function toggleFocusIndicator(hide) {
+  if (hide) {
+    focusStyleSheet = document.createElement('style');
+    focusStyleSheet.textContent = '*:focus-visible { outline: none !important; box-shadow: none !important; }';
+    document.head.appendChild(focusStyleSheet);
+    announce('Focus indicator 已關閉。試試用 Tab 鍵移動——你知道自己在哪嗎？');
+  } else {
+    if (focusStyleSheet && focusStyleSheet.parentNode) {
+      focusStyleSheet.parentNode.removeChild(focusStyleSheet);
+      focusStyleSheet = null;
+    }
+    announce('Focus indicator 已恢復。');
+  }
+}
+
 // ===== CONTRAST TOGGLE =====
 function toggleContrast(lowContrast) {
   var text = document.getElementById('contrastText');
@@ -1511,6 +1531,12 @@ renderQuiz();
 renderChecklistFilters();
 renderChecklist();
 updateProgress();
+
+// Restore tab from URL hash on load
+var hash = window.location.hash.replace('#', '');
+if (hash && document.getElementById('sec-' + hash)) {
+  showSection(hash, true);
+}
 
 var extraStyle = document.createElement('style');
 extraStyle.textContent = '@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }';
