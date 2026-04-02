@@ -95,36 +95,6 @@
   <span class="skip-links-label">&#x2190; 這是 skip link，讓鍵盤使用者跳過導航直接到內容。<br>一般網站它是隱藏的，按 Tab 時才會出現。螢幕閱讀器使用者每次進入頁面都會聽到它，用來決定要不要跳過重複的選單。</span>
 </div>
 
-<!-- ===== NAVIGATION ===== -->
-<div id="site-nav" class="nav-container" aria-label="學習旅程導航">
-  <div class="nav-tabs" role="tablist" aria-label="章節">
-    <button class="nav-tab" role="tab" id="tab-why" aria-selected="true" aria-controls="sec-why" tabindex="0" data-journey="why">
-      <span class="step-num">0</span>
-      <span class="tab-label">為什麼</span><span class="tab-label-short">Why</span>
-    </button>
-    <button class="nav-tab" role="tab" id="tab-roles" aria-selected="false" aria-controls="sec-roles" tabindex="-1" data-journey="roles">
-      <span class="step-num">1</span>
-      <span class="tab-label">選擇角色</span><span class="tab-label-short">角色</span>
-    </button>
-    <button class="nav-tab" role="tab" id="tab-empathy" aria-selected="false" aria-controls="sec-empathy" tabindex="-1" data-journey="empathy">
-      <span class="step-num">2</span>
-      <span class="tab-label">同理心體驗</span><span class="tab-label-short">體驗</span>
-    </button>
-    <button class="nav-tab" role="tab" id="tab-quiz" aria-selected="false" aria-controls="sec-quiz" tabindex="-1" data-journey="quiz">
-      <span class="step-num">3</span>
-      <span class="tab-label">知識測驗</span><span class="tab-label-short">測驗</span>
-    </button>
-    <button class="nav-tab" role="tab" id="tab-checklist" aria-selected="false" aria-controls="sec-checklist" tabindex="-1" data-journey="checklist">
-      <span class="step-num">4</span>
-      <span class="tab-label">動手做</span><span class="tab-label-short">動手</span>
-    </button>
-    <button class="nav-tab" role="tab" id="tab-phases" aria-selected="false" aria-controls="sec-phases" tabindex="-1" data-journey="phases">
-      <span class="step-num">5</span>
-      <span class="tab-label">專案規劃</span><span class="tab-label-short">專案</span>
-    </button>
-  </div>
-</div>
-
 <!-- ===== SEARCH ===== -->
 <div class="search-container">
   <search id="site-search" role="search" aria-label="站內搜尋">
@@ -136,6 +106,43 @@
     <div id="search-results" role="region" aria-live="polite"></div>
     <p class="text-sm text-muted" style="text-align:center;margin-top:6px;font-size:0.75rem;">搜尋列（Search Bar）提供第二條路徑找到內容——不是每個人都能靠瀏覽選單找到東西</p>
   </search>
+</div>
+
+<!-- ===== NAVIGATION ===== -->
+<div id="site-nav" class="nav-container" aria-label="學習旅程導航">
+  <div class="nav-tabs" id="navTabs" aria-label="章節">
+    <button class="nav-tab" id="tab-why" aria-selected="true" aria-controls="sec-why" data-journey="why" onclick="showSection('why')">
+      <span class="step-num">0</span>
+      <span class="tab-label">為什麼</span><span class="tab-label-short">Why</span>
+    </button>
+    <button class="nav-tab" id="tab-roles" aria-selected="false" aria-controls="sec-roles" data-journey="roles" onclick="showSection('roles')">
+      <span class="step-num">1</span>
+      <span class="tab-label">選擇角色</span><span class="tab-label-short">角色</span>
+    </button>
+    <button class="nav-tab" id="tab-empathy" aria-selected="false" aria-controls="sec-empathy" data-journey="empathy" onclick="showSection('empathy')">
+      <span class="step-num">2</span>
+      <span class="tab-label">同理心體驗</span><span class="tab-label-short">體驗</span>
+    </button>
+    <button class="nav-tab" id="tab-quiz" aria-selected="false" aria-controls="sec-quiz" data-journey="quiz" onclick="showSection('quiz')">
+      <span class="step-num">3</span>
+      <span class="tab-label">知識測驗</span><span class="tab-label-short">測驗</span>
+    </button>
+    <button class="nav-tab" id="tab-checklist" aria-selected="false" aria-controls="sec-checklist" data-journey="checklist" onclick="showSection('checklist')">
+      <span class="step-num">4</span>
+      <span class="tab-label">動手做</span><span class="tab-label-short">動手</span>
+    </button>
+    <button class="nav-tab" id="tab-phases" aria-selected="false" aria-controls="sec-phases" data-journey="phases" onclick="showSection('phases')">
+      <span class="step-num">5</span>
+      <span class="tab-label">專案規劃</span><span class="tab-label-short">專案</span>
+    </button>
+  </div>
+  <div style="text-align:center;margin-top:4px;">
+    <label style="font-size:0.7rem;color:var(--text-light);cursor:pointer;display:inline-flex;align-items:center;gap:4px;">
+      <input type="checkbox" id="tablistModeToggle" onchange="toggleTablistMode(this.checked)" style="width:14px;height:14px;">
+      切換為 Tablist 模式（方向鍵導航，Tab 只停一次）
+    </label>
+    <span style="font-size:0.65rem;color:var(--text-light);display:block;margin-top:2px;">目前是 Nav 模式：Tab 逐一經過每個選項，這就是為什麼 skip link 存在</span>
+  </div>
 </div>
 
 <!-- ===== HERO (semantic header) ===== -->

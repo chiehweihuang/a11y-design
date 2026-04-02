@@ -74,10 +74,12 @@ var quizData = [
 function showSection(id) {
   document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
   document.getElementById('sec-' + id).classList.add('active');
-  document.querySelectorAll('[role="tab"]').forEach(function(t) {
+  document.querySelectorAll('.nav-tab').forEach(function(t) {
     var isActive = t.id === 'tab-' + id;
     t.setAttribute('aria-selected', isActive ? 'true' : 'false');
-    t.tabIndex = isActive ? 0 : -1;
+    if (isTablistMode) {
+      t.tabIndex = isActive ? 0 : -1;
+    }
   });
   updateJourneyStepper(id);
   var nav = document.getElementById('site-nav');
@@ -114,11 +116,39 @@ function isJourneyStepDone(id) {
   }
 }
 
+// ===== NAV MODE TOGGLE =====
+var isTablistMode = false;
+
+function toggleTablistMode(enabled) {
+  isTablistMode = enabled;
+  var container = document.getElementById('navTabs');
+  var tabs = Array.from(container.querySelectorAll('.nav-tab'));
+
+  if (enabled) {
+    container.setAttribute('role', 'tablist');
+    tabs.forEach(function(tab) {
+      tab.setAttribute('role', 'tab');
+      var isActive = tab.getAttribute('aria-selected') === 'true';
+      tab.tabIndex = isActive ? 0 : -1;
+    });
+  } else {
+    container.removeAttribute('role');
+    tabs.forEach(function(tab) {
+      tab.removeAttribute('role');
+      tab.tabIndex = 0;
+    });
+  }
+  announce(enabled ? '已切換為 Tablist 模式：用方向鍵切換，Tab 只停一次' : '已切換為 Nav 模式：Tab 逐一經過每個選項');
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-  var tablist = document.querySelector('[role="tablist"]');
-  if (!tablist) return;
-  tablist.addEventListener('keydown', function(e) {
-    var tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
+  var container = document.getElementById('navTabs');
+  if (!container) return;
+
+  // Arrow key navigation (works in tablist mode only)
+  container.addEventListener('keydown', function(e) {
+    if (!isTablistMode) return;
+    var tabs = Array.from(container.querySelectorAll('.nav-tab'));
     var idx = tabs.indexOf(document.activeElement);
     if (idx === -1) return;
     var newIdx;
@@ -130,9 +160,6 @@ document.addEventListener('DOMContentLoaded', function() {
     e.preventDefault();
     tabs[newIdx].focus();
     showSection(tabs[newIdx].id.replace('tab-', ''));
-  });
-  tablist.querySelectorAll('[role="tab"]').forEach(function(tab) {
-    tab.addEventListener('click', function() { showSection(tab.id.replace('tab-', '')); });
   });
 });
 
@@ -550,7 +577,7 @@ function simScreenReader() {
 
 function simMotor() {
   var jitterAmp = 8;
-  var targets = document.querySelectorAll('button, a, input, [role="button"], [role="tab"]');
+  var targets = document.querySelectorAll('button, a, input, [role="button"], .nav-tab');
   var jitterIds = [];
 
   // Make all interactive targets jitter in place
@@ -743,7 +770,7 @@ function simADHD() {
       }
 
       // Tab notification dots
-      var tabs = document.querySelectorAll('[role="tab"]');
+      var tabs = document.querySelectorAll('.nav-tab');
       var notifId = setInterval(function() {
         var tab = tabs[Math.floor(Math.random() * tabs.length)];
         if (!tab) return;
