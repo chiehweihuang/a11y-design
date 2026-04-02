@@ -61,8 +61,8 @@
 <div class="anxiety-timer" id="anxietyTimer" aria-hidden="true"></div>
 
 <!-- Photosensitivity warning dialog -->
-<dialog class="photosens-dialog" id="photosensDialog">
-  <div role="heading" aria-level="2" style="margin-bottom:12px;font-size:1.1rem;font-weight:700;">Photosensitivity Warning</div>
+<dialog class="photosens-dialog" id="photosensDialog" aria-labelledby="photosens-heading">
+  <div id="photosens-heading" role="heading" aria-level="2" style="margin-bottom:12px;font-size:1.1rem;font-weight:700;">Photosensitivity Warning</div>
   <p style="margin-bottom:16px;font-size:0.9rem;color:var(--text-light);">
     此模擬包含動態視覺效果（移動、色彩變化）。如果你有光敏性癲癇或對閃爍敏感，請勿使用此模擬。
   </p>
@@ -83,7 +83,7 @@
     <input type="range" id="simIntensity" class="sim-intensity" min="0" max="100" value="50">
   </div>
   <div id="simControlModes" style="display:none;"></div>
-  <div class="challenge" id="simControlChallenge"></div>
+  <p class="challenge" id="simControlChallenge"></p>
   <button class="sim-stop-btn" onclick="stopImmersiveSim()">停止體驗</button>
   <div style="font-size:0.75rem;color:var(--text-light);margin-top:8px;text-align:center;">按 Esc 也可以停止</div>
 </div>
@@ -96,7 +96,7 @@
 </div>
 
 <!-- ===== NAVIGATION ===== -->
-<nav id="site-nav" class="nav-container" aria-label="學習旅程導航">
+<div id="site-nav" class="nav-container" aria-label="學習旅程導航">
   <div class="nav-tabs" role="tablist" aria-label="章節">
     <button class="nav-tab" role="tab" id="tab-why" aria-selected="true" aria-controls="sec-why" tabindex="0" data-journey="why">
       <span class="step-num">0</span>
@@ -123,16 +123,17 @@
       <span class="tab-label">專案規劃</span><span class="tab-label-short">專案</span>
     </button>
   </div>
-</nav>
+</div>
 
 <!-- ===== SEARCH ===== -->
 <div class="search-container">
   <search id="site-search" role="search" aria-label="站內搜尋">
-    <form class="search-bar" onsubmit="event.preventDefault(); announce('搜尋功能為示範用途，尚未啟用。');">
+    <form class="search-bar" onsubmit="searchContent(event);">
       <label for="search-input" class="sr-only">搜尋關鍵字</label>
       <input id="search-input" type="search" placeholder="搜尋指南內容..." autocomplete="off">
       <button type="submit">搜尋</button>
     </form>
+    <div id="search-results" role="region" aria-live="polite"></div>
     <p class="text-sm text-muted" style="text-align:center;margin-top:6px;font-size:0.75rem;">搜尋列（Search Bar）提供第二條路徑找到內容——不是每個人都能靠瀏覽選單找到東西</p>
   </search>
 </div>
@@ -200,14 +201,14 @@
 <section class="section active" id="sec-why" role="tabpanel" aria-labelledby="tab-why">
   <h2 class="section-title">為什麼要做無障礙？</h2>
 
-  <div class="card" style="border-left:4px solid var(--text);background:var(--card-bg);">
+  <article class="card" style="border-left:4px solid var(--text);background:var(--card-bg);">
     <h3 style="margin-bottom:12px;">先試三件事</h3>
     <p style="font-size:1.05rem;line-height:1.8;margin-bottom:16px;"><strong>1.</strong> 打開你自己的網站，把滑鼠收起來，只用 Tab 和 Enter 操作 60 秒。<br><strong>2.</strong> 把螢幕亮度調到最低，試著讀完一段文字。<br><strong>3.</strong> 想像你爸媽打開同一個頁面。他們找得到按鈕嗎？還是先被彈出廣告困住了？</p>
     <p style="font-size:1.05rem;line-height:1.8;margin-bottom:12px;">如果任何一個讓你猶豫了——全球 95.9% 的網站都有這些問題（WebAIM 2025）。你做好了，就是那 4.1%：更多人能用你的產品、AI agent 可能更願意推薦你的頁面、進入國際市場少一道法律障礙。</p>
     <p style="font-size:0.95rem;line-height:1.8;color:var(--text-light);">很多時候我們不是不願意做，而是不知道要做、不知道能幫助到誰。台灣人在國際上的形象是友善的，但我們做出來的數位產品，對自己人卻不夠友善。要打入國際市場，無障礙更是基本門檻——歐盟 EAA 2025 年已經生效，不合規就進不去。但如果只是為了過關而做到最低標準，那不是友善，那只是合規。</p>
-  </div>
+  </article>
 
-  <div class="card" style="border-left:4px solid var(--accent);background:var(--card-bg);border-color:var(--accent);">
+  <article class="card" style="border-left:4px solid var(--accent);background:var(--card-bg);border-color:var(--accent);">
     <h3 style="margin-bottom:8px;">「讓 AI 做就好了吧？」</h3>
     <p class="text-sm" style="margin-bottom:12px;">我自己大量使用 AI 寫 code、做設計、跑測試。它確實幫我省下很多時間。但用了一陣子之後，我發現幾件事：</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:14px;">
@@ -228,9 +229,9 @@
       <p class="text-sm" style="margin-bottom:8px;">AI 已經幫我掃掉了最煩的 40%。省下來的時間，或許足夠我花時間思考如何把產品做得讓人用起來更舒服一點。然後把這些經驗建立成流程、建立成標準、建立成 skill，讓接下來每一個分享、服務、產品，都是以提供更多人幫助而非障礙為出發點。這份指南是我在嘗試的起點。</p>
       <p class="text-sm">補充一個事實：AI agent 操作網站時依賴的是和螢幕閱讀器同一棵 accessibility tree（CHI 2026 實測：成功率從 78% 跌到 42%）。你的網站對人不友善，對 AI 也不友善。</p>
     </div>
-  </div>
+  </article>
 
-  <div class="card" style="border-left:4px solid var(--primary);position:relative;">
+  <article class="card" style="border-left:4px solid var(--primary);position:relative;">
     <h3 style="margin-bottom:8px;">你已經在用無障礙功能了——只是不知道而已</h3>
     <p class="text-sm" style="margin-bottom:12px;">試試右上角的深色模式切換。你大概每天都在手機上切深色模式吧？這就是無障礙。不是什麼特殊功能，是讓不同的人在不同情境下都能舒服地使用。</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:14px;">
@@ -247,7 +248,7 @@
         <span>深色模式的實作成本極低，但它能幫助全球 22 億視覺困難者（WHO 2023）更舒服地使用你的網站。這可能是投資報酬率最高的無障礙改善。</span>
       </div>
     </div>
-  </div>
+  </article>
 
   <div style="max-width:1000px;margin:24px auto;padding:24px;text-align:center;">
     <p style="font-size:0.9rem;color:var(--text-light);margin-bottom:8px;">Accessibility / 無障礙 / 可及性 / 可達性 / 數位親和力</p>
@@ -263,9 +264,9 @@
     </div>
   </div>
 
-  <div class="next-step-cta" onclick="showSection('roles')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSection('roles')}">
+  <button class="next-step-cta" onclick="showSection('roles')">
     準備好了？來看看你的角色 <span class="arrow" aria-hidden="true">&#x2192;</span>
-  </div>
+  </button>
 </section>
 
 <!-- ===================== SECTION: ROLES ===================== -->
@@ -273,7 +274,7 @@
   <h2 class="section-title">一起守護的事</h2>
   <p class="text-sm text-muted mb-16">無障礙不是某一個人的額外工作。它是我們每個人本來就在做的事的一部分——只是過去沒有意識到。當你寫一段文案、畫一個按鈕、寫一行 code，你都在決定某個人能不能用這個產品。</p>
 
-  <div class="layer-diagram">
+  <figure class="layer-diagram">
     <h3 style="text-align:center;margin-bottom:16px;">我們怎麼一起做到</h3>
     <p class="text-sm text-muted" style="text-align:center;margin-bottom:8px;">不是「誰該做什麼」，而是「我們一起確認什麼不能漏掉」。</p>
     <p class="text-sm text-muted" style="text-align:center;margin-bottom:20px;">不需要每個人都是專家，AI 補足技能缺口，但最終的判斷是人的。</p>
@@ -291,7 +292,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </figure>
 
   <div class="foundation-box">
     <h3>全員必備：無障礙基礎素養</h3>
@@ -367,7 +368,7 @@
     </div>
   </div>
 
-  <div class="card" style="border-left: 4px solid #8e44ad; background: var(--card-bg);">
+  <article class="card" style="border-left: 4px solid #8e44ad; background: var(--card-bg);">
     <h3>AI 可以幫你做什麼</h3>
     <p class="text-sm" style="margin-bottom: 14px;">三件事：</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">
@@ -387,9 +388,9 @@
     <div style="margin-top:14px;padding:12px 16px;background:rgba(142,68,173,0.08);border-radius:10px;">
       <p class="text-sm"><strong>但 AI 不能取代的是：</strong>與真實使用者的對話、對人類處境的同理心、以及「這個設計讓人感覺如何」的判斷。自動化能抓到約 30% 的無障礙問題，其餘 70% 需要人類的感知和判斷。</p>
     </div>
-  </div>
+  </article>
 
-  <div class="card" style="border-left: 4px solid #2e86c1; background: var(--card-bg);">
+  <article class="card" style="border-left: 4px solid #2e86c1; background: var(--card-bg);">
     <h3>團隊可用的無障礙工具總覽</h3>
     <p class="text-sm" style="margin-bottom: 14px;">以下工具已安裝或可免費取得，涵蓋從寫 code 到上線前的完整檢測流程。</p>
 
@@ -516,9 +517,9 @@
     <div style="margin-top:12px;padding:12px 16px;background:rgba(46,134,193,0.08);border-radius:10px;">
       <p class="text-sm"><strong>記住：</strong>所有自動化工具加總只能抓到約 30-40% 的無障礙問題。色彩語意、內容可理解性、操作流程合理性，仍需要人類判斷與真實使用者測試。工具是「第一道防線」，不是「唯一防線」。</p>
     </div>
-  </div>
+  </article>
 
-  <div class="card" style="border-left: 4px solid var(--accent);">
+  <article class="card" style="border-left: 4px solid var(--accent);">
     <h3>交付檢查點：每個產出物的通關門</h3>
     <p class="text-sm" style="margin-bottom: 12px;">不管是誰做的、用什麼方式做的，每個產出物在交付前必須通過對應的無障礙驗證。<strong>任何人</strong>（包括 AI）都可以執行這些檢查。</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;">
@@ -527,9 +528,9 @@
       <div class="foundation-item"><span><strong>內容發布前</strong><br>alt text 有意義 · 語言簡明 · 影片有字幕 · 幫助資訊一致 · 閱讀等級合理</span></div>
       <div class="foundation-item"><span><strong>上線前</strong><br>全站掃描通過 · 真人測試完成 · 無障礙聲明頁就位 · 回饋管道可用 · 監控計畫制定</span></div>
     </div>
-  </div>
+  </article>
 
-  <div class="card" style="background:var(--bg);">
+  <article class="card" style="background:var(--bg);">
     <h3>你的日常工作，正在做無障礙的決定</h3>
     <p class="text-sm text-muted" style="margin-bottom:12px;">在 AI 時代，大多數人不只做一件事。選所有跟你有關的角色（可多選），看看你每天的決定如何影響無障礙。</p>
     <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;" id="roleSelectorPills">
@@ -540,10 +541,200 @@
       <button class="filter-pill" aria-pressed="false" onclick="toggleRole('qa')" data-role="qa">測試驗證</button>
     </div>
     <div id="roleMirror" style="display:none;padding:16px;background:var(--bg);border-radius:var(--radius);border-left:3px solid var(--primary);"></div>
-  </div>
-  <div class="next-step-cta" onclick="showSection('empathy')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSection('empathy')}">
+  </article>
+  <button class="next-step-cta" onclick="showSection('empathy')">
     下一步：親身體驗不同使用者的處境 <span class="arrow" aria-hidden="true">&#x2192;</span>
+  </button>
+</section>
+
+<!-- ===================== SECTION: EMPATHY ===================== -->
+<section class="section" id="sec-empathy" role="tabpanel" aria-labelledby="tab-empathy">
+  <h2 class="section-title">同理心體驗區</h2>
+  <p class="text-sm text-muted mb-24">在這裡，你將親身體驗不同使用者面對網站的真實感受。每完成一個模擬，都會更深刻理解無障礙設計的價值。</p>
+  <div class="sim-grid">
+    <!-- 1. Low Vision -->
+    <article class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#2c3e50,#4a6fa5);" aria-hidden="true">
+        <div style="filter:blur(3px);font-size:1.3rem;">你能讀懂這段文字嗎？<br>這就是低視力者的日常</div>
+      </div>
+      <div class="sim-info">
+        <h3>低視力模擬</h3>
+        <p>模擬黃斑部病變、白內障等造成的視覺模糊。整個頁面將變得模糊，你能完成任務嗎？</p>
+        <button class="sim-btn" onclick="openSim('lowvision')">開始沉浸體驗</button>
+      </div>
+    </article>
+    <!-- 2. Color Blindness -->
+    <article class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#1a1a2e,#2c3e50);" aria-hidden="true">
+        <div style="font-size:1.4rem;"><span style="color:#ff4444;font-weight:bold;background:rgba(255,255,255,0.1);padding:2px 8px;border-radius:4px;">錯誤！</span> 與 <span style="color:#44dd66;font-weight:bold;background:rgba(255,255,255,0.1);padding:2px 8px;border-radius:4px;">成功！</span><br><span style="font-size:1rem;color:#ccc;margin-top:4px;display:inline-block;">你分得出來嗎？</span></div>
+      </div>
+      <div class="sim-info">
+        <h3>色覺障礙模擬</h3>
+        <p>全球約 8% 男性有色覺異常。啟動後請觀察頁面上的<strong>彩色按鈕、徽章、錯誤/成功提示</strong>——原本靠顏色區分的資訊會變得無法辨識。</p>
+        <button class="sim-btn" onclick="openSim('colorblind')">開始沉浸體驗</button>
+      </div>
+    </article>
+    <!-- 3. Screen Reader (Blindness) -->
+    <article class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#1a1a2e,#16213e);" aria-hidden="true">
+        <div style="font-family:'Courier New',monospace;color:#0f0;">[heading level 2]<br>「同理心體驗區」</div>
+      </div>
+      <div class="sim-info">
+        <h3>螢幕閱讀器模擬</h3>
+        <p>螢幕全黑，只能用方向鍵逐一「聽」取頁面元素。體驗全盲者如何理解網頁。</p>
+        <button class="sim-btn" onclick="openSim('screenreader')">開始沉浸體驗</button>
+      </div>
+    </article>
+    <!-- 4. Motor Impairment -->
+    <article class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#d35400,#e67e22);" aria-hidden="true">
+        <div>試著用顫抖的手<br>點擊那個小小的按鈕</div>
+      </div>
+      <div class="sim-info">
+        <h3>肢體障礙模擬</h3>
+        <p>你的游標會不受控制地顫抖。體驗帕金森症患者面對的精確操作挑戰。</p>
+        <button class="sim-btn" onclick="openSim('motor')">開始沉浸體驗</button>
+      </div>
+    </article>
+    <!-- 5. Keyboard Only -->
+    <article class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#1a5276,#2980b9);" aria-hidden="true">
+        <div>如果你的滑鼠壞了<br>你能用鍵盤完成所有操作嗎？</div>
+      </div>
+      <div class="sim-info">
+        <h3>純鍵盤操作</h3>
+        <p>滑鼠完全停用。只能靠 Tab、Enter、方向鍵操作整個頁面。</p>
+        <button class="sim-btn" onclick="openSim('keyboard')">開始沉浸體驗</button>
+      </div>
+    </article>
+    <!-- 6. ADHD -->
+    <article class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#6c3483,#8e44ad);" aria-hidden="true">
+        <div style="font-size:0.85rem;line-height:1.3;">閃爍 · 自動播放 · 倒數計時 · 彈出視窗 · 動態廣告<br>同時處理這些，你還好嗎？</div>
+      </div>
+      <div class="sim-info">
+        <h3>ADHD 注意力分散模擬</h3>
+        <p>倒數計時、彈出通知、自動捲動——覺得很煩嗎？這就是一個充滿廣告和彈窗的網頁。對 ADHD 使用者來說，<strong>每個網站</strong>都是這樣。</p>
+        <button class="sim-btn" onclick="openSim('adhd')">開始沉浸體驗</button>
+      </div>
+    </article>
+    <!-- 7. Autism -->
+    <article class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#c0392b,#e74c3c);" aria-hidden="true">
+        <div style="font-size:0.85rem;">過度飽和 · 版面跳動<br>感覺快要崩潰了</div>
+      </div>
+      <div class="sim-info">
+        <h3>Autism 感覺過載模擬</h3>
+        <p>色彩過度飽和、版面隨機偏移、hover 反應誇張。感受感覺過載的世界。</p>
+        <button class="sim-btn" onclick="openSim('autism')">開始沉浸體驗</button>
+      </div>
+    </article>
+    <!-- 8. Dyslexia -->
+    <article class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#2e86c1,#3498db);" aria-hidden="true">
+        <div style="font-size:0.95rem;">bdpq bdpq<br>文字在跳舞嗎？</div>
+      </div>
+      <div class="sim-info">
+        <h3>Dyslexia 閱讀障礙模擬</h3>
+        <p>字母隨機互換（b/d, p/q）、行距不穩定。體驗閱讀障礙者看到的文字。</p>
+        <button class="sim-btn" onclick="openSim('dyslexia')">開始沉浸體驗</button>
+      </div>
+    </article>
+    <!-- 9. Hearing -->
+    <article class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#117864,#1abc9c);" aria-hidden="true">
+        <div style="font-size:1.1rem;">&#x1F5E3; ......<br>（你聽到了什麼？）</div>
+      </div>
+      <div class="sim-info">
+        <h3>聽覺障礙模擬</h3>
+        <p>沒有字幕的音訊，你能理解多少？體驗聾人面對無字幕影片的真實處境。</p>
+        <button class="sim-btn" onclick="openSim('hearing')">開始體驗</button>
+      </div>
+    </article>
+    <!-- 10. Anxiety -->
+    <article class="sim-card">
+      <div class="sim-preview" style="background:linear-gradient(135deg,#7d3c98,#a569bd);" aria-hidden="true">
+        <div style="font-size:0.85rem;">倒數 00:00:45<br>「發生錯誤。請重試。」</div>
+      </div>
+      <div class="sim-info">
+        <h3>焦慮症模擬</h3>
+        <p>倒數計時壓力、隨機錯誤訊息、按鈕微移。體驗焦慮症患者面對的數位壓力。</p>
+        <button class="sim-btn" onclick="openSim('anxiety')">開始沉浸體驗</button>
+      </div>
+    </article>
+
+    <!-- Education Cards -->
+    <article class="edu-card">
+      <div class="edu-header">教育資訊</div>
+      <div class="sim-info">
+        <h3>臨時障礙情境</h3>
+        <p>手臂骨折、大太陽下看手機、一手抱小孩——每個人都可能成為臨時障礙者。微軟的包容性設計框架指出：永久、臨時、情境障礙的設計解方往往相通。</p>
+        <button class="sim-btn" onclick="openSim('temporary')">探索情境</button>
+      </div>
+    </article>
+    <article class="edu-card">
+      <div class="edu-header">教育資訊</div>
+      <div class="sim-info">
+        <h3>WCAG 快速指南</h3>
+        <p>無障礙設計的四大原則：<strong>可感知</strong>（看不到的用聽的，聽不到的用看的）、<strong>可操作</strong>（鍵盤能做的事滑鼠也能，反之亦然）、<strong>可理解</strong>（清晰語言、一致導航）、<strong>穩健性</strong>（相容各種輔助技術）。出自 WCAG 2.2。</p>
+      </div>
+    </article>
+    <article class="edu-card">
+      <div class="edu-header">教育資訊</div>
+      <div class="sim-info">
+        <h3>障礙統計數據</h3>
+        <p>全球約 13 億人（16%）有某種形式的障礙。台灣約 120 萬持有身心障礙證明。但任何人在任何時刻都可能經歷臨時或情境障礙。</p>
+      </div>
+    </article>
+    <article class="edu-card">
+      <div class="edu-header">教育資訊</div>
+      <div class="sim-info">
+        <h3>輔助科技介紹</h3>
+        <p>螢幕閱讀器（NVDA、VoiceOver）、螢幕放大鏡、語音控制、頭部追蹤、眼球追蹤、特殊鍵盤、單指操作切換——了解使用者如何使用你設計的產品。</p>
+      </div>
+    </article>
   </div>
+  <article class="card">
+    <h3>你的同理心歷程</h3>
+    <p id="empathyProgress">尚未開始任何體驗。每完成一個模擬，你對使用者的理解就會更深一步。（共 10 個沉浸體驗）</p>
+  </article>
+  <button class="next-step-cta" onclick="showSection('quiz')">
+    下一步：測試你的無障礙知識 <span class="arrow" aria-hidden="true">&#x2192;</span>
+  </button>
+</section>
+
+<!-- ===== SIMULATION DIALOG (native dialog = free focus trap + Esc) ===== -->
+<dialog class="sim-dialog" id="simDialog" aria-label="同理心模擬體驗">
+  <div id="simModal"></div>
+</dialog>
+
+<!-- ===================== SECTION: QUIZ ===================== -->
+<section class="section" id="sec-quiz" role="tabpanel" aria-labelledby="tab-quiz">
+  <h2 class="section-title">無障礙知識測驗</h2>
+  <p class="text-sm text-muted mb-24">測試你對 WCAG 標準與無障礙實務的理解。答對越多，離「知識達人」徽章越近！</p>
+  <div id="quizContainer"></div>
+  <div class="quiz-score" id="quizScore">
+    <div class="score-num" id="scoreNum">0/0</div>
+    <div class="score-label">正確率</div>
+    <div id="quizBadge"></div>
+    <div style="margin-top:16px;">
+      <button class="sim-btn" onclick="resetQuiz()">重新測驗</button>
+    </div>
+  </div>
+  <button class="next-step-cta" onclick="showSection('checklist')">
+    下一步：從 30 秒開始動手做 <span class="arrow" aria-hidden="true">&#x2192;</span>
+  </button>
+</section>
+
+<!-- ===================== SECTION: CHECKLIST ===================== -->
+<section class="section" id="sec-checklist" role="tabpanel" aria-labelledby="tab-checklist">
+  <h2 class="section-title">從 30 秒開始</h2>
+  <p class="text-sm text-muted mb-16">每個步驟都小到不好意思不做。從最上面開始，做到你覺得夠了為止——回頭一看，你會發現自己做了不少。</p>
+  <div class="filter-pills" id="checklistFilters" role="group" aria-label="依角色篩選"></div>
+  <div id="checklistContainer"></div>
+  <button class="next-step-cta" onclick="showSection('phases')">
+    想帶團隊一起做？看看專案規劃 <span class="arrow" aria-hidden="true">&#x2192;</span>
+  </button>
 </section>
 
 <!-- ===================== SECTION: PHASES ===================== -->
@@ -595,199 +786,9 @@
     </div>
   </div>
   <div class="phase-detail" id="phaseDetail"></div>
-  <div class="next-step-cta" onclick="showSection('roles')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSection('roles')}">
+  <button class="next-step-cta" onclick="showSection('roles')">
     回到起點，帶著新的眼光再看一次 <span class="arrow" aria-hidden="true">&#x2192;</span>
-  </div>
-</section>
-
-<!-- ===================== SECTION: EMPATHY ===================== -->
-<section class="section" id="sec-empathy" role="tabpanel" aria-labelledby="tab-empathy">
-  <h2 class="section-title">同理心體驗區</h2>
-  <p class="text-sm text-muted mb-24">在這裡，你將親身體驗不同使用者面對網站的真實感受。每完成一個模擬，都會更深刻理解無障礙設計的價值。</p>
-  <div class="sim-grid">
-    <!-- 1. Low Vision -->
-    <div class="sim-card">
-      <div class="sim-preview" style="background:linear-gradient(135deg,#2c3e50,#4a6fa5);" aria-hidden="true">
-        <div style="filter:blur(3px);font-size:1.3rem;">你能讀懂這段文字嗎？<br>這就是低視力者的日常</div>
-      </div>
-      <div class="sim-info">
-        <h3>低視力模擬</h3>
-        <p>模擬黃斑部病變、白內障等造成的視覺模糊。整個頁面將變得模糊，你能完成任務嗎？</p>
-        <button class="sim-btn" onclick="openSim('lowvision')">開始沉浸體驗</button>
-      </div>
-    </div>
-    <!-- 2. Color Blindness -->
-    <div class="sim-card">
-      <div class="sim-preview" style="background:linear-gradient(135deg,#1a1a2e,#2c3e50);" aria-hidden="true">
-        <div style="font-size:1.4rem;"><span style="color:#ff4444;font-weight:bold;background:rgba(255,255,255,0.1);padding:2px 8px;border-radius:4px;">錯誤！</span> 與 <span style="color:#44dd66;font-weight:bold;background:rgba(255,255,255,0.1);padding:2px 8px;border-radius:4px;">成功！</span><br><span style="font-size:1rem;color:#ccc;margin-top:4px;display:inline-block;">你分得出來嗎？</span></div>
-      </div>
-      <div class="sim-info">
-        <h3>色覺障礙模擬</h3>
-        <p>全球約 8% 男性有色覺異常。啟動後請觀察頁面上的<strong>彩色按鈕、徽章、錯誤/成功提示</strong>——原本靠顏色區分的資訊會變得無法辨識。</p>
-        <button class="sim-btn" onclick="openSim('colorblind')">開始沉浸體驗</button>
-      </div>
-    </div>
-    <!-- 3. Screen Reader (Blindness) -->
-    <div class="sim-card">
-      <div class="sim-preview" style="background:linear-gradient(135deg,#1a1a2e,#16213e);" aria-hidden="true">
-        <div style="font-family:'Courier New',monospace;color:#0f0;">[heading level 2]<br>「同理心體驗區」</div>
-      </div>
-      <div class="sim-info">
-        <h3>螢幕閱讀器模擬</h3>
-        <p>螢幕全黑，只能用方向鍵逐一「聽」取頁面元素。體驗全盲者如何理解網頁。</p>
-        <button class="sim-btn" onclick="openSim('screenreader')">開始沉浸體驗</button>
-      </div>
-    </div>
-    <!-- 4. Motor Impairment -->
-    <div class="sim-card">
-      <div class="sim-preview" style="background:linear-gradient(135deg,#d35400,#e67e22);" aria-hidden="true">
-        <div>試著用顫抖的手<br>點擊那個小小的按鈕</div>
-      </div>
-      <div class="sim-info">
-        <h3>肢體障礙模擬</h3>
-        <p>你的游標會不受控制地顫抖。體驗帕金森症患者面對的精確操作挑戰。</p>
-        <button class="sim-btn" onclick="openSim('motor')">開始沉浸體驗</button>
-      </div>
-    </div>
-    <!-- 5. Keyboard Only -->
-    <div class="sim-card">
-      <div class="sim-preview" style="background:linear-gradient(135deg,#1a5276,#2980b9);" aria-hidden="true">
-        <div>如果你的滑鼠壞了<br>你能用鍵盤完成所有操作嗎？</div>
-      </div>
-      <div class="sim-info">
-        <h3>純鍵盤操作</h3>
-        <p>滑鼠完全停用。只能靠 Tab、Enter、方向鍵操作整個頁面。</p>
-        <button class="sim-btn" onclick="openSim('keyboard')">開始沉浸體驗</button>
-      </div>
-    </div>
-    <!-- 6. ADHD -->
-    <div class="sim-card">
-      <div class="sim-preview" style="background:linear-gradient(135deg,#6c3483,#8e44ad);" aria-hidden="true">
-        <div style="font-size:0.85rem;line-height:1.3;">閃爍 · 自動播放 · 倒數計時 · 彈出視窗 · 動態廣告<br>同時處理這些，你還好嗎？</div>
-      </div>
-      <div class="sim-info">
-        <h3>ADHD 注意力分散模擬</h3>
-        <p>倒數計時、彈出通知、自動捲動——覺得很煩嗎？這就是一個充滿廣告和彈窗的網頁。對 ADHD 使用者來說，<strong>每個網站</strong>都是這樣。</p>
-        <button class="sim-btn" onclick="openSim('adhd')">開始沉浸體驗</button>
-      </div>
-    </div>
-    <!-- 7. Autism -->
-    <div class="sim-card">
-      <div class="sim-preview" style="background:linear-gradient(135deg,#c0392b,#e74c3c);" aria-hidden="true">
-        <div style="font-size:0.85rem;">過度飽和 · 版面跳動<br>感覺快要崩潰了</div>
-      </div>
-      <div class="sim-info">
-        <h3>Autism 感覺過載模擬</h3>
-        <p>色彩過度飽和、版面隨機偏移、hover 反應誇張。感受感覺過載的世界。</p>
-        <button class="sim-btn" onclick="openSim('autism')">開始沉浸體驗</button>
-      </div>
-    </div>
-    <!-- 8. Dyslexia -->
-    <div class="sim-card">
-      <div class="sim-preview" style="background:linear-gradient(135deg,#2e86c1,#3498db);" aria-hidden="true">
-        <div style="font-size:0.95rem;">bdpq bdpq<br>文字在跳舞嗎？</div>
-      </div>
-      <div class="sim-info">
-        <h3>Dyslexia 閱讀障礙模擬</h3>
-        <p>字母隨機互換（b/d, p/q）、行距不穩定。體驗閱讀障礙者看到的文字。</p>
-        <button class="sim-btn" onclick="openSim('dyslexia')">開始沉浸體驗</button>
-      </div>
-    </div>
-    <!-- 9. Hearing -->
-    <div class="sim-card">
-      <div class="sim-preview" style="background:linear-gradient(135deg,#117864,#1abc9c);" aria-hidden="true">
-        <div style="font-size:1.1rem;">&#x1F5E3; ......<br>（你聽到了什麼？）</div>
-      </div>
-      <div class="sim-info">
-        <h3>聽覺障礙模擬</h3>
-        <p>沒有字幕的音訊，你能理解多少？體驗聾人面對無字幕影片的真實處境。</p>
-        <button class="sim-btn" onclick="openSim('hearing')">開始體驗</button>
-      </div>
-    </div>
-    <!-- 10. Anxiety -->
-    <div class="sim-card">
-      <div class="sim-preview" style="background:linear-gradient(135deg,#7d3c98,#a569bd);" aria-hidden="true">
-        <div style="font-size:0.85rem;">倒數 00:00:45<br>「發生錯誤。請重試。」</div>
-      </div>
-      <div class="sim-info">
-        <h3>焦慮症模擬</h3>
-        <p>倒數計時壓力、隨機錯誤訊息、按鈕微移。體驗焦慮症患者面對的數位壓力。</p>
-        <button class="sim-btn" onclick="openSim('anxiety')">開始沉浸體驗</button>
-      </div>
-    </div>
-
-    <!-- Education Cards -->
-    <div class="edu-card">
-      <div class="edu-header">教育資訊</div>
-      <div class="sim-info">
-        <h3>臨時障礙情境</h3>
-        <p>手臂骨折、大太陽下看手機、一手抱小孩——每個人都可能成為臨時障礙者。微軟的包容性設計框架指出：永久、臨時、情境障礙的設計解方往往相通。</p>
-        <button class="sim-btn" onclick="openSim('temporary')">探索情境</button>
-      </div>
-    </div>
-    <div class="edu-card">
-      <div class="edu-header">教育資訊</div>
-      <div class="sim-info">
-        <h3>WCAG 快速指南</h3>
-        <p>無障礙設計的四大原則：<strong>可感知</strong>（看不到的用聽的，聽不到的用看的）、<strong>可操作</strong>（鍵盤能做的事滑鼠也能，反之亦然）、<strong>可理解</strong>（清晰語言、一致導航）、<strong>穩健性</strong>（相容各種輔助技術）。出自 WCAG 2.2。</p>
-      </div>
-    </div>
-    <div class="edu-card">
-      <div class="edu-header">教育資訊</div>
-      <div class="sim-info">
-        <h3>障礙統計數據</h3>
-        <p>全球約 13 億人（16%）有某種形式的障礙。台灣約 120 萬持有身心障礙證明。但任何人在任何時刻都可能經歷臨時或情境障礙。</p>
-      </div>
-    </div>
-    <div class="edu-card">
-      <div class="edu-header">教育資訊</div>
-      <div class="sim-info">
-        <h3>輔助科技介紹</h3>
-        <p>螢幕閱讀器（NVDA、VoiceOver）、螢幕放大鏡、語音控制、頭部追蹤、眼球追蹤、特殊鍵盤、單指操作切換——了解使用者如何使用你設計的產品。</p>
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <h3>你的同理心歷程</h3>
-    <p id="empathyProgress">尚未開始任何體驗。每完成一個模擬，你對使用者的理解就會更深一步。（共 10 個沉浸體驗）</p>
-  </div>
-  <div class="next-step-cta" onclick="showSection('quiz')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSection('quiz')}">
-    下一步：測試你的無障礙知識 <span class="arrow" aria-hidden="true">&#x2192;</span>
-  </div>
-</section>
-
-<!-- ===== SIMULATION DIALOG (native dialog = free focus trap + Esc) ===== -->
-<dialog class="sim-dialog" id="simDialog" aria-label="同理心模擬體驗">
-  <div id="simModal"></div>
-</dialog>
-
-<!-- ===================== SECTION: QUIZ ===================== -->
-<section class="section" id="sec-quiz" role="tabpanel" aria-labelledby="tab-quiz">
-  <h2 class="section-title">無障礙知識測驗</h2>
-  <p class="text-sm text-muted mb-24">測試你對 WCAG 標準與無障礙實務的理解。答對越多，離「知識達人」徽章越近！</p>
-  <div id="quizContainer"></div>
-  <div class="quiz-score" id="quizScore">
-    <div class="score-num" id="scoreNum">0/0</div>
-    <div class="score-label">正確率</div>
-    <div id="quizBadge"></div>
-    <div style="margin-top:16px;">
-      <button class="sim-btn" onclick="resetQuiz()">重新測驗</button>
-    </div>
-  </div>
-  <div class="next-step-cta" onclick="showSection('checklist')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSection('checklist')}">
-    下一步：從 30 秒開始動手做 <span class="arrow" aria-hidden="true">&#x2192;</span>
-  </div>
-</section>
-
-<!-- ===================== SECTION: CHECKLIST ===================== -->
-<section class="section" id="sec-checklist" role="tabpanel" aria-labelledby="tab-checklist">
-  <h2 class="section-title">從 30 秒開始</h2>
-  <p class="text-sm text-muted mb-16">每個步驟都小到不好意思不做。從最上面開始，做到你覺得夠了為止——回頭一看，你會發現自己做了不少。</p>
-  <div class="filter-pills" id="checklistFilters" role="group" aria-label="依角色篩選"></div>
-  <div id="checklistContainer"></div>
-  <div class="next-step-cta" onclick="showSection('phases')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSection('phases')}">
-    想帶團隊一起做？看看專案規劃 <span class="arrow" aria-hidden="true">&#x2192;</span>
-  </div>
+  </button>
 </section>
 
 </main>

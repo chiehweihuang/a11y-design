@@ -30,6 +30,8 @@ var state = {
   badges: new Set()
 };
 
+var simTriggerElement = null;
+
 var roleColors = { pm:'#1a5276', designer:'#e67e22', dev:'#27ae60', content:'#8e44ad', qa:'#e74c3c', visual:'#2980b9', operation:'#d35400', cognitive:'#8e44ad', technical:'#27ae60' };
 var roleNames = { pm:'統籌', designer:'設計', dev:'工程', content:'內容', qa:'測試', visual:'視覺', operation:'操作', cognitive:'認知', technical:'技術' };
 
@@ -259,7 +261,7 @@ function showPhaseDetail(idx) {
   detail.textContent = '';
   detail.insertAdjacentHTML('beforeend',
     '<button class="back-btn" onclick="backToPhases()"><span aria-hidden="true">&larr;</span> 返回階段總覽</button>' +
-    '<div class="card" style="border-left:4px solid ' + phase.color + ';"><h3>' + phase.name + '</h3><p style="margin:8px 0 16px;">' + phase.description + '</p><div style="font-weight:600;margin-bottom:8px;">任務清單</div><ul class="checklist" style="margin-bottom:20px;">' + tasksHTML + '</ul><div style="font-weight:600;margin-bottom:8px;">本階段測試重點</div><ul style="list-style:none;padding:0;">' + testHTML + '</ul></div>'
+    '<div class="card" style="border-left:4px solid ' + phase.color + ';"><h3>' + phase.name + '</h3><p style="margin:8px 0 16px;">' + phase.description + '</p><h4 style="font-weight:600;margin-bottom:8px;">任務清單</h4><ul class="checklist" style="margin-bottom:20px;">' + tasksHTML + '</ul><h4 style="font-weight:600;margin-bottom:8px;">本階段測試重點</h4><ul style="list-style:none;padding:0;">' + testHTML + '</ul></div>'
   );
   overview.style.display = 'none';
   detail.classList.add('active');
@@ -597,7 +599,7 @@ function simKeyboard() {
     announce('滑鼠已停用。請使用 Tab、Enter、方向鍵操作。');
   };
   immersiveSim.addListener(document, 'click', clickBlocker, true);
-  immersiveSim.addListener(document, 'mousedown', function(e) { e.preventDefault(); }, true);
+  immersiveSim.addListener(document, 'mousedown', function(e) { if (e.target.closest('.sim-control-panel')) return; e.preventDefault(); }, true);
 
   immersiveSim.start('keyboard', {
     title: '純鍵盤操作體驗',
@@ -719,6 +721,9 @@ function simADHD() {
       }, 5000);
       immersiveSim.addInterval(pingId);
 
+      var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!reducedMotion) {
       // Card pulse
       var cards = document.querySelectorAll('.card');
       var pulseId = setInterval(function() {
@@ -735,6 +740,7 @@ function simADHD() {
         window.scrollBy({ top: Math.random() > 0.5 ? 50 : -30, behavior: 'smooth' });
       }, 3000);
       immersiveSim.addInterval(scrollId);
+      }
 
       // Tab notification dots
       var tabs = document.querySelectorAll('[role="tab"]');
@@ -785,12 +791,15 @@ function simAutism() {
       immersiveSim.addElement(hoverStyle);
       document.body.classList.add('sim-active-autism');
 
+      var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reducedMotion) {
       var hue = 0;
       var hueId = setInterval(function() {
         hue = (hue + 2) % 360;
         document.getElementById('pageWrapper').style.filter = 'saturate(2.5) hue-rotate(' + hue + 'deg)';
       }, 200);
       immersiveSim.addInterval(hueId);
+      }
     }
   });
 }
@@ -926,6 +935,7 @@ function simHearing() {
     '  </div>' +
     '</div>'
   );
+  dialog.setAttribute('aria-label', '聽覺障礙模擬');
   dialog.showModal();
 }
 
@@ -1003,6 +1013,7 @@ function startImmersive(type) {
 }
 
 function openSim(type) {
+  simTriggerElement = document.activeElement;
   var immersiveTypes = ['lowvision','colorblind','motor','keyboard','adhd','autism','dyslexia','screenreader','anxiety'];
   if (immersiveTypes.indexOf(type) !== -1) {
     var needsWarning = ['lowvision','motor','adhd','autism','dyslexia'].indexOf(type) !== -1;
@@ -1036,11 +1047,12 @@ function openDialogSim(type) {
       '<div class="card" style="margin-top:16px;background:var(--card-bg);"><h3>核心觀點</h3><p class="text-sm">無障礙不只是「為少數人設計」——它是為<strong>所有人在所有情境下</strong>設計。微軟的包容性設計框架指出：永久障礙、臨時障礙、情境障礙，三者的設計解方往往是相通的。</p></div>' +
       '<div style="text-align:center;margin-top:20px;"><button class="sim-btn" onclick="completeSim(\'temporary\')" style="background:var(--success);">完成此體驗</button></div>'
     );
+    dialog.setAttribute('aria-label', '臨時障礙情境');
     dialog.showModal();
   }
 }
 
-function closeSim() { document.getElementById('simDialog').close(); }
+function closeSim() { document.getElementById('simDialog').close(); if (simTriggerElement) { simTriggerElement.focus(); simTriggerElement = null; } }
 
 function completeSim(type) {
   state.completedSims.add(type);
@@ -1075,6 +1087,18 @@ function renderQuiz() {
       '<div class="quiz-explain" id="explain-' + i + '" role="status">' + q.explain + '</div>'
     );
     container.appendChild(card);
+    var radiogroup = card.querySelector('[role="radiogroup"]');
+    radiogroup.addEventListener('keydown', function(e) {
+      if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') return;
+      e.preventDefault();
+      var opts = Array.from(this.querySelectorAll('.quiz-opt'));
+      var idx = opts.indexOf(document.activeElement);
+      if (idx === -1) return;
+      var newIdx;
+      if (e.key === 'ArrowDown') newIdx = (idx + 1) % opts.length;
+      else newIdx = (idx - 1 + opts.length) % opts.length;
+      opts[newIdx].focus();
+    });
   });
 }
 
@@ -1211,6 +1235,7 @@ function renderChecklist(roleFilter) {
       var cb = document.createElement('input');
       cb.type = 'checkbox';
       cb.checked = checked;
+      cb.dataset.idx = item.idx;
       cb.addEventListener('change', function() { toggleCheck(item.idx); });
       var span = document.createElement('span');
       span.className = 'check-text';
@@ -1236,10 +1261,22 @@ function renderChecklist(roleFilter) {
 function toggleCheck(idx) {
   if (state.checkedItems.has(idx)) state.checkedItems.delete(idx);
   else state.checkedItems.add(idx);
-  var activeFilter = document.querySelector('#checklistFilters .filter-pill[aria-pressed="true"]');
-  var allLabels = { '全部':'all', '統籌':'pm', '設計':'designer', '工程':'dev', '內容':'content', '測試':'qa' };
-  var role = activeFilter ? (allLabels[activeFilter.textContent] || 'all') : 'all';
-  renderChecklist(role);
+  var checked = state.checkedItems.has(idx);
+  var cb = document.querySelector('.checklist input[type="checkbox"]');
+  var allCbs = document.querySelectorAll('.checklist input[type="checkbox"]');
+  allCbs.forEach(function(c) {
+    var changeHandler = c;
+    var li = c.closest('li');
+    if (!li) return;
+    var label = li.querySelector('label');
+    if (!label) return;
+    var cbIdx = parseInt(c.dataset.idx);
+    if (cbIdx === idx) {
+      c.checked = checked;
+      if (checked) li.classList.add('checked');
+      else li.classList.remove('checked');
+    }
+  });
   var total = checklistData.length;
   if (state.checkedItems.size >= total * 0.5) earnBadge('checklist-50');
   if (state.checkedItems.size >= total) earnBadge('checklist-100');
@@ -1338,6 +1375,68 @@ function toggleTheme() {
     }
   } catch(e) {}
 })();
+
+// ===== SEARCH =====
+function searchContent(event) {
+  event.preventDefault();
+  var query = document.getElementById('search-input').value.trim().toLowerCase();
+  var resultsDiv = document.getElementById('search-results');
+  if (!resultsDiv) return;
+  resultsDiv.textContent = '';
+  if (!query) return;
+
+  var results = [];
+  document.querySelectorAll('section[id^="sec-"]').forEach(function(section) {
+    var sectionId = section.id.replace('sec-', '');
+    var walker = document.createTreeWalker(section, NodeFilter.SHOW_TEXT);
+    var node;
+    while (node = walker.nextNode()) {
+      var text = node.textContent.trim();
+      if (text.length < 10) continue;
+      var idx = text.toLowerCase().indexOf(query);
+      if (idx === -1) continue;
+      var start = Math.max(0, idx - 40);
+      var end = Math.min(text.length, idx + query.length + 40);
+      var snippet = (start > 0 ? '...' : '') + text.substring(start, end) + (end < text.length ? '...' : '');
+      results.push({ sectionId: sectionId, snippet: snippet, query: query });
+    }
+  });
+
+  if (results.length === 0) {
+    var noResult = document.createElement('p');
+    noResult.style.cssText = 'text-align:center;padding:12px;color:var(--text-light);font-size:0.85rem;';
+    noResult.textContent = '找不到相關內容';
+    resultsDiv.appendChild(noResult);
+    announce('找不到相關內容');
+    return;
+  }
+
+  var seen = new Set();
+  results.forEach(function(r) {
+    var key = r.sectionId + ':' + r.snippet;
+    if (seen.has(key)) return;
+    seen.add(key);
+    var item = document.createElement('div');
+    item.className = 'search-result-item';
+    item.setAttribute('role', 'button');
+    item.setAttribute('tabindex', '0');
+    var escaped = r.query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    var highlighted = r.snippet.replace(new RegExp('(' + escaped + ')', 'gi'), '<mark>$1</mark>');
+    item.innerHTML = highlighted;
+    item.addEventListener('click', function() { showSection(r.sectionId); resultsDiv.textContent = ''; });
+    item.addEventListener('keydown', function(e) { if (e.key === 'Enter') { showSection(r.sectionId); resultsDiv.textContent = ''; } });
+    resultsDiv.appendChild(item);
+  });
+
+  announce('找到 ' + results.length + ' 筆結果');
+}
+
+document.getElementById('search-input').addEventListener('input', function() {
+  if (!this.value.trim()) {
+    var resultsDiv = document.getElementById('search-results');
+    if (resultsDiv) resultsDiv.textContent = '';
+  }
+});
 
 // ===== INIT =====
 renderQuiz();
