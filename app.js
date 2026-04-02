@@ -229,8 +229,9 @@ var roleMirrors = {
 };
 
 function toggleRole(role) {
-  if (state.selectedRoles.has(role)) state.selectedRoles.delete(role);
-  else state.selectedRoles.add(role);
+  var wasSelected = state.selectedRoles.has(role);
+  state.selectedRoles.clear();
+  if (!wasSelected) state.selectedRoles.add(role);
   var isSelected = state.selectedRoles.has(role);
   document.querySelectorAll('.role-card').forEach(function(c) {
     c.setAttribute('aria-pressed', state.selectedRoles.has(c.dataset.role) ? 'true' : 'false');

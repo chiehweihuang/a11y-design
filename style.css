@@ -733,8 +733,8 @@
     transition: all 0.2s;
     font-weight: 500;
   }
-  .filter-pill[aria-pressed="true"] { border-color: var(--primary); background: var(--bg); color: var(--primary); }
-  .filter-pill:hover { border-color: var(--primary-light); text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 3px; }
+  .filter-pill[aria-pressed="true"] { border-color: var(--primary); background: var(--primary); color: var(--bg); font-weight: 700; box-shadow: 0 0 0 3px rgba(26,82,118,0.2); }
+  .filter-pill:hover { border-color: var(--primary); background: var(--primary-light); color: var(--bg); text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 3px; }
 
   /* ===== GAMIFICATION ===== */
   .badges-row {
