@@ -71,6 +71,7 @@
     transition: all 0.2s;
   }
   .theme-toggle:hover { border-color: var(--primary); }
+  .theme-toggle:hover #themeLabel { text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 3px; }
   .theme-toggle:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
   .theme-toggle-icon { font-size: 1.1rem; }
 
@@ -207,7 +208,7 @@
     white-space: nowrap;
     transition: background 0.2s;
   }
-  .search-bar button:hover {
+  .search-bar button:hover { text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 3px;
     background: var(--primary-light);
   }
 
@@ -314,6 +315,7 @@
   .nav-tab:first-child { border-radius: 12px 0 0 12px; }
   .nav-tab:last-child { border-radius: 0 12px 12px 0; }
   .nav-tab + .nav-tab { border-left: 1px solid var(--border); }
+  .nav-tab:hover .tab-label, .nav-tab:hover .tab-label-short { text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 3px; }
   .nav-tab:hover { color: var(--primary); background: var(--bg); }
   .nav-tab[aria-selected="true"] {
     background: var(--bg);
@@ -343,6 +345,12 @@
   }
   .nav-tab[aria-selected="true"].completed .step-num {
     background: var(--primary);
+  }
+  .nav-tab:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: -2px;
+    z-index: 1;
+    position: relative;
   }
 
   /* ===== SECTIONS ===== */
@@ -395,8 +403,9 @@
     border: 3px solid transparent;
     position: relative;
   }
-  .role-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
-  .role-card[aria-pressed="true"] { border-color: var(--primary); }
+  .role-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); border-color: var(--accent); }
+  .role-card:hover .role-name { text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 3px; }
+  .role-card[aria-pressed="true"] { border-color: var(--primary); border-width: 3px; box-shadow: 0 0 0 4px rgba(26,82,118,0.2); }
   .role-card .role-icon { font-size: 2.2rem; margin-bottom: 10px; display: block; }
   .role-card .role-name { font-weight: 700; font-size: 1.1rem; margin-bottom: 4px; }
   .role-card .role-desc { color: var(--text-light); font-size: 0.88rem; }
@@ -569,7 +578,7 @@
     cursor: pointer;
     transition: background 0.2s;
   }
-  .sim-btn:hover { background: var(--primary-light); }
+  .sim-btn:hover { background: var(--primary-light); text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 3px; }
   .sim-btn:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
 
   /* Simulation Dialog */
@@ -651,7 +660,7 @@
     font-family: inherit;
     color: inherit;
   }
-  .quiz-opt:hover { border-color: var(--primary-light); background: var(--bg); }
+  .quiz-opt:hover { border-color: var(--primary-light); background: var(--bg); text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 3px; }
   .quiz-opt:focus-visible { border-color: var(--primary); }
   .quiz-opt[aria-disabled="true"] { pointer-events: none; opacity: 0.7; }
   .quiz-opt.correct { border-color: var(--success); background: var(--bg); opacity: 1; }
@@ -713,7 +722,7 @@
     font-weight: 500;
   }
   .filter-pill[aria-pressed="true"] { border-color: var(--primary); background: var(--bg); color: var(--primary); }
-  .filter-pill:hover { border-color: var(--primary-light); }
+  .filter-pill:hover { border-color: var(--primary-light); text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 3px; }
 
   /* ===== GAMIFICATION ===== */
   .badges-row {
@@ -930,6 +939,8 @@
   transition: all 0.2s;
 }
 .next-step-cta:hover { background: var(--primary); color: white; }
+.next-step-cta:hover { text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 3px; }
+.next-step-cta:hover .arrow { text-decoration: none; display: inline-block; }
 .next-step-cta .arrow { font-size: 1.2rem; }
 
 @media (max-width: 600px) {
@@ -986,7 +997,7 @@
   font-weight: 600;
   cursor: pointer;
 }
-.sim-control-panel .sim-stop-btn:hover { opacity: 0.9; }
+.sim-control-panel .sim-stop-btn:hover { opacity: 0.9; text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 3px; }
 .sim-intensity {
   width: 100%;
   margin: 8px 0;
@@ -1129,10 +1140,15 @@
 a.footer-highlight { cursor: pointer; }
 .footer-highlight:hover {
   border-color: var(--accent);
-  box-shadow: 0 0 0 4px rgba(230,126,34,0.3), 0 0 16px rgba(230,126,34,0.2);
-  background: rgba(230,126,34,0.08);
-  transform: scale(1.15);
+  box-shadow: 0 0 0 6px rgba(230,126,34,0.4), 0 0 30px rgba(230,126,34,0.3), 0 0 60px rgba(230,126,34,0.1);
+  background: rgba(230,126,34,0.12);
+  transform: scale(1.3) rotate(2deg);
   font-weight: 700;
+  animation: footerPulse 0.6s ease infinite alternate;
+}
+@keyframes footerPulse {
+  0% { box-shadow: 0 0 0 6px rgba(230,126,34,0.4), 0 0 30px rgba(230,126,34,0.3); }
+  100% { box-shadow: 0 0 0 10px rgba(230,126,34,0.2), 0 0 50px rgba(230,126,34,0.4); }
 }
 @media (prefers-reduced-motion: reduce) {
   .footer-highlight:hover {

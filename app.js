@@ -1340,28 +1340,48 @@ function updateProgress() {
 }
 
 // ===== FIX CENTERED SECTION =====
-function fixCenteredSection() {
-  var section = document.querySelector('[style*="text-align:center"][style*="max-width:1000px"]');
+var centeredFixed = false;
+function toggleCenteredSection() {
+  var section = document.querySelector('[style*="max-width:1000px"]');
   if (!section) return;
-  section.style.textAlign = 'left';
-  section.style.maxWidth = '700px';
-  section.style.lineHeight = '1.8';
-  var ps = section.querySelectorAll('p');
-  ps.forEach(function(p) {
-    p.style.marginBottom = '16px';
-    p.style.lineHeight = '1.9';
-  });
-  var btn = section.querySelector('button');
-  if (btn) {
-    btn.innerHTML = '這就是 Accessibility（無障礙／可及性）<br>一個改動，所有人受益。';
-    btn.style.textAlign = 'left';
-    btn.style.background = 'var(--success)';
-    btn.style.cursor = 'default';
-    btn.onclick = null;
-  }
+  var btn = document.getElementById('fixBtn');
   var reveal = document.getElementById('fixReveal');
-  if (reveal) reveal.style.display = 'block';
-  announce('文字已改為左對齊，行距和段落間距也已調整。');
+
+  if (!centeredFixed) {
+    section.style.textAlign = 'left';
+    section.style.maxWidth = '700px';
+    section.style.lineHeight = '1.8';
+    var ps = section.querySelectorAll('p');
+    ps.forEach(function(p) {
+      p.style.marginBottom = '16px';
+      p.style.lineHeight = '1.9';
+    });
+    if (btn) {
+      btn.innerHTML = '這就是 Accessibility（無障礙／可及性）<br>一個改動，所有人受益。<br><span style="font-size:0.8rem;opacity:0.8;">再按一次回到修改前</span>';
+      btn.style.textAlign = 'left';
+      btn.style.background = 'var(--success)';
+    }
+    if (reveal) reveal.style.display = 'block';
+    announce('文字已改為左對齊，行距和段落間距也已調整。');
+    centeredFixed = true;
+  } else {
+    section.style.textAlign = 'center';
+    section.style.maxWidth = '1000px';
+    section.style.lineHeight = '';
+    var ps = section.querySelectorAll('p');
+    ps.forEach(function(p) {
+      p.style.marginBottom = '8px';
+      p.style.lineHeight = '1.4';
+    });
+    if (btn) {
+      btn.textContent = '一鍵修好這段';
+      btn.style.textAlign = '';
+      btn.style.background = '';
+    }
+    if (reveal) reveal.style.display = 'none';
+    announce('已恢復為置中對齊。');
+    centeredFixed = false;
+  }
 }
 
 // ===== BACK TO TOP =====

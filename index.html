@@ -210,7 +210,7 @@
 
   <article class="card" style="border-left:4px solid var(--text);background:var(--card-bg);">
     <h3 style="margin-bottom:12px;">先試三件事</h3>
-    <p style="font-size:1.05rem;line-height:1.8;margin-bottom:16px;"><strong>1.</strong> 打開你自己的網站，把滑鼠收起來，只用 Tab 和 Enter 操作 60 秒。<br><strong>2.</strong> 把螢幕亮度調到最低，試著讀完一段文字。<br><strong>3.</strong> 想像你爸媽打開同一個頁面。他們找得到按鈕嗎？還是先被彈出廣告困住了？</p>
+    <p style="font-size:1.05rem;line-height:1.8;margin-bottom:16px;"><strong>1.</strong> 打開你自己的網站，把滑鼠收起來，只用 Tab 和 Enter 操作 60 秒。<br><strong>2.</strong> 把螢幕亮度調到最低，試著讀完一段文字。<br><strong>3.</strong> 想像你的家人打開同一個頁面。他們找得到按鈕嗎？還是先被彈出廣告困住了？</p>
     <p style="font-size:1.05rem;line-height:1.8;margin-bottom:12px;">如果任何一個讓你猶豫了——全球 95.9% 的網站都有這些問題（WebAIM 2025）。你做好了，就是那 4.1%：更多人能用你的產品、AI agent 可能更願意推薦你的頁面、進入國際市場少一道法律障礙。</p>
     <p style="font-size:0.95rem;line-height:1.8;color:var(--text-light);">很多時候我們不是不願意做，而是不知道要做、不知道能幫助到誰。台灣人在國際上的形象是友善的，但我們做出來的數位產品，對自己人卻不夠友善。要打入國際市場，無障礙更是基本門檻——歐盟 EAA 2025 年已經生效，不合規就進不去。但如果只是為了過關而做到最低標準，那不是友善，那只是合規。</p>
   </article>
@@ -263,7 +263,7 @@
     <p style="font-size:0.9rem;line-height:1.4;margin-bottom:8px;">包括你 85 歲的奶奶、打石膏的上班族、在吵雜咖啡廳看沒字幕影片的你、瞇眼讀手機的大學生、被倒數計時器逼到無法思考的人、語言不通只能靠圖示猜的旅客、網路很慢只能等文字先載入的偏鄉使用者。也包括從來沒想過這些事的設計師、工程師、產品經理，他們不知道自己每天的決定，正在決定誰能用、誰不能用。</p>
     <p style="font-size:0.9rem;line-height:1.4;margin-bottom:8px;">也包括正在讀這段文字、覺得眼睛開始不太舒服的你。</p>
     <p style="font-size:0.9rem;line-height:1.4;margin-bottom:12px;color:var(--text-light);">如果你覺得哪裡不對勁</p>
-    <button onclick="fixCenteredSection()" style="display:block;margin:0 auto 16px;padding:12px 32px;background:var(--primary);color:white;border:none;border-radius:24px;font-size:1rem;font-weight:600;cursor:pointer;">一鍵修好這段</button>
+    <button id="fixBtn" onclick="toggleCenteredSection()" class="sim-btn" style="display:block;margin:0 auto 16px;padding:12px 32px;font-size:1rem;">一鍵修好這段</button>
     <div id="fixReveal" style="display:none;padding:12px 16px;background:var(--card-bg);border-left:3px solid var(--danger);border-radius:8px;text-align:left;max-width:600px;margin:0 auto;">
       <p style="font-size:0.85rem;line-height:1.8;color:var(--text-light);margin-bottom:8px;"><span style="color:var(--danger);font-weight:600;">注意：</span>你剛才按下的那個按鈕，每個人都會同意改完比較舒服。但你只是讀了一段文字就覺得累，閱讀障礙者、ADHD、低視力者，每一分每一秒打開每一個網站都是這種感覺。</p>
       <p style="font-size:0.85rem;line-height:1.8;color:var(--text-light);">你花了一秒鐘修好的事，對他們來說是每一天的障礙。</p>
