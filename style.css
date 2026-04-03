@@ -1037,7 +1037,7 @@
   .nav-mode-info { display: none !important; }
   .theme-toggle-fixed { display: none; }
   .theme-toggle-inline { display: flex; }
-  .skip-links-wrapper { padding: 4px 12px; gap: 4px 6px; }
+  .skip-links-wrapper { padding: 4px 12px 20px; gap: 4px 6px; }
   .skip-links-label { font-size: 0.6rem; line-height: 1.4; flex-basis: 100%; }
   .skip-link { padding: 4px 12px; font-size: 0.7rem; }
   .search-container { padding: 0 12px; }
@@ -1052,7 +1052,7 @@
   .section { padding: 0 12px; }
   .card { padding: 14px; }
   .chat-trigger { width: 48px; height: 48px; font-size: 1.2rem; }
-  .back-to-top { width: 48px; height: 48px; font-size: 1.2rem; bottom: 84px; }
+  .back-to-top { width: 48px; height: 48px; font-size: 1.2rem; bottom: 108px; }
 }
 @media (min-width: 601px) {
   .nav-tab .tab-label-short { display: none; }
