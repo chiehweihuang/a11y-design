@@ -1357,6 +1357,19 @@ body.sim-running .chat-trigger { display: none !important; }
 }
 .chat-credit a { color: var(--text-light); text-decoration: underline; }
 
+/* Mobile: fullscreen chat to avoid keyboard viewport issues */
+@media (max-width: 600px) {
+  .chat-window {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    border-radius: 0;
+    border: none;
+  }
+  .chat-messages { max-height: none; flex: 1; }
+}
+
 .photosens-dialog::backdrop { background: rgba(0,0,0,0.7); }
 
 /* Footer highlight */
