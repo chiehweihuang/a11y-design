@@ -1015,7 +1015,7 @@
   .nav-tab .tab-label { display: none; }
   .nav-tab .tab-label-short { display: inline; }
   .nav-mode-info { display: none !important; }
-  .theme-toggle { position: static; display: inline-flex; margin: 4px 0; }
+  .theme-toggle { top: 8px; right: 8px; }
   .skip-links-wrapper { padding: 4px 12px; gap: 6px; }
   .skip-links-label { font-size: 0.6rem; line-height: 1.4; }
   .skip-link { padding: 4px 12px; font-size: 0.7rem; }
@@ -1023,9 +1023,6 @@
   .search-bar input[type="search"] { font-size: 0.8rem; padding: 8px; }
   .search-bar button { padding: 8px 12px; font-size: 0.8rem; }
   .search-container p.text-sm { font-size: 0.65rem; }
-  .hero { padding: 16px 12px; }
-  .hero h1 { font-size: 1.2rem; }
-  .hero p { font-size: 0.8rem; margin-bottom: 4px; }
   .progress-bar-container { margin-top: 0; padding: 0 12px; }
   .badges-row { gap: 6px; }
   .badge-icon { width: 44px; height: 44px; font-size: 1.2rem; }
