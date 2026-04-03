@@ -16,7 +16,7 @@
 <meta name="twitter:title" content="你的網站正在流失你看不到的使用者">
 <meta name="twitter:description" content="互動式無障礙網頁設計指南：10 個沉浸式模擬、知識測驗、檢核清單。花 30 秒體驗，然後動手做。">
 <title>讓更多人能用的設計（無障礙設計）— 網頁篇</title>
-<link rel="stylesheet" href="style.css?v=20260403k">
+<link rel="stylesheet" href="style.css?v=20260403m">
 </head>
 <body>
 
@@ -260,7 +260,7 @@
   <article class="card" style="border-left:4px solid var(--accent);background:var(--card-bg);border-color:var(--accent);">
     <h3 style="margin-bottom:8px;">「讓 AI 做就好了吧？」</h3>
     <p class="text-sm" style="margin-bottom:12px;">我自己大量使用 AI 寫 code、做設計、跑測試。它確實幫我省下很多時間。但用了一陣子之後，我發現幾件事：</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:14px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap:12px;margin-bottom:14px;">
       <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
         <strong>工具說「通過」，但我自己用的時候還是覺得哪裡不對</strong>
         <span>規則型工具（axe、Lighthouse）能抓到約 30-40% 的技術問題。AI 可以再多抓一些，但剩下的只有人能判斷：「報名流程要填幾頁？」「半夜看手機刺不刺眼？」「趕時間找不找得到按鈕？」「字這麼小，要拿老花眼鏡嗎？」「驗證碼的圖片到底寫什麼？」「按鈕在哪裡，我怎麼一直按到旁邊的廣告？」——你偶爾遇到的這些不便，因年紀而有視力退化跡象的人、認知障礙者、焦慮症使用者、低視力者<strong>每一次</strong>使用網站都在經歷。</span>
@@ -283,7 +283,7 @@
   <article class="card" style="border-left:4px solid var(--primary);position:relative;">
     <h3 style="margin-bottom:8px;">你已經在用無障礙功能了——只是不知道而已</h3>
     <p class="text-sm" style="margin-bottom:12px;">試試右上角的深色模式切換。你大概每天都在手機上切深色模式吧？這就是無障礙。不是什麼特殊功能，是讓不同的人在不同情境下都能舒服地使用。</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:14px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap:12px;margin-bottom:14px;">
       <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
         <strong>你可能就是「需要無障礙的人」</strong>
         <span>台灣近視率超過 85%（國健署 2024），大學生高度近視比例達 20%。半夜滑手機覺得刺眼？螢幕字太小要瞇眼？這些就是視覺無障礙要解決的事——不是給「別人」用的，是給你用的。</span>
@@ -456,7 +456,7 @@
     <p class="text-sm" style="margin-bottom: 14px;">以下工具已安裝或可免費取得，涵蓋從寫 code 到上線前的完整檢測流程。</p>
 
     <h4 style="font-size:0.85rem;color:var(--primary);margin:16px 0 8px;border-bottom:1px solid var(--border);padding-bottom:4px;">我實際在用的工具</h4>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:12px;">
       <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
         <strong style="color:var(--primary);">a11y-advisor / a11y-audit <span style="font-size:0.7rem;background:var(--primary);color:var(--bg);padding:1px 6px;border-radius:4px;vertical-align:middle;">自行開發</span></strong>
         <span>這是我個人開發的 AI coding agent skill，都需要手動呼叫。advisor 比較輕量，問它「這個設計有沒有無障礙問題」它會用白話回答；audit 比較完整，對整個頁面跑一次結構化稽核，產出報告告訴你哪些要先修。</span>
@@ -470,7 +470,7 @@
     </div>
 
     <h4 style="font-size:0.85rem;color:var(--primary);margin:20px 0 8px;border-bottom:1px solid var(--border);padding-bottom:4px;">螢幕閱讀器（手動測試必備）</h4>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:12px;">
       <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
         <strong>NVDA</strong>
         <span>Windows 上最廣泛使用的免費開源螢幕閱讀器。搭配 Firefox 或 Chrome 測試，是驗證無障礙最基本的工具。</span>
@@ -499,7 +499,7 @@
     </div>
 
     <h4 style="font-size:0.85rem;color:var(--primary);margin:20px 0 8px;border-bottom:1px solid var(--border);padding-bottom:4px;">台灣 &amp; 日本在地工具</h4>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:12px;">
       <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
         <strong>NVDA + 繁體中文語音</strong>
         <span>台灣最常用的免費螢幕閱讀器組合。NVDA 本身免費，搭配 Windows 內建的中文 TTS（Microsoft Hanhan）即可使用。台灣數位有聲書學會（TDTB）持續贊助改善中文支援。</span>
@@ -523,7 +523,7 @@
     </div>
 
     <h4 style="font-size:0.85rem;color:var(--primary);margin:20px 0 8px;border-bottom:1px solid var(--border);padding-bottom:4px;">免費外部工具（建議搭配使用）</h4>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:12px;">
       <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
         <strong>WAVE (WebAIM)</strong>
         <span>瀏覽器擴充套件，直接在頁面上用圖示標出錯誤、警告、結構問題。最直覺的視覺化檢測工具，適合非工程師使用。也提供 API 做批次掃描。</span>
@@ -557,7 +557,7 @@
     </div>
 
     <h4 style="font-size:0.85rem;color:var(--primary);margin:20px 0 8px;border-bottom:1px solid var(--border);padding-bottom:4px;">值得關注的進階工具</h4>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:12px;">
       <div class="foundation-item" style="flex-direction:column;align-items:flex-start;">
         <strong>axe DevTools AI（Deque，付費）</strong>
         <span>在免費 axe-core 之上，2025 年加入 AI 導引測試：用 LLM 分析截圖、自動回答原本需要人工判斷的檢查項目，比純規則檢測多抓 10% 問題。另有 axe MCP Server 可整合進 VS Code。</span>
@@ -583,7 +583,7 @@
   <article class="card" style="border-left: 4px solid var(--accent);">
     <h3>交付檢查點：每個產出物的通關門</h3>
     <p class="text-sm" style="margin-bottom: 12px;">不管是誰做的、用什麼方式做的，每個產出物在交付前必須通過對應的無障礙驗證。<strong>任何人</strong>（包括 AI）都可以執行這些檢查。</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(240px,100%),1fr));gap:10px;">
       <div class="foundation-item"><span><strong>設計稿交付前</strong><br>色彩對比通過 · 觸控尺寸達標 · 焦點狀態設計好 · heading 層級標註 · 不依賴顏色</span></div>
       <div class="foundation-item"><span><strong>程式碼合併前</strong><br>axe 零 Critical · 鍵盤可操作 · 螢幕閱讀器念得通 · ARIA 正確 · label 綁定</span></div>
       <div class="foundation-item"><span><strong>內容發布前</strong><br>alt text 有意義 · 語言簡明 · 影片有字幕 · 幫助資訊一致 · 閱讀等級合理</span></div>
@@ -830,7 +830,7 @@
     </article>
   </div>
   <!-- Interactive demos -->
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-bottom:24px;">
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:16px;margin-bottom:24px;">
     <article class="card" style="border-left:4px solid var(--accent);">
       <h3 style="margin-bottom:8px;">Placeholder 不是 Label</h3>
       <p class="text-sm" style="margin-bottom:12px;">試著在下面兩個欄位打字，看看差異。</p>

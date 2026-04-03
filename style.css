@@ -112,6 +112,7 @@
     font-size: 0.75rem;
     color: #000;
     width: 280px;
+    max-width: calc(100vw - 48px);
     line-height: 1.5;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     opacity: 0;
@@ -123,10 +124,10 @@
   .back-to-top:hover .back-to-top-tooltip,
   .back-to-top:focus-visible .back-to-top-tooltip { opacity: 1; visibility: visible; }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * { margin: 0; padding: 0; box-sizing: border-box; min-width: 0; overflow-wrap: break-word; }
 
   html, body {
-    overflow-x: hidden;
+    overflow-x: clip;
     width: 100%;
   }
   body {
@@ -407,6 +408,8 @@
     padding: 24px;
     margin-bottom: 16px;
     transition: transform 0.2s;
+    max-width: 100%;
+    overflow: hidden;
   }
   .card:hover { transform: translateY(-2px); }
   .card h3 {
@@ -568,7 +571,7 @@
   /* ===== EMPATHY SIMULATION ===== */
   .sim-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
     gap: 16px;
     margin-bottom: 24px;
   }
@@ -799,7 +802,7 @@
     padding: 8px 12px;
     font-size: 0.75rem;
     color: #000;
-    width: 200px;
+    width: min(200px, calc(100vw - 24px));
     line-height: 1.5;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     opacity: 0;
@@ -828,7 +831,7 @@
   .foundation-box h3 { margin-bottom: 10px; }
   .foundation-items {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
     gap: 10px;
     margin-top: 12px;
   }
@@ -840,6 +843,8 @@
     display: flex;
     align-items: flex-start;
     gap: 8px;
+    max-width: 100%;
+    min-width: 0;
   }
   .foundation-item .fi-icon { font-size: 1.1rem; flex-shrink: 0; }
 
@@ -1031,7 +1036,7 @@
   .section { padding: 0 12px; }
   .card { padding: 14px; }
   .chat-trigger { width: 48px; height: 48px; font-size: 1.2rem; }
-  .back-to-top { width: 48px; height: 48px; font-size: 1.2rem; bottom: 80px; }
+  .back-to-top { width: 48px; height: 48px; font-size: 1.2rem; bottom: 24px; right: auto; left: 24px; }
 }
 @media (min-width: 601px) {
   .nav-tab .tab-label-short { display: none; }
@@ -1368,6 +1373,12 @@ body.sim-running .chat-trigger { display: none !important; }
     border: none;
   }
   .chat-messages { max-height: none; flex: 1; }
+  .back-to-top-tooltip {
+    right: auto;
+    left: 0;
+    bottom: calc(100% + 8px);
+    width: min(280px, calc(100vw - 48px));
+  }
 }
 
 .photosens-dialog::backdrop { background: rgba(0,0,0,0.7); }
