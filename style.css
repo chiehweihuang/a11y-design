@@ -231,7 +231,7 @@
   /* ===== HEADER ===== */
   .hero {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-    color: var(--bg);
+    color: #f8f9fa;
     text-align: center;
     padding: 48px 24px 40px;
     position: relative;
