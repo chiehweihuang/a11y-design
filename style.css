@@ -1204,6 +1204,19 @@
     --text-light: #333;
     --shadow: 0 2px 8px rgba(0,0,0,0.3);
   }
+  /* Dark + high contrast: light text must stay bright */
+  [data-theme="dark"] {
+    --text-light: #f0f0ff;
+    --border: #6a6a8c;
+    --shadow: 0 2px 8px rgba(0,0,0,0.5);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --text-light: #f0f0ff;
+      --border: #6a6a8c;
+      --shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+  }
   .card, .foundation-item, .sim-card, .nav-tab {
     border: 2px solid var(--text);
   }
