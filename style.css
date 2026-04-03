@@ -76,6 +76,21 @@
   .theme-toggle:hover #themeLabel { text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 3px; }
   .theme-toggle:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
   .theme-toggle-icon { font-size: 1.1rem; }
+  .theme-toggle-inline {
+    display: none;
+    margin-left: auto;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    background: var(--card-bg);
+    color: var(--text);
+    cursor: pointer;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+  }
+  .theme-toggle-inline .theme-label-inline { font-size: 0.7rem; font-weight: 600; }
 
   /* Back to top */
   .back-to-top {
@@ -1020,9 +1035,10 @@
   .nav-tab .tab-label { display: none; }
   .nav-tab .tab-label-short { display: inline; }
   .nav-mode-info { display: none !important; }
-  .theme-toggle { top: 8px; right: 8px; }
-  .skip-links-wrapper { padding: 4px 12px; gap: 6px; }
-  .skip-links-label { font-size: 0.6rem; line-height: 1.4; }
+  .theme-toggle-fixed { display: none; }
+  .theme-toggle-inline { display: flex; }
+  .skip-links-wrapper { padding: 4px 12px; gap: 4px 6px; }
+  .skip-links-label { font-size: 0.6rem; line-height: 1.4; flex-basis: 100%; }
   .skip-link { padding: 4px 12px; font-size: 0.7rem; }
   .search-container { padding: 0 12px; }
   .search-bar input[type="search"] { font-size: 0.8rem; padding: 8px; }
@@ -1036,7 +1052,7 @@
   .section { padding: 0 12px; }
   .card { padding: 14px; }
   .chat-trigger { width: 48px; height: 48px; font-size: 1.2rem; }
-  .back-to-top { width: 48px; height: 48px; font-size: 1.2rem; bottom: 24px; right: auto; left: 24px; }
+  .back-to-top { width: 48px; height: 48px; font-size: 1.2rem; bottom: 84px; }
 }
 @media (min-width: 601px) {
   .nav-tab .tab-label-short { display: none; }
@@ -1374,8 +1390,7 @@ body.sim-running .chat-trigger { display: none !important; }
   }
   .chat-messages { max-height: none; flex: 1; }
   .back-to-top-tooltip {
-    right: auto;
-    left: 0;
+    right: 0;
     bottom: calc(100% + 8px);
     width: min(280px, calc(100vw - 48px));
   }

@@ -16,12 +16,12 @@
 <meta name="twitter:title" content="你的網站正在流失你看不到的使用者">
 <meta name="twitter:description" content="互動式無障礙網頁設計指南：10 個沉浸式模擬、知識測驗、檢核清單。花 30 秒體驗，然後動手做。">
 <title>讓更多人能用的設計（無障礙設計）— 網頁篇</title>
-<link rel="stylesheet" href="style.css?v=20260403m">
+<link rel="stylesheet" href="style.css?v=20260403n">
 </head>
 <body>
 
-<!-- Theme Toggle -->
-<button class="theme-toggle" onclick="toggleTheme()" aria-label="切換深色/淺色模式">
+<!-- Theme Toggle (mobile: inline in skip-links; desktop: fixed position) -->
+<button class="theme-toggle theme-toggle-fixed" onclick="toggleTheme()" aria-label="切換深色/淺色模式">
   <span class="theme-toggle-icon" id="themeIcon">&#x1F319;</span>
   <span id="themeLabel">深色模式</span>
 </button>
@@ -119,6 +119,10 @@
 <!-- Skip to main content (WCAG 2.4.1) -->
 <div class="skip-links-wrapper">
   <a href="#main-content" class="skip-link">跳到主要內容</a>
+  <button class="theme-toggle theme-toggle-inline" onclick="toggleTheme()" aria-label="切換深色/淺色模式">
+    <span class="theme-toggle-icon" aria-hidden="true">&#x1F319;</span>
+    <span class="theme-label-inline">深色模式</span>
+  </button>
   <span class="skip-links-label">&#x2190; 這是 skip link，讓鍵盤使用者跳過導航直接到內容。<br>一般網站它是隱藏的，按 Tab 時才會出現。螢幕閱讀器使用者每次進入頁面都會聽到它，用來決定要不要跳過重複的選單。</span>
 </div>
 
@@ -1018,6 +1022,6 @@
 </div><!-- /pageWrapper -->
 
 
-<script src="app.js?v=20260403b"></script>
+<script src="app.js?v=20260403c"></script>
 </body>
 </html>

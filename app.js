@@ -1617,8 +1617,12 @@ function toggleTheme() {
   var current = html.getAttribute('data-theme');
   var next = current === 'dark' ? 'light' : 'dark';
   html.setAttribute('data-theme', next);
-  document.getElementById('themeIcon').textContent = next === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
-  document.getElementById('themeLabel').textContent = next === 'dark' ? '\u6DFA\u8272\u6A21\u5F0F' : '\u6DF1\u8272\u6A21\u5F0F';
+  var iconText = next === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+  var labelText = next === 'dark' ? '\u6DFA\u8272\u6A21\u5F0F' : '\u6DF1\u8272\u6A21\u5F0F';
+  document.getElementById('themeIcon').textContent = iconText;
+  document.getElementById('themeLabel').textContent = labelText;
+  document.querySelectorAll('.theme-toggle-inline .theme-toggle-icon').forEach(function(el) { el.textContent = iconText; });
+  document.querySelectorAll('.theme-toggle-inline .theme-label-inline').forEach(function(el) { el.textContent = labelText; });
   try { localStorage.setItem('theme', next); } catch(e) {}
   announce(next === 'dark' ? '\u5DF2\u5207\u63DB\u81F3\u6DF1\u8272\u6A21\u5F0F' : '\u5DF2\u5207\u63DB\u81F3\u6DFA\u8272\u6A21\u5F0F');
   // Update contrast demo if active
