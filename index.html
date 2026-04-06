@@ -140,30 +140,30 @@
 </div>
 
 <!-- ===== NAVIGATION ===== -->
-<div id="site-nav" class="nav-container" aria-label="學習旅程導航">
+<nav id="site-nav" class="nav-container" aria-label="學習旅程導航">
   <div class="nav-tabs-wrapper">
   <div class="nav-tabs" id="navTabs" aria-label="章節">
-    <button class="nav-tab" id="tab-why" aria-selected="true" aria-controls="sec-why" data-journey="why" onclick="showSection('why')">
+    <button class="nav-tab" id="tab-why" aria-current="page" aria-controls="sec-why" data-journey="why" onclick="showSection('why')">
       <span class="step-num">0</span>
       <span class="tab-label">為什麼</span><span class="tab-label-short">Why</span>
     </button>
-    <button class="nav-tab" id="tab-roles" aria-selected="false" aria-controls="sec-roles" data-journey="roles" onclick="showSection('roles')">
+    <button class="nav-tab" id="tab-roles" aria-controls="sec-roles" data-journey="roles" onclick="showSection('roles')">
       <span class="step-num">1</span>
       <span class="tab-label">選擇角色</span><span class="tab-label-short">角色</span>
     </button>
-    <button class="nav-tab" id="tab-empathy" aria-selected="false" aria-controls="sec-empathy" data-journey="empathy" onclick="showSection('empathy')">
+    <button class="nav-tab" id="tab-empathy" aria-controls="sec-empathy" data-journey="empathy" onclick="showSection('empathy')">
       <span class="step-num">2</span>
       <span class="tab-label">同理心體驗</span><span class="tab-label-short">體驗</span>
     </button>
-    <button class="nav-tab" id="tab-quiz" aria-selected="false" aria-controls="sec-quiz" data-journey="quiz" onclick="showSection('quiz')">
+    <button class="nav-tab" id="tab-quiz" aria-controls="sec-quiz" data-journey="quiz" onclick="showSection('quiz')">
       <span class="step-num">3</span>
       <span class="tab-label">知識測驗</span><span class="tab-label-short">測驗</span>
     </button>
-    <button class="nav-tab" id="tab-checklist" aria-selected="false" aria-controls="sec-checklist" data-journey="checklist" onclick="showSection('checklist')">
+    <button class="nav-tab" id="tab-checklist" aria-controls="sec-checklist" data-journey="checklist" onclick="showSection('checklist')">
       <span class="step-num">4</span>
       <span class="tab-label">動手做</span><span class="tab-label-short">動手</span>
     </button>
-    <button class="nav-tab" id="tab-phases" aria-selected="false" aria-controls="sec-phases" data-journey="phases" onclick="showSection('phases')">
+    <button class="nav-tab" id="tab-phases" aria-controls="sec-phases" data-journey="phases" onclick="showSection('phases')">
       <span class="step-num">5</span>
       <span class="tab-label">專案規劃</span><span class="tab-label-short">專案</span>
     </button>
@@ -176,7 +176,7 @@
     </label>
     <span style="font-size:0.65rem;color:var(--text-light);display:block;margin-top:2px;">鍵盤操作：Tab 往下一個、Shift+Tab 回上一個。目前是 Nav 模式：Tab 逐一經過每個選項，這就是為什麼 skip link 存在</span>
   </div>
-</div>
+</nav>
 
 <!-- ===== HERO (semantic header) ===== -->
 <header class="hero" role="banner">
@@ -251,7 +251,7 @@
 
 
 <!-- ===================== SECTION: WHY ===================== -->
-<section class="section active" id="sec-why" role="tabpanel" aria-labelledby="tab-why">
+<section class="section active" id="sec-why" aria-labelledby="tab-why">
   <h2 class="section-title">為什麼要做無障礙？</h2>
 
   <article class="card" style="border-left:4px solid var(--text);background:var(--card-bg);">
@@ -335,7 +335,7 @@
 </section>
 
 <!-- ===================== SECTION: ROLES ===================== -->
-<section class="section" id="sec-roles" role="tabpanel" aria-labelledby="tab-roles">
+<section class="section" id="sec-roles" aria-labelledby="tab-roles">
   <h2 class="section-title">一起守護的事</h2>
   <p class="text-sm text-muted mb-16">無障礙不是某一個人的額外工作。它是我們每個人本來就在做的事的一部分——只是過去沒有意識到。當你寫一段文案、畫一個按鈕、寫一行 code，你都在決定某個人能不能用這個產品。</p>
 
@@ -646,7 +646,7 @@
 </section>
 
 <!-- ===================== SECTION: EMPATHY ===================== -->
-<section class="section" id="sec-empathy" role="tabpanel" aria-labelledby="tab-empathy">
+<section class="section" id="sec-empathy" aria-labelledby="tab-empathy">
   <h2 class="section-title">同理心體驗區</h2>
   <p class="text-sm text-muted mb-24">在這裡，你將親身體驗不同使用者面對網站的真實感受。每完成一個模擬，都會更深刻理解無障礙設計的價值。</p>
   <div class="sim-grid">
@@ -893,7 +893,7 @@
 </dialog>
 
 <!-- ===================== SECTION: QUIZ ===================== -->
-<section class="section" id="sec-quiz" role="tabpanel" aria-labelledby="tab-quiz">
+<section class="section" id="sec-quiz" aria-labelledby="tab-quiz">
   <h2 class="section-title">無障礙知識測驗</h2>
   <p class="text-sm text-muted mb-24">測試你對 WCAG 標準與無障礙實務的理解。答對越多，離「知識達人」徽章越近！</p>
   <div id="quizContainer"></div>
@@ -911,7 +911,7 @@
 </section>
 
 <!-- ===================== SECTION: CHECKLIST ===================== -->
-<section class="section" id="sec-checklist" role="tabpanel" aria-labelledby="tab-checklist">
+<section class="section" id="sec-checklist" aria-labelledby="tab-checklist">
   <h2 class="section-title">從 30 秒開始</h2>
   <p class="text-sm text-muted mb-16">每個步驟都小到不好意思不做。從最上面開始，做到你覺得夠了為止——回頭一看，你會發現自己做了不少。</p>
 
@@ -923,7 +923,7 @@
 </section>
 
 <!-- ===================== SECTION: PHASES ===================== -->
-<section class="section" id="sec-phases" role="tabpanel" aria-labelledby="tab-phases">
+<section class="section" id="sec-phases" aria-labelledby="tab-phases">
   <div id="phaseOverview">
     <h2 class="section-title">專案五大階段</h2>
     <p class="text-sm text-muted mb-24">點選任一階段查看詳細任務、各角色職責與無障礙關鍵行動。</p>

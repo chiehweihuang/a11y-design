@@ -76,9 +76,17 @@ function showSection(id, skipScroll) {
   document.getElementById('sec-' + id).classList.add('active');
   document.querySelectorAll('.nav-tab').forEach(function(t) {
     var isActive = t.id === 'tab-' + id;
-    t.setAttribute('aria-selected', isActive ? 'true' : 'false');
     if (isTablistMode) {
+      // Tablist mode: use aria-selected (valid on role="tab")
+      t.setAttribute('aria-selected', isActive ? 'true' : 'false');
       t.tabIndex = isActive ? 0 : -1;
+    } else {
+      // Nav mode: use aria-current (valid on plain buttons)
+      if (isActive) {
+        t.setAttribute('aria-current', 'page');
+      } else {
+        t.removeAttribute('aria-current');
+      }
     }
   });
   updateJourneyStepper(id);
@@ -133,20 +141,38 @@ function toggleTablistMode(enabled) {
   isTablistMode = enabled;
   var container = document.getElementById('navTabs');
   var tabs = Array.from(container.querySelectorAll('.nav-tab'));
+  var sections = document.querySelectorAll('.section');
 
   if (enabled) {
+    // Tablist mode: add tablist/tab/tabpanel roles, use aria-selected
     container.setAttribute('role', 'tablist');
     tabs.forEach(function(tab) {
       tab.setAttribute('role', 'tab');
-      var isActive = tab.getAttribute('aria-selected') === 'true';
+      var isActive = tab.getAttribute('aria-current') === 'page';
+      tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      tab.removeAttribute('aria-current');
       tab.tabIndex = isActive ? 0 : -1;
       if (isActive) tab.focus();
     });
+    sections.forEach(function(sec) {
+      sec.setAttribute('role', 'tabpanel');
+    });
   } else {
+    // Nav mode: remove tablist/tab/tabpanel roles, use aria-current
     container.removeAttribute('role');
     tabs.forEach(function(tab) {
       tab.removeAttribute('role');
+      tab.removeAttribute('aria-selected');
+      var isActive = document.getElementById(tab.getAttribute('aria-controls')).classList.contains('active');
+      if (isActive) {
+        tab.setAttribute('aria-current', 'page');
+      } else {
+        tab.removeAttribute('aria-current');
+      }
       tab.tabIndex = 0;
+    });
+    sections.forEach(function(sec) {
+      sec.removeAttribute('role');
     });
   }
   announce(enabled ? '已切換為 Tablist 模式：用方向鍵切換，Tab 只停一次' : '已切換為 Nav 模式：Tab 逐一經過每個選項');

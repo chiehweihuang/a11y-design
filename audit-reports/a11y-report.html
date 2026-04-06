@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accessibility Audit Report — Full project — chiehweihuang.github.io/a11y-design/</title>
+<style>
+  :root {
+    --bg: #1a1a2e;
+    --surface: #16213e;
+    --surface-2: #0f3460;
+    --text: #e8e8e8;
+    --text-muted: #a0a0b0;
+    --border: #2a2a4a;
+    --accent: #4fc3f7;
+    --pass: #0cce6b;
+    --warn: #ffa400;
+    --fail: #ff4e42;
+    --tip: #4fc3f7;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+  h3 { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; }
+  .meta { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem; }
+  .meta span { margin-right: 1.5rem; }
+
+  /* Score Ring */
+  .score-ring-container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+  .score-ring {
+    text-align: center;
+    min-width: 120px;
+  }
+  .score-ring svg { width: 100px; height: 100px; }
+  .score-ring .ring-bg { fill: none; stroke: var(--border); stroke-width: 8; }
+  .score-ring .ring-fg { fill: none; stroke-width: 8; stroke-linecap: round;
+    transform: rotate(-90deg); transform-origin: 50% 50%;
+    transition: stroke-dashoffset 1s ease; }
+  .score-ring .ring-text { font-size: 22px; font-weight: 700; fill: var(--text); }
+  .score-ring .ring-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem; }
+  .score-ring .ring-prev { font-size: 0.75rem; color: var(--text-muted); }
+
+  /* Summary Table */
+  .summary-table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+  .summary-table th { text-align: left; padding: 0.6rem; border-bottom: 2px solid var(--border);
+    color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .summary-table td { padding: 0.6rem; border-bottom: 1px solid var(--border); }
+  .summary-table .num { text-align: center; font-variant-numeric: tabular-nums; }
+  .summary-table .pass { color: var(--pass); }
+  .summary-table .fail { color: var(--fail); }
+  .category-row { cursor: pointer; }
+  .category-row:hover { background: var(--surface-2); }
+
+  .score-bar { height: 20px; background: var(--surface); border-radius: 10px; position: relative; overflow: hidden; min-width: 100px; }
+  .score-fill { height: 100%; border-radius: 10px; transition: width 0.8s ease; }
+  .score-text { position: absolute; right: 8px; top: 0; line-height: 20px; font-size: 0.75rem; font-weight: 600; }
+  .prev-score { font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; }
+
+  .delta { font-size: 0.75rem; margin-left: 4px; }
+  .delta.positive { color: var(--pass); }
+  .delta.negative { color: var(--fail); }
+  .delta.neutral { color: var(--text-muted); }
+
+  /* Findings */
+  .finding { background: var(--surface); border-radius: 8px; margin: 0.8rem 0; padding: 1rem;
+    border-left: 4px solid var(--border); }
+  .finding.critical { border-left-color: var(--fail); }
+  .finding.warning { border-left-color: var(--warn); }
+  .finding.tip { border-left-color: var(--tip); }
+  .finding-header { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+  .severity-icon { font-size: 1.1rem; }
+  .wcag-tag, .level-tag { font-size: 0.75rem; padding: 2px 6px; border-radius: 4px;
+    background: var(--surface-2); color: var(--accent); }
+  .finding-body { margin-top: 0.8rem; font-size: 0.9rem; }
+  .finding-body p { margin: 0.3rem 0; }
+  .fix { background: rgba(12,206,107,0.1); padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem; }
+  .legal { background: rgba(255,78,66,0.1); padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem; }
+
+  .code-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.5rem; }
+  .code-label { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.2rem; text-transform: uppercase; }
+  .code-before pre, .code-after pre { background: var(--bg); padding: 0.5rem; border-radius: 4px;
+    overflow-x: auto; font-size: 0.8rem; }
+  .code-before pre { border: 1px solid rgba(255,78,66,0.3); }
+  .code-after pre { border: 1px solid rgba(12,206,107,0.3); }
+
+  /* Legal Risk */
+  .risk-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1rem 0; }
+  .risk-card { background: var(--surface); padding: 1rem; border-radius: 8px; }
+  .risk-header { display: flex; justify-content: space-between; align-items: center; }
+  .risk-badge { color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+  .deadline { color: var(--warn); font-weight: 600; }
+  .risk-score { font-variant-numeric: tabular-nums; }
+  .overall-risk { text-align: center; padding: 0.8rem; border-radius: 8px; color: white;
+    font-size: 1.1rem; font-weight: 700; }
+  .risk-summary { margin-top: 1rem; }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin: 2rem 0 1rem; }
+  .tab { padding: 0.6rem 1.2rem; cursor: pointer; color: var(--text-muted);
+    border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Remediation */
+  .priority-section { margin: 1rem 0; }
+  .priority-tag { display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-size: 0.75rem; font-weight: 600; color: white; }
+  .priority-tag.p0 { background: var(--fail); }
+  .priority-tag.p1 { background: var(--warn); }
+  .priority-tag.p2 { background: var(--tip); }
+  .remediation-item { display: flex; gap: 0.5rem; align-items: baseline; padding: 0.3rem 0; }
+  .effort-tag { font-size: 0.75rem; color: var(--text-muted); }
+
+  .empty { color: var(--text-muted); font-style: italic; }
+
+  /* Category detail sections */
+  .category-detail { display: none; margin: 1rem 0 2rem; padding: 1rem;
+    background: var(--surface); border-radius: 8px; }
+  .category-detail.open { display: block; }
+
+  /* Print */
+  @media print {
+    body { background: white; color: #333; }
+    .score-ring .ring-text { fill: #333; }
+    .finding { break-inside: avoid; }
+  }
+
+  /* Comparison banner */
+  .comparison-banner {
+    background: var(--surface-2);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+  }
+  .comparison-stat { }
+  .comparison-stat .value { font-size: 1.5rem; font-weight: 700; }
+  .comparison-stat .label { font-size: 0.8rem; color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<h1>Accessibility Audit Report</h1>
+<div class="meta">
+  <span>Date: 2026-04-06</span>
+  <span>Scope: Full project — chiehweihuang.github.io/a11y-design/</span>
+  <span>Standard: WCAG 2.2 AA</span>
+  <span>Auditor: Claude Code (a11y-audit)</span>
+</div>
+
+
+<div class="comparison-banner">
+  <div class="comparison-stat">
+    <div class="value" style="color:#ffa400">89</div>
+    <div class="label">Current Score</div>
+  </div>
+  <div class="comparison-stat">
+    <div class="value" style="color:#ffa400">86</div>
+    <div class="label">Previous Score</div>
+  </div>
+  <div class="comparison-stat">
+    <div class="value" style="color:var(--pass)">
+      +3
+    </div>
+    <div class="label">Delta</div>
+  </div>
+  <div class="comparison-stat">
+    <div class="value">6 / 18</div>
+    <div class="label">Issues (now / was)</div>
+  </div>
+</div>
+
+
+<!-- Score Rings -->
+<div class="score-ring-container">
+  
+    <div class="score-ring">
+      <svg viewBox="0 0 100 100">
+        <circle class="ring-bg" cx="50" cy="50" r="40"/>
+        <circle class="ring-fg" cx="50" cy="50" r="40"
+          stroke="#ffa400"
+          stroke-dasharray="251.32741228718345"
+          stroke-dashoffset="27.646015351590176"/>
+        <text class="ring-text" x="50" y="55" text-anchor="middle">89</text>
+      </svg>
+      <div class="ring-label">Overall</div>
+      <div class="ring-prev">was 86</div>
+    </div>
+  
+    <div class="score-ring">
+      <svg viewBox="0 0 100 100">
+        <circle class="ring-bg" cx="50" cy="50" r="40"/>
+        <circle class="ring-fg" cx="50" cy="50" r="40"
+          stroke="#ffa400"
+          stroke-dasharray="251.32741228718345"
+          stroke-dashoffset="37.699111843077524"/>
+        <text class="ring-text" x="50" y="55" text-anchor="middle">85</text>
+      </svg>
+      <div class="ring-label">Screen Reader</div>
+      <div class="ring-prev">was 85</div>
+    </div>
+    <div class="score-ring">
+      <svg viewBox="0 0 100 100">
+        <circle class="ring-bg" cx="50" cy="50" r="40"/>
+        <circle class="ring-fg" cx="50" cy="50" r="40"
+          stroke="#0cce6b"
+          stroke-dasharray="251.32741228718345"
+          stroke-dashoffset="12.566370614359183"/>
+        <text class="ring-text" x="50" y="55" text-anchor="middle">95</text>
+      </svg>
+      <div class="ring-label">Keyboard Navigation</div>
+      <div class="ring-prev">was 90</div>
+    </div>
+    <div class="score-ring">
+      <svg viewBox="0 0 100 100">
+        <circle class="ring-bg" cx="50" cy="50" r="40"/>
+        <circle class="ring-fg" cx="50" cy="50" r="40"
+          stroke="#ffa400"
+          stroke-dasharray="251.32741228718345"
+          stroke-dashoffset="45.238934211693035"/>
+        <text class="ring-text" x="50" y="55" text-anchor="middle">82</text>
+      </svg>
+      <div class="ring-label">Color & Contrast</div>
+      <div class="ring-prev">was 88</div>
+    </div>
+    <div class="score-ring">
+      <svg viewBox="0 0 100 100">
+        <circle class="ring-bg" cx="50" cy="50" r="40"/>
+        <circle class="ring-fg" cx="50" cy="50" r="40"
+          stroke="#0cce6b"
+          stroke-dasharray="251.32741228718345"
+          stroke-dashoffset="0"/>
+        <text class="ring-text" x="50" y="55" text-anchor="middle">100</text>
+      </svg>
+      <div class="ring-label">Forms</div>
+      <div class="ring-prev">was 82</div>
+    </div>
+    <div class="score-ring">
+      <svg viewBox="0 0 100 100">
+        <circle class="ring-bg" cx="50" cy="50" r="40"/>
+        <circle class="ring-fg" cx="50" cy="50" r="40"
+          stroke="#0cce6b"
+          stroke-dasharray="251.32741228718345"
+          stroke-dashoffset="10.053096491487347"/>
+        <text class="ring-text" x="50" y="55" text-anchor="middle">96</text>
+      </svg>
+      <div class="ring-label">Responsive Design</div>
+      <div class="ring-prev">was 88</div>
+    </div>
+    <div class="score-ring">
+      <svg viewBox="0 0 100 100">
+        <circle class="ring-bg" cx="50" cy="50" r="40"/>
+        <circle class="ring-fg" cx="50" cy="50" r="40"
+          stroke="#0cce6b"
+          stroke-dasharray="251.32741228718345"
+          stroke-dashoffset="12.566370614359183"/>
+        <text class="ring-text" x="50" y="55" text-anchor="middle">95</text>
+      </svg>
+      <div class="ring-label">Touch & Target Size</div>
+      <div class="ring-prev">was 80</div>
+    </div>
+    <div class="score-ring">
+      <svg viewBox="0 0 100 100">
+        <circle class="ring-bg" cx="50" cy="50" r="40"/>
+        <circle class="ring-fg" cx="50" cy="50" r="40"
+          stroke="#0cce6b"
+          stroke-dasharray="251.32741228718345"
+          stroke-dashoffset="0"/>
+        <text class="ring-text" x="50" y="55" text-anchor="middle">100</text>
+      </svg>
+      <div class="ring-label">Cognitive</div>
+      <div class="ring-prev">was 85</div>
+    </div>
+    <div class="score-ring">
+      <svg viewBox="0 0 100 100">
+        <circle class="ring-bg" cx="50" cy="50" r="40"/>
+        <circle class="ring-fg" cx="50" cy="50" r="40"
+          stroke="#0cce6b"
+          stroke-dasharray="251.32741228718345"
+          stroke-dashoffset="0"/>
+        <text class="ring-text" x="50" y="55" text-anchor="middle">100</text>
+      </svg>
+      <div class="ring-label">Motion & Animation</div>
+      <div class="ring-prev">was 95</div>
+    </div>
+    <div class="score-ring">
+      <svg viewBox="0 0 100 100">
+        <circle class="ring-bg" cx="50" cy="50" r="40"/>
+        <circle class="ring-fg" cx="50" cy="50" r="40"
+          stroke="#0cce6b"
+          stroke-dasharray="251.32741228718345"
+          stroke-dashoffset="0"/>
+        <text class="ring-text" x="50" y="55" text-anchor="middle">100</text>
+      </svg>
+      <div class="ring-label">Media</div>
+      <div class="ring-prev">was 80</div>
+    </div>
+    <div class="score-ring">
+      <svg viewBox="0 0 100 100">
+        <circle class="ring-bg" cx="50" cy="50" r="40"/>
+        <circle class="ring-fg" cx="50" cy="50" r="40"
+          stroke="#ffa400"
+          stroke-dasharray="251.32741228718345"
+          stroke-dashoffset="55.29203070318035"/>
+        <text class="ring-text" x="50" y="55" text-anchor="middle">78</text>
+      </svg>
+      <div class="ring-label">Agent & AEO</div>
+      <div class="ring-prev">was 65</div>
+    </div>
+</div>
+
+<!-- Verdict -->
+<div style="text-align:center;margin:1.5rem 0">
+  <span style="font-size:1.3rem;font-weight:700;color:#ffa400">
+    NEEDS WORK
+  </span>
+  <span style="color:var(--text-muted);margin-left:0.5rem">
+    6 issues found
+    (0 critical, 2 warnings, 4 tips)
+  </span>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('overview')">Overview</div>
+  <div class="tab" onclick="switchTab('findings')">Findings</div>
+  <div class="tab" onclick="switchTab('legal')">Legal Risk</div>
+  <div class="tab" onclick="switchTab('remediation')">Remediation</div>
+</div>
+
+<!-- Overview Tab -->
+<div id="tab-overview" class="tab-content active">
+  <h2>Category Summary</h2>
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th class="num">Pass</th>
+        <th class="num">Fail</th>
+        <th class="num">Review</th>
+        <th>Coverage</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr class="category-row" data-category="screenreader">
+        <td class="cat-name">Screen Reader</td>
+        <td class="num pass">8 <span class="delta positive">+2</span></td>
+        <td class="num fail">1 <span class="delta neutral">--</span></td>
+        <td class="num review">0</td>
+        <td>
+          <div class="score-bar">
+            <div class="score-fill" style="width:85%;background:#ffa400"></div>
+            <span class="score-text">85%</span>
+          </div>
+          <div class="prev-score">was 85%</div>
+        </td>
+      </tr>
+      <tr class="category-row" data-category="keyboard">
+        <td class="cat-name">Keyboard Navigation</td>
+        <td class="num pass">6 <span class="delta neutral">--</span></td>
+        <td class="num fail">0 <span class="delta neutral">--</span></td>
+        <td class="num review">0</td>
+        <td>
+          <div class="score-bar">
+            <div class="score-fill" style="width:95%;background:#0cce6b"></div>
+            <span class="score-text">95%</span>
+          </div>
+          <div class="prev-score">was 90%</div>
+        </td>
+      </tr>
+      <tr class="category-row" data-category="contrast">
+        <td class="cat-name">Color & Contrast</td>
+        <td class="num pass">4 <span class="delta neutral">--</span></td>
+        <td class="num fail">1 <span class="delta positive">+1</span></td>
+        <td class="num review">0</td>
+        <td>
+          <div class="score-bar">
+            <div class="score-fill" style="width:82%;background:#ffa400"></div>
+            <span class="score-text">82%</span>
+          </div>
+          <div class="prev-score">was 88%</div>
+        </td>
+      </tr>
+      <tr class="category-row" data-category="forms">
+        <td class="cat-name">Forms</td>
+        <td class="num pass">7 <span class="delta positive">+3</span></td>
+        <td class="num fail">0 <span class="delta negative">-1</span></td>
+        <td class="num review">0</td>
+        <td>
+          <div class="score-bar">
+            <div class="score-fill" style="width:100%;background:#0cce6b"></div>
+            <span class="score-text">100%</span>
+          </div>
+          <div class="prev-score">was 82%</div>
+        </td>
+      </tr>
+      <tr class="category-row" data-category="responsive">
+        <td class="cat-name">Responsive Design</td>
+        <td class="num pass">8 <span class="delta positive">+3</span></td>
+        <td class="num fail">0 <span class="delta neutral">--</span></td>
+        <td class="num review">0</td>
+        <td>
+          <div class="score-bar">
+            <div class="score-fill" style="width:96%;background:#0cce6b"></div>
+            <span class="score-text">96%</span>
+          </div>
+          <div class="prev-score">was 88%</div>
+        </td>
+      </tr>
+      <tr class="category-row" data-category="touch">
+        <td class="cat-name">Touch & Target Size</td>
+        <td class="num pass">4 <span class="delta positive">+1</span></td>
+        <td class="num fail">0 <span class="delta neutral">--</span></td>
+        <td class="num review">0</td>
+        <td>
+          <div class="score-bar">
+            <div class="score-fill" style="width:95%;background:#0cce6b"></div>
+            <span class="score-text">95%</span>
+          </div>
+          <div class="prev-score">was 80%</div>
+        </td>
+      </tr>
+      <tr class="category-row" data-category="cognitive">
+        <td class="cat-name">Cognitive</td>
+        <td class="num pass">5 <span class="delta positive">+1</span></td>
+        <td class="num fail">0 <span class="delta neutral">--</span></td>
+        <td class="num review">0</td>
+        <td>
+          <div class="score-bar">
+            <div class="score-fill" style="width:100%;background:#0cce6b"></div>
+            <span class="score-text">100%</span>
+          </div>
+          <div class="prev-score">was 85%</div>
+        </td>
+      </tr>
+      <tr class="category-row" data-category="motion">
+        <td class="cat-name">Motion & Animation</td>
+        <td class="num pass">4 <span class="delta positive">+1</span></td>
+        <td class="num fail">0 <span class="delta neutral">--</span></td>
+        <td class="num review">0</td>
+        <td>
+          <div class="score-bar">
+            <div class="score-fill" style="width:100%;background:#0cce6b"></div>
+            <span class="score-text">100%</span>
+          </div>
+          <div class="prev-score">was 95%</div>
+        </td>
+      </tr>
+      <tr class="category-row" data-category="media">
+        <td class="cat-name">Media</td>
+        <td class="num pass">3 <span class="delta positive">+1</span></td>
+        <td class="num fail">0 <span class="delta neutral">--</span></td>
+        <td class="num review">0</td>
+        <td>
+          <div class="score-bar">
+            <div class="score-fill" style="width:100%;background:#0cce6b"></div>
+            <span class="score-text">100%</span>
+          </div>
+          <div class="prev-score">was 80%</div>
+        </td>
+      </tr>
+      <tr class="category-row" data-category="agent">
+        <td class="cat-name">Agent & AEO</td>
+        <td class="num pass">5 <span class="delta positive">+2</span></td>
+        <td class="num fail">2 <span class="delta neutral">--</span></td>
+        <td class="num review">0</td>
+        <td>
+          <div class="score-bar">
+            <div class="score-fill" style="width:78%;background:#ffa400"></div>
+            <span class="score-text">78%</span>
+          </div>
+          <div class="prev-score">was 65%</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+    <div class="category-detail" id="detail-screenreader">
+      <h3>Screen Reader</h3>
+      
+      <div class="finding warning">
+        <div class="finding-header">
+          <span class="severity-icon">&#9888;</span>
+          <strong>aria-selected on buttons without role="tablist" parent in Nav mode</strong>
+          <span class="wcag-tag">4.1.2</span>
+          <span class="level-tag">A</span>
+        </div>
+        <div class="finding-body">
+          <p><strong>Affected users:</strong> Screen reader users — aria-selected is not valid on plain buttons</p>
+          <p><strong>Location:</strong> <code>index.html:146-166</code></p>
+          <p>Six nav-tab buttons use aria-selected but their container (#navTabs) has no role="tablist" in the default Nav mode. Sections use role="tabpanel" without a tablist parent. axe-core confirms aria-allowed-attr violation on 6 nodes. Tablist mode (toggle) works correctly.</p>
+          <div class="fix"><strong>Fix:</strong> In Nav mode: replace aria-selected with aria-current="page" on the active tab. Remove role="tabpanel" from sections. Only apply tablist/tab/tabpanel roles when Tablist mode is enabled.</div>
+          <div class="legal"><strong>Legal:</strong> Level A violation. All 4 jurisdictions require Level A compliance.</div>
+          <details><summary>Before / After</summary><div class="code-compare"><div class="code-before"><div class="code-label">Before</div><pre><code>&lt;button class=&quot;nav-tab&quot; aria-selected=&quot;true&quot; aria-controls=&quot;sec-why&quot;&gt;
+&lt;section role=&quot;tabpanel&quot; aria-labelledby=&quot;tab-why&quot;&gt;</code></pre></div><div class="code-after"><div class="code-label">After</div><pre><code>&lt;button class=&quot;nav-tab&quot; aria-current=&quot;page&quot; aria-controls=&quot;sec-why&quot;&gt;
+&lt;section aria-labelledby=&quot;tab-why&quot;&gt;</code></pre></div></div></details>
+        </div>
+      </div>
+      <div class="finding tip">
+        <div class="finding-header">
+          <span class="severity-icon">&#x1F4A1;</span>
+          <strong>Navigation container uses <div> instead of <nav></strong>
+          <span class="wcag-tag">1.3.1</span>
+          <span class="level-tag">best-practice</span>
+        </div>
+        <div class="finding-body">
+          <p><strong>Affected users:</strong> Screen reader users navigating by landmarks</p>
+          <p><strong>Location:</strong> <code>index.html:143 (#site-nav)</code></p>
+          <p>The main navigation uses <div id="site-nav" aria-label="學習旅程導航"> instead of <nav>. While aria-label provides a name, <nav> is the semantic element for navigation.</p>
+          <div class="fix"><strong>Fix:</strong> Change <div id="site-nav" class="nav-container" aria-label="學習旅程導航"> to <nav id="site-nav" class="nav-container" aria-label="學習旅程導航">.</div>
+          
+          
+        </div>
+      </div>
+    </div>
+  
+    <div class="category-detail" id="detail-keyboard">
+      <h3>Keyboard Navigation</h3>
+      <p class="empty">No findings in this category.</p>
+    </div>
+  
+    <div class="category-detail" id="detail-contrast">
+      <h3>Color & Contrast</h3>
+      
+      <div class="finding warning">
+        <div class="finding-header">
+          <span class="severity-icon">&#9888;</span>
+          <strong>8 elements below 4.5:1 contrast ratio</strong>
+          <span class="wcag-tag">1.4.3</span>
+          <span class="level-tag">AA</span>
+        </div>
+        <div class="finding-body">
+          <p><strong>Affected users:</strong> Low-vision users, elderly users, users in bright environments</p>
+          <p><strong>Location:</strong> <code>Various elements (axe-core color-contrast)</code></p>
+          <p>axe-core identified 8 elements with insufficient contrast. Likely affected: text using --text-light (#566573) on certain backgrounds, muted helper text, and tooltip content.</p>
+          <div class="fix"><strong>Fix:</strong> Check each flagged element. For --text-light on white background: current #566573 gives 5.9:1 (passes). Failures may be on colored card backgrounds or in dark mode. Verify each combination.</div>
+          <div class="legal"><strong>Legal:</strong> Level AA. Top-3 most litigated criterion in US ADA lawsuits.</div>
+          
+        </div>
+      </div>
+    </div>
+  
+    <div class="category-detail" id="detail-forms">
+      <h3>Forms</h3>
+      <p class="empty">No findings in this category.</p>
+    </div>
+  
+    <div class="category-detail" id="detail-responsive">
+      <h3>Responsive Design</h3>
+      <p class="empty">No findings in this category.</p>
+    </div>
+  
+    <div class="category-detail" id="detail-touch">
+      <h3>Touch & Target Size</h3>
+      <p class="empty">No findings in this category.</p>
+    </div>
+  
+    <div class="category-detail" id="detail-cognitive">
+      <h3>Cognitive</h3>
+      <p class="empty">No findings in this category.</p>
+    </div>
+  
+    <div class="category-detail" id="detail-motion">
+      <h3>Motion & Animation</h3>
+      <p class="empty">No findings in this category.</p>
+    </div>
+  
+    <div class="category-detail" id="detail-media">
+      <h3>Media</h3>
+      <p class="empty">No findings in this category.</p>
+    </div>
+  
+    <div class="category-detail" id="detail-agent">
+      <h3>Agent & AEO</h3>
+      
+      <div class="finding tip">
+        <div class="finding-header">
+          <span class="severity-icon">&#x1F4A1;</span>
+          <strong>3 elements outside landmark regions</strong>
+          <span class="wcag-tag">best-practice</span>
+          <span class="level-tag">best-practice</span>
+        </div>
+        <div class="finding-body">
+          <p><strong>Affected users:</strong> Screen reader users navigating by landmarks</p>
+          <p><strong>Location:</strong> <code>Theme toggle button, chat trigger button, SVG filters</code></p>
+          <p>axe-core region rule: 3 floating elements (theme toggle, chat trigger, SVG defs) are outside any landmark. The SVG is aria-hidden so not impactful. The two buttons are fixed-position UI that could be wrapped in a complementary landmark.</p>
+          <div class="fix"><strong>Fix:</strong> Wrap theme toggle and chat trigger in a <div role="complementary" aria-label="Page tools">.</div>
+          
+          
+        </div>
+      </div>
+      <div class="finding tip">
+        <div class="finding-header">
+          <span class="severity-icon">&#x1F4A1;</span>
+          <strong>No Schema.org JSON-LD structured data</strong>
+          <span class="wcag-tag">AEO</span>
+          <span class="level-tag">best-practice</span>
+        </div>
+        <div class="finding-body">
+          <p><strong>Affected users:</strong> AI agents, search engines, answer engines</p>
+          <p><strong>Location:</strong> <code><head></code></p>
+          <p>No <script type="application/ld+json"> found. Adding Article or WebPage schema would improve discoverability by AI answer engines.</p>
+          <div class="fix"><strong>Fix:</strong> Add JSON-LD with @type: WebPage or Article, including name, description, author, dateModified.</div>
+          
+          
+        </div>
+      </div>
+      <div class="finding tip">
+        <div class="finding-header">
+          <span class="severity-icon">&#x1F4A1;</span>
+          <strong>No canonical URL</strong>
+          <span class="wcag-tag">AEO</span>
+          <span class="level-tag">best-practice</span>
+        </div>
+        <div class="finding-body">
+          <p><strong>Affected users:</strong> Search engines, AI crawlers</p>
+          <p><strong>Location:</strong> <code><head></code></p>
+          <p>No <link rel="canonical"> found. The og:url is set correctly but canonical link is missing.</p>
+          <div class="fix"><strong>Fix:</strong> Add <link rel="canonical" href="https://chiehweihuang.github.io/a11y-design/">.</div>
+          
+          
+        </div>
+      </div>
+    </div>
+  
+</div>
+
+<!-- Findings Tab -->
+<div id="tab-findings" class="tab-content">
+  <h2>Critical Findings</h2>
+  <p class="empty">No findings in this category.</p>
+
+  <h2>Warnings</h2>
+  
+      <div class="finding warning">
+        <div class="finding-header">
+          <span class="severity-icon">&#9888;</span>
+          <strong>aria-selected on buttons without role="tablist" parent in Nav mode</strong>
+          <span class="wcag-tag">4.1.2</span>
+          <span class="level-tag">A</span>
+        </div>
+        <div class="finding-body">
+          <p><strong>Affected users:</strong> Screen reader users — aria-selected is not valid on plain buttons</p>
+          <p><strong>Location:</strong> <code>index.html:146-166</code></p>
+          <p>Six nav-tab buttons use aria-selected but their container (#navTabs) has no role="tablist" in the default Nav mode. Sections use role="tabpanel" without a tablist parent. axe-core confirms aria-allowed-attr violation on 6 nodes. Tablist mode (toggle) works correctly.</p>
+          <div class="fix"><strong>Fix:</strong> In Nav mode: replace aria-selected with aria-current="page" on the active tab. Remove role="tabpanel" from sections. Only apply tablist/tab/tabpanel roles when Tablist mode is enabled.</div>
+          <div class="legal"><strong>Legal:</strong> Level A violation. All 4 jurisdictions require Level A compliance.</div>
+          <details><summary>Before / After</summary><div class="code-compare"><div class="code-before"><div class="code-label">Before</div><pre><code>&lt;button class=&quot;nav-tab&quot; aria-selected=&quot;true&quot; aria-controls=&quot;sec-why&quot;&gt;
+&lt;section role=&quot;tabpanel&quot; aria-labelledby=&quot;tab-why&quot;&gt;</code></pre></div><div class="code-after"><div class="code-label">After</div><pre><code>&lt;button class=&quot;nav-tab&quot; aria-current=&quot;page&quot; aria-controls=&quot;sec-why&quot;&gt;
+&lt;section aria-labelledby=&quot;tab-why&quot;&gt;</code></pre></div></div></details>
+        </div>
+      </div>
+      <div class="finding warning">
+        <div class="finding-header">
+          <span class="severity-icon">&#9888;</span>
+          <strong>8 elements below 4.5:1 contrast ratio</strong>
+          <span class="wcag-tag">1.4.3</span>
+          <span class="level-tag">AA</span>
+        </div>
+        <div class="finding-body">
+          <p><strong>Affected users:</strong> Low-vision users, elderly users, users in bright environments</p>
+          <p><strong>Location:</strong> <code>Various elements (axe-core color-contrast)</code></p>
+          <p>axe-core identified 8 elements with insufficient contrast. Likely affected: text using --text-light (#566573) on certain backgrounds, muted helper text, and tooltip content.</p>
+          <div class="fix"><strong>Fix:</strong> Check each flagged element. For --text-light on white background: current #566573 gives 5.9:1 (passes). Failures may be on colored card backgrounds or in dark mode. Verify each combination.</div>
+          <div class="legal"><strong>Legal:</strong> Level AA. Top-3 most litigated criterion in US ADA lawsuits.</div>
+          
+        </div>
+      </div>
+
+  <h2>Tips &amp; Best Practices</h2>
+  
+      <div class="finding tip">
+        <div class="finding-header">
+          <span class="severity-icon">&#x1F4A1;</span>
+          <strong>3 elements outside landmark regions</strong>
+          <span class="wcag-tag">best-practice</span>
+          <span class="level-tag">best-practice</span>
+        </div>
+        <div class="finding-body">
+          <p><strong>Affected users:</strong> Screen reader users navigating by landmarks</p>
+          <p><strong>Location:</strong> <code>Theme toggle button, chat trigger button, SVG filters</code></p>
+          <p>axe-core region rule: 3 floating elements (theme toggle, chat trigger, SVG defs) are outside any landmark. The SVG is aria-hidden so not impactful. The two buttons are fixed-position UI that could be wrapped in a complementary landmark.</p>
+          <div class="fix"><strong>Fix:</strong> Wrap theme toggle and chat trigger in a <div role="complementary" aria-label="Page tools">.</div>
+          
+          
+        </div>
+      </div>
+      <div class="finding tip">
+        <div class="finding-header">
+          <span class="severity-icon">&#x1F4A1;</span>
+          <strong>No Schema.org JSON-LD structured data</strong>
+          <span class="wcag-tag">AEO</span>
+          <span class="level-tag">best-practice</span>
+        </div>
+        <div class="finding-body">
+          <p><strong>Affected users:</strong> AI agents, search engines, answer engines</p>
+          <p><strong>Location:</strong> <code><head></code></p>
+          <p>No <script type="application/ld+json"> found. Adding Article or WebPage schema would improve discoverability by AI answer engines.</p>
+          <div class="fix"><strong>Fix:</strong> Add JSON-LD with @type: WebPage or Article, including name, description, author, dateModified.</div>
+          
+          
+        </div>
+      </div>
+      <div class="finding tip">
+        <div class="finding-header">
+          <span class="severity-icon">&#x1F4A1;</span>
+          <strong>No canonical URL</strong>
+          <span class="wcag-tag">AEO</span>
+          <span class="level-tag">best-practice</span>
+        </div>
+        <div class="finding-body">
+          <p><strong>Affected users:</strong> Search engines, AI crawlers</p>
+          <p><strong>Location:</strong> <code><head></code></p>
+          <p>No <link rel="canonical"> found. The og:url is set correctly but canonical link is missing.</p>
+          <div class="fix"><strong>Fix:</strong> Add <link rel="canonical" href="https://chiehweihuang.github.io/a11y-design/">.</div>
+          
+          
+        </div>
+      </div>
+      <div class="finding tip">
+        <div class="finding-header">
+          <span class="severity-icon">&#x1F4A1;</span>
+          <strong>Navigation container uses <div> instead of <nav></strong>
+          <span class="wcag-tag">1.3.1</span>
+          <span class="level-tag">best-practice</span>
+        </div>
+        <div class="finding-body">
+          <p><strong>Affected users:</strong> Screen reader users navigating by landmarks</p>
+          <p><strong>Location:</strong> <code>index.html:143 (#site-nav)</code></p>
+          <p>The main navigation uses <div id="site-nav" aria-label="學習旅程導航"> instead of <nav>. While aria-label provides a name, <nav> is the semantic element for navigation.</p>
+          <div class="fix"><strong>Fix:</strong> Change <div id="site-nav" class="nav-container" aria-label="學習旅程導航"> to <nav id="site-nav" class="nav-container" aria-label="學習旅程導航">.</div>
+          
+          
+        </div>
+      </div>
+</div>
+
+<!-- Legal Tab -->
+<div id="tab-legal" class="tab-content">
+  
+    <div class="legal-risk-panel">
+      <h3>Legal Risk Assessment</h3>
+      <div class="risk-grid">
+        
+          <div class="risk-card" style="border-left:4px solid #0cce6b">
+            <div class="risk-header">
+              <strong>Taiwan</strong>
+              <span class="risk-badge" style="background:#0cce6b">LOW</span>
+            </div>
+            <p>身心障礙者權益保障法 &mdash; 0 critical violations. Educational site with strong a11y foundations.</p>
+            
+            <p class="risk-score">Exposure Score: <strong>2/10</strong></p>
+          </div>
+          <div class="risk-card" style="border-left:4px solid #0cce6b">
+            <div class="risk-header">
+              <strong>Japan JIS</strong>
+              <span class="risk-badge" style="background:#0cce6b">LOW</span>
+            </div>
+            <p>障害者差別解消法 + JIS X 8341-3 &mdash; 0 critical. ARIA mismatch is the only Level A issue, mitigated by Tablist mode toggle.</p>
+            
+            <p class="risk-score">Exposure Score: <strong>2/10</strong></p>
+          </div>
+          <div class="risk-card" style="border-left:4px solid #0cce6b">
+            <div class="risk-header">
+              <strong>US ADA</strong>
+              <span class="risk-badge" style="background:#0cce6b">LOW</span>
+            </div>
+            <p>Americans with Disabilities Act Title III &mdash; 0 critical. 8 contrast issues flagged by axe. Educational/nonprofit likely lower litigation target.</p>
+            
+            <p class="risk-score">Exposure Score: <strong>3/10</strong></p>
+          </div>
+          <div class="risk-card" style="border-left:4px solid #0cce6b">
+            <div class="risk-header">
+              <strong>EU EAA</strong>
+              <span class="risk-badge" style="background:#0cce6b">LOW</span>
+            </div>
+            <p>European Accessibility Act &mdash; 0 critical. In force since Jun 2025. ARIA and contrast fixes recommended before EU deployment.</p>
+            
+            <p class="risk-score">Exposure Score: <strong>3/10</strong></p>
+          </div>
+      </div>
+      <div class="risk-summary">
+        <div class="overall-risk" style="background:#0cce6b">
+          Overall Risk: LOW (3/10)
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Remediation Tab -->
+<div id="tab-remediation" class="tab-content">
+  <h2>Remediation Priority</h2>
+  
+      <div class="priority-section">
+        <h3><span class="priority-tag p1">P1</span> P1 -- Should Fix (Level AA)</h3>
+        
+          <div class="remediation-item">
+            <span>&#8226; Fix Nav mode ARIA: aria-selected -> aria-current, remove role=tabpanel &mdash; 4.1.2</span>
+            <span class="effort-tag">~20 min</span>
+          </div>
+        
+          <div class="remediation-item">
+            <span>&#8226; Investigate and fix 8 contrast failures flagged by axe-core &mdash; 1.4.3</span>
+            <span class="effort-tag">~15 min</span>
+          </div>
+        
+      </div>
+      <div class="priority-section">
+        <h3><span class="priority-tag p2">P2</span> P2 -- Nice to Fix (Best Practices)</h3>
+        
+          <div class="remediation-item">
+            <span>&#8226; Change #site-nav from div to nav element &mdash; 1.3.1</span>
+            <span class="effort-tag">~2 min</span>
+          </div>
+        
+          <div class="remediation-item">
+            <span>&#8226; Add JSON-LD schema &mdash; AEO</span>
+            <span class="effort-tag">~10 min</span>
+          </div>
+        
+          <div class="remediation-item">
+            <span>&#8226; Add canonical URL &mdash; AEO</span>
+            <span class="effort-tag">~1 min</span>
+          </div>
+        
+          <div class="remediation-item">
+            <span>&#8226; Wrap floating buttons in landmark &mdash; best-practice</span>
+            <span class="effort-tag">~5 min</span>
+          </div>
+        
+      </div>
+
+  <h2>Testing Recommendations</h2>
+  <ul><li>Run axe-core in CI (GitHub Actions) on every push</li><li>Keyboard-only test monthly (Tab through all 6 sections)</li><li>Screen reader test per release (VoiceOver + NVDA)</li><li>Check contrast in both light and dark mode after CSS changes</li></ul>
+</div>
+
+<script>
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelector(`.tab[onclick*="${name}"]`).classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+document.querySelectorAll('.category-row').forEach(row => {
+  row.addEventListener('click', () => {
+    const id = row.dataset.category;
+    const detail = document.getElementById('detail-' + id);
+    if (detail) detail.classList.toggle('open');
+  });
+});
+</script>
+
+</body>
+</html>

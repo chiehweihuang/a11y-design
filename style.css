@@ -365,7 +365,8 @@
   .nav-tab + .nav-tab { border-left: 1px solid var(--text-light); }
   .nav-tab:hover .tab-label, .nav-tab:hover .tab-label-short { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 3px; }
   .nav-tab:hover { color: var(--primary); background: var(--bg); }
-  .nav-tab[aria-selected="true"] {
+  .nav-tab[aria-selected="true"],
+  .nav-tab[aria-current="page"] {
     background: var(--bg);
     color: var(--primary);
     font-weight: 700;
@@ -385,13 +386,15 @@
     flex-shrink: 0;
     transition: all 0.3s;
   }
-  .nav-tab[aria-selected="true"] .step-num {
+  .nav-tab[aria-selected="true"] .step-num,
+  .nav-tab[aria-current="page"] .step-num {
     background: var(--primary);
   }
   .nav-tab.completed .step-num {
     background: var(--success);
   }
-  .nav-tab[aria-selected="true"].completed .step-num {
+  .nav-tab[aria-selected="true"].completed .step-num,
+  .nav-tab[aria-current="page"].completed .step-num {
     background: var(--primary);
   }
   .nav-tab:focus-visible {
